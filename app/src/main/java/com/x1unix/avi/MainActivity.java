@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.support.v7.widget.SearchView;
+import android.view.MenuItem;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -28,6 +29,10 @@ public class MainActivity extends AppCompatActivity {
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
         SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        searchView.setQueryHint(getResources().getString(R.string.avi_search_hint));
+        // searchView.setOnQueryTextListener(this);
         return true;
     }
 
