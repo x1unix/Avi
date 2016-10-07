@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Avi</string>
+    <string name="avi_search_hint">Поиск фильмов</string>
+</resources>
