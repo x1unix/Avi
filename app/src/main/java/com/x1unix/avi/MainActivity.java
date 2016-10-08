@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -16,10 +17,13 @@ import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 public class MainActivity extends AppCompatActivity {
+    public TextView textView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        textView = (TextView) findViewById(R.id.blabla);
     }
 
     @Override
@@ -32,8 +36,30 @@ public class MainActivity extends AppCompatActivity {
 
         MenuItem searchItem = menu.findItem(R.id.action_search);
         searchView.setQueryHint(getResources().getString(R.string.avi_search_hint));
-        // searchView.setOnQueryTextListener(this);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener( ) {
+            @Override
+            public boolean   onQueryTextChange( String newText ) {
+                // your text view here
+                textView.setText(newText);
+                return false;
+            }
+
+            @Override
+            public boolean   onQueryTextSubmit(String query) {
+                textView.setText(query);
+                return false;
+            }
+        });
+
         return true;
+    }
+
+    public boolean onQueryTextSubmit(String s){
+        return false;
+    }
+
+    public boolean onQueryTextChange(String s) {
+        return false;
     }
 
 }
