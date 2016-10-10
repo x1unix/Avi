@@ -33,9 +33,9 @@ public class KPMovie {
     @SerializedName("genre")
     public String genre;
 
-    public KPMovie(String kpId, String nameEn, String nameRu, String description, String posterUrl,
+    public KPMovie(String id, String nameRu, String nameEn, String description, String posterUrl,
                     String year, String duration, String country, String genre) {
-        this.id = kpId;
+        this.id = id;
         this.nameRu = nameRu;
         this.nameEn = nameEn;
         this.description = description;
