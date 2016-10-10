@@ -49,4 +49,8 @@ public class KPMovieSearchResult {
         this.results = items;
     }
 
+    public List<KPMovie> getResults() {
+        return this.results;
+    }
+
 }

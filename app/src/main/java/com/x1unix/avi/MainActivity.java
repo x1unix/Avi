@@ -10,13 +10,19 @@ import android.view.MenuInflater;
 import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.util.Log;
+import java.util.List;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
+import com.x1unix.avi.rest.*;
+import com.x1unix.avi.model.*;
+import retrofit2.Retrofit;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String TAG = MainActivity.class.getSimpleName();
     public TextView textView;
 
     @Override
@@ -40,7 +46,25 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean   onQueryTextChange( String newText ) {
                 // your text view here
-                textView.setText(newText);
+                // textView.setText(newText);
+
+                KPApiInterface apiService =
+                        KPRestClient.getClient().create(KPApiInterface.class);
+
+                Call<KPMovieSearchResult> call = apiService.findMovies("11");
+                call.enqueue(new Callback<KPMovieSearchResult>() {
+                    @Override
+                    public void onResponse(Call<KPMovieSearchResult>call, Response<KPMovieSearchResult> response) {
+                        List<KPMovie> movies = response.body().getResults();
+                        Log.d(TAG, "Number of movies received: " + movies.size());
+                    }
+
+                    @Override
+                    public void onFailure(Call<KPMovieSearchResult>call, Throwable t) {
+                        // Log error here since request failed
+                        Log.e(TAG, t.toString());
+                    }
+                });
                 return false;
             }
 
