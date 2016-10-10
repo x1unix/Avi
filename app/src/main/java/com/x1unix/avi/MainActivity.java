@@ -47,11 +47,16 @@ public class MainActivity extends AppCompatActivity {
             public boolean   onQueryTextChange( String newText ) {
                 // your text view here
                 // textView.setText(newText);
+                return false;
+            }
 
+            @Override
+            public boolean   onQueryTextSubmit(String query) {
+                textView.setText(query);
                 KPApiInterface apiService =
                         KPRestClient.getClient().create(KPApiInterface.class);
 
-                Call<KPMovieSearchResult> call = apiService.findMovies("11");
+                Call<KPMovieSearchResult> call = apiService.findMovies(query);
                 call.enqueue(new Callback<KPMovieSearchResult>() {
                     @Override
                     public void onResponse(Call<KPMovieSearchResult>call, Response<KPMovieSearchResult> response) {
@@ -65,12 +70,6 @@ public class MainActivity extends AppCompatActivity {
                         Log.e(TAG, t.toString());
                     }
                 });
-                return false;
-            }
-
-            @Override
-            public boolean   onQueryTextSubmit(String query) {
-                textView.setText(query);
                 return false;
             }
         });
