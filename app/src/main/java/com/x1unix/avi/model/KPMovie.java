@@ -33,8 +33,11 @@ public class KPMovie {
     @SerializedName("genre")
     public String genre;
 
+    @SerializedName("rating")
+    public String rating;
+
     public KPMovie(String id, String nameRu, String nameEn, String description, String posterUrl,
-                    String year, String duration, String country, String genre) {
+                    String year, String duration, String country, String genre, String rating) {
         this.id = id;
         this.nameRu = nameRu;
         this.nameEn = nameEn;
@@ -44,5 +47,23 @@ public class KPMovie {
         this.duration = duration;
         this.country = country;
         this.genre = genre;
+        this.rating = rating;
+    }
+
+    public String getTitle() {
+        return this.nameRu;
+    }
+
+    public String getReleaseDate() {
+        return this.year;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public double getVoteAverage() {
+        String splited[] = this.rating.split(" ");
+        return (splited.length > 0) ? Double.parseDouble(splited[0]) : 0;
     }
 }
