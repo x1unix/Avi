@@ -28,13 +28,14 @@ import com.x1unix.avi.adapter.MoviesAdapter;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    public TextView textView;
+    private RecyclerView moviesSearchResultsView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        textView = (TextView) findViewById(R.id.blabla);
+        moviesSearchResultsView = (RecyclerView) findViewById(R.id.movies_recycler_view);
+        moviesSearchResultsView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
@@ -57,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean   onQueryTextSubmit(String query) {
-                textView.setText(query);
                 KPApiInterface apiService =
                         KPRestClient.getClient().create(KPApiInterface.class);
 
@@ -66,15 +66,16 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<KPMovieSearchResult>call, Response<KPMovieSearchResult> response) {
                         int statusCode = response.code();
-                        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.movies_recycler_view);
+                        Log.i(TAG, "Response received [" + String.valueOf(statusCode) + "]");
                         List<KPMovie> movies = response.body().getResults();
-                        recyclerView.setAdapter(new MoviesAdapter(movies, R.layout.list_item_movie, getApplicationContext()));
+                        Log.i(TAG, "Items Length: " + String.valueOf(movies.size()));
+                        moviesSearchResultsView.setAdapter(new MoviesAdapter(movies, R.layout.list_item_movie, getApplicationContext()));
                     }
 
                     @Override
                     public void onFailure(Call<KPMovieSearchResult>call, Throwable t) {
                         // Log error here since request failed
-                        Log.e(TAG, t.toString());
+                        Log.e(TAG, "Failed to get items: " + t.toString());
                         Toast.makeText(getApplicationContext(), "Failed to perform search: " + t.toString(),
                                 Toast.LENGTH_LONG).show();
                     }
