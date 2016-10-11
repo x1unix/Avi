@@ -20,9 +20,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
-            android:paddingRight="16dp"
+            android:paddingEnd="16dp"
             android:textStyle="bold"
             android:textColor="@color/colorBlack"
+            android:text="Title"
             android:textSize="16sp" />
 
 
@@ -30,7 +31,8 @@
             android:id="@+id/subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingRight="16dp"
+            android:paddingEnd="16dp"
+            android:text="Subtitle"
             android:textColor="@color/colorGreyLight" />
 
         <TextView
@@ -38,7 +40,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="3"
-            android:paddingRight="16dp"
+            android:paddingEnd="16dp"
+            android:text="Description"
             android:textColor="@color/colorGreyLight" />
 
     </LinearLayout>

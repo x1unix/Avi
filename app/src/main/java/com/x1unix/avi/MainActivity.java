@@ -4,6 +4,9 @@ import android.app.SearchManager;
 import android.net.Uri;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,6 +22,8 @@ import retrofit2.Retrofit;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import com.x1unix.avi.adapter.MoviesAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -60,14 +65,18 @@ public class MainActivity extends AppCompatActivity {
                 call.enqueue(new Callback<KPMovieSearchResult>() {
                     @Override
                     public void onResponse(Call<KPMovieSearchResult>call, Response<KPMovieSearchResult> response) {
+                        int statusCode = response.code();
+                        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.movies_recycler_view);
                         List<KPMovie> movies = response.body().getResults();
-                        Log.d(TAG, "Number of movies received: " + movies.size());
+                        recyclerView.setAdapter(new MoviesAdapter(movies, R.layout.list_item_movie, getApplicationContext()));
                     }
 
                     @Override
                     public void onFailure(Call<KPMovieSearchResult>call, Throwable t) {
                         // Log error here since request failed
                         Log.e(TAG, t.toString());
+                        Toast.makeText(getApplicationContext(), "Failed to perform search: " + t.toString(),
+                                Toast.LENGTH_LONG).show();
                     }
                 });
                 return false;
