@@ -199,12 +199,5 @@ public class MainActivity extends AppCompatActivity {
         call.enqueue(searchResultHandler);
     }
 
-    public boolean onQueryTextSubmit(String s){
-        return false;
-    }
-
-    public boolean onQueryTextChange(String s) {
-        return false;
-    }
 
 }
