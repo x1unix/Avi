@@ -53,7 +53,11 @@ public class KPMovie {
     }
 
     public String getTitle() {
-        return this.nameRu;
+        if((this.nameRu == null) || (this.nameRu.length() == 0)) {
+            return this.nameEn;
+        } else {
+            return this.nameRu;
+        }
     }
 
     public String getReleaseDate() {
