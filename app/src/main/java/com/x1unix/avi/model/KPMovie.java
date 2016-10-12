@@ -1,5 +1,7 @@
 package com.x1unix.avi.model;
 
+import android.util.Log;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -63,7 +65,14 @@ public class KPMovie {
     }
 
     public double getVoteAverage() {
+        if (this.rating == null) return 0;
         String splited[] = this.rating.split(" ");
-        return (splited.length > 0) ? Double.parseDouble(splited[0]) : 0;
+        double val = 0;
+        try {
+            val = (splited.length > 0) ? Double.parseDouble(splited[0]) : 0;
+        } catch(Exception ex) {
+            val = 0;
+        }
+        return val;
     }
 }
