@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context="com.x1unix.avi.MainActivity">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,7 +15,7 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
-        android:id="@+id/movies_results"
+        android:id="@+id/movies_results_screen"
         android:visibility="gone"
         >
         <android.support.v7.widget.RecyclerView
@@ -33,7 +34,8 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="54dp"
         android:orientation="vertical"
-        android:id="@+id/searchToStartHint"
+        android:id="@+id/wellcome_screen"
+        android:visibility="gone"
         >
         <ImageView
             android:layout_width="match_parent"
@@ -66,7 +68,7 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="54dp"
         android:orientation="vertical"
-        android:id="@+id/noInternetMessage"
+        android:id="@+id/no_internet_screen"
         android:visibility="gone"
         >
         <ImageView
@@ -100,7 +102,7 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="54dp"
         android:orientation="vertical"
-        android:id="@+id/errorMessage"
+        android:id="@+id/error_message_screen"
         android:visibility="gone"
         >
         <ImageView
@@ -125,6 +127,14 @@
             android:gravity="center_vertical|center_horizontal" />
     </LinearLayout>
 
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:layout_centerHorizontal="false"
+        android:layout_centerInParent="true"
+        />
 
 
 </RelativeLayout>

@@ -6,5 +6,6 @@
         android:icon="@drawable/ic_search_24dp"
         android:actionViewClass="android.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView"
+        android:visible="false"
         app:actionViewClass="android.support.v7.widget.SearchView" />
 </menu>
