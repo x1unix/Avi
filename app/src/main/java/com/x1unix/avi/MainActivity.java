@@ -228,6 +228,7 @@ public class MainActivity extends AppCompatActivity {
         mIntent.putExtra("movieTitle", movie.getTitle());
 
         // Kickstart player
+        Log.i("KPMovieOpen", "Trying to play movie [" + movie.getId() + "]");
         startActivity(mIntent);
     }
 
