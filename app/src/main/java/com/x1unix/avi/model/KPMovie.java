@@ -79,4 +79,8 @@ public class KPMovie {
         }
         return val;
     }
+
+    public String getId() {
+        return this.id;
+    }
 }

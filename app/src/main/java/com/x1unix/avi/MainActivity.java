@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView moviesSearchResultsView;
     private KPApiInterface searchService = null;
     private MenuItem searchItem;
+    private List<KPMovie> movies = new ArrayList<KPMovie>();
 
     // Activity states
     private final int STATE_NO_INTERNET = 0;
@@ -91,6 +92,21 @@ public class MainActivity extends AppCompatActivity {
 
         if (isNetworkAvailable()) {
             setStateVisibility(true, STATE_WELCOME);
+
+            // Register RecyclerView event listener
+            moviesSearchResultsView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(),
+                    moviesSearchResultsView,
+                    new ClickListener() {
+                @Override
+                public void onClick(View view, int position) {
+                    KPMovie movie = movies.get(position);
+                }
+
+                @Override
+                public void onLongClick(View view, int position) {
+
+                }
+            }));
         } else {
             setStateVisibility(true, STATE_NO_INTERNET);
         }
@@ -162,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
 
             int statusCode = response.code();
             Log.i(TAG, "Response received [" + String.valueOf(statusCode) + "]");
-            List<KPMovie> movies = response.body().getResults();
+            movies = response.body().getResults();
             Log.i(TAG, "Items Length: " + String.valueOf(movies.size()));
             moviesSearchResultsView.setAdapter(new MoviesAdapter(movies, R.layout.list_item_movie, getApplicationContext()));
         }
