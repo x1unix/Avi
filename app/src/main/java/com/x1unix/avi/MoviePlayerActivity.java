@@ -2,9 +2,11 @@ package com.x1unix.avi;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Point;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Display;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -39,10 +41,20 @@ public class MoviePlayerActivity extends AppCompatActivity {
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                return false;
+                return true;
 
             }
         });
-        webView.loadUrl("http://sandbx.ml/?kpid=" + kpId);
+
+        Point size = getDisplaySize();
+
+        webView.loadUrl("http://sandbx.ml/?kpid=" + kpId + "&h=" + size.y + "&w="+ size.x);
+    }
+
+    private Point getDisplaySize() {
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        return size;
     }
 }
