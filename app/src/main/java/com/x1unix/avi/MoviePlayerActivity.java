@@ -1,11 +1,11 @@
 package com.x1unix.avi;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Point;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -17,6 +17,7 @@ import android.webkit.WebViewClient;
 public class MoviePlayerActivity extends AppCompatActivity {
 
     private WebView webView;
+    private String LSECTION = "MoviePlayer";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,18 +39,21 @@ public class MoviePlayerActivity extends AppCompatActivity {
     private void loadPlayer(String kpId, String title) {
         setTitle(title);
         webView.getSettings().setJavaScriptEnabled(true);
+
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                return true;
+                Log.w(LSECTION, "Client has tried to redirect to '" + url + "'");
+                return false;
 
             }
         });
 
-        Point size = getDisplaySize();
-
-        webView.loadUrl("http://sandbx.ml/?kpid=" + kpId + "&h=" + size.y + "&w="+ size.x);
+        String movieUrl = "http://sandbx.ml/?kpid=" + kpId;
+        Log.i(LSECTION, "Loading url: " + movieUrl);
+        webView.loadUrl(movieUrl);
     }
+
 
     private Point getDisplaySize() {
         Display display = getWindowManager().getDefaultDisplay();
