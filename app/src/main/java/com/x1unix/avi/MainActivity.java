@@ -2,6 +2,7 @@ package com.x1unix.avi;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff.Mode;
 import android.net.ConnectivityManager;
@@ -100,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view, int position) {
                     KPMovie movie = movies.get(position);
+                    openMovie(movie);
                 }
 
                 @Override
@@ -197,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Perform search
-     * @param {String} query Search query
+     * @param query {String} Search query
      */
     private void performSearch(String query) {
         if (searchService == null) {
@@ -212,6 +214,21 @@ public class MainActivity extends AppCompatActivity {
         setProgressVisibility(true);
         Call<KPMovieSearchResult> call = searchService.findMovies(query);
         call.enqueue(searchResultHandler);
+    }
+
+    /**
+     * Open movie in player
+     * @param movie {KPMovie} movie instance
+     */
+    private void openMovie(KPMovie movie) {
+        Intent mIntent = new Intent(this, MoviePlayerActivity.class);
+
+        // Put id and title
+        mIntent.putExtra("movieId", movie.getId());
+        mIntent.putExtra("movieTitle", movie.getTitle());
+
+        // Kickstart player
+        startActivity(mIntent);
     }
 
 

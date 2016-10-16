@@ -1,6 +1,7 @@
 package com.x1unix.avi;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -89,6 +90,22 @@ public class MoviePlayerActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_movie_player);
 
+        loadUI();
+
+        Intent receivedIntent = getIntent();
+
+        // Load player with intent data
+        if (receivedIntent != null) {
+            loadPlayer(receivedIntent.getStringExtra("movieId"),
+                    receivedIntent.getStringExtra("movieTitle"));
+        }
+    }
+
+    private void loadPlayer(String kpId, String title) {
+        setTitle(title);
+    }
+
+    private void loadUI() {
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
