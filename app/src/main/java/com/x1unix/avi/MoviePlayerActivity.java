@@ -18,6 +18,7 @@ public class MoviePlayerActivity extends AppCompatActivity {
 
     private WebView webView;
     private String LSECTION = "MoviePlayer";
+    private String currentUrl = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,21 +45,25 @@ public class MoviePlayerActivity extends AppCompatActivity {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 Log.w(LSECTION, "Client has tried to redirect to '" + url + "'");
-                return false;
+                return true;
+            }
 
+            public void onPageStarted (WebView view, String url)
+            {
+                if (url != currentUrl) {
+                    // stop loading page if its not the originalurl.
+                    Log.w(LSECTION, "Page loading prevented");
+                    view.stopLoading();
+                }
             }
         });
 
-        String movieUrl = "http://sandbx.ml/?kpid=" + kpId;
-        Log.i(LSECTION, "Loading url: " + movieUrl);
-        webView.loadUrl(movieUrl);
+        setMovieId(kpId);
     }
 
-
-    private Point getDisplaySize() {
-        Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        return size;
+    public void setMovieId(String kpId) {
+        currentUrl = "http://sandbx.ml/?kpid=" + kpId;
+        Log.i(LSECTION, "Loading url: " + currentUrl);
+        webView.loadUrl(currentUrl);
     }
 }
