@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class KPMovie {
-    @SerializedName("filmID")
+    @SerializedName("id")
     public String id;
 
     @SerializedName("nameRU")

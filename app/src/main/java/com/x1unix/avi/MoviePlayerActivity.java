@@ -44,6 +44,5 @@ public class MoviePlayerActivity extends AppCompatActivity {
             }
         });
         webView.loadUrl("http://sandbx.ml/?kpid=" + kpId);
-        setTitle("http://sandbx.ml/?kpid=" + kpId);
     }
 }
