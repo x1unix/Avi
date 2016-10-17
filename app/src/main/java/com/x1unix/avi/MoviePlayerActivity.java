@@ -151,11 +151,11 @@ public class MoviePlayerActivity extends AppCompatActivity {
 
         webView.setWebViewClient(webClient);
 
-        setMovieId(kpId);
-
         // Hide preloader and show webView
         webView.setVisibility(View.VISIBLE);
         preloader.setVisibility(View.GONE);
+
+        setMovieId(kpId);
 
         movieLoaded = true;
     }
