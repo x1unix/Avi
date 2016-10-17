@@ -22,6 +22,7 @@
             android:name=".MoviePlayerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_movie_player"
+            android:hardwareAccelerated="true"
             android:screenOrientation="landscape"
             android:theme="@style/FullscreenTheme" />
     </application>
