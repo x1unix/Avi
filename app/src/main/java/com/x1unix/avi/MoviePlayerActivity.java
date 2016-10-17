@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
 import com.x1unix.avi.helpers.AdBlocker;
 import com.x1unix.avi.helpers.AviMoviePlayerWebViewClient;
@@ -32,6 +33,7 @@ public class MoviePlayerActivity extends AppCompatActivity {
     private WebView webView;
     private String LSECTION = "MoviePlayer";
     private String currentUrl = "";
+    private ProgressBar preloader;
     private boolean movieLoaded = false;
     private Intent receivedIntent;
     private AviMoviePlayerWebViewClient webClient;
@@ -75,8 +77,7 @@ public class MoviePlayerActivity extends AppCompatActivity {
             if (!movieLoaded) {
                 // Load player with intent data
                 if (receivedIntent != null) {
-                    loadPlayer(receivedIntent.getStringExtra("movieId"),
-                            receivedIntent.getStringExtra("movieTitle"));
+                    loadPlayer(receivedIntent.getStringExtra("movieId"));
                 }
             }
         }
@@ -120,13 +121,17 @@ public class MoviePlayerActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_movie_player);
 
+        // Set activity title
+        receivedIntent = getIntent();
+        if (receivedIntent != null) {
+            setTitle(receivedIntent.getStringExtra("movieTitle"));
+        }
+
         webView = (WebView) findViewById(R.id.webplayer);
 
         mVisible = true;
 
-
-        // Init adBlocker
-        AdBlocker.init(this);
+        preloader = (ProgressBar) findViewById(R.id.movie_player_preloader);
 
         // Set up the user interaction to manually show or hide the system UI.
         webView.setOnClickListener(new View.OnClickListener() {
@@ -136,17 +141,22 @@ public class MoviePlayerActivity extends AppCompatActivity {
             }
         });
 
-        receivedIntent = getIntent();
     }
 
-    private void loadPlayer(String kpId, String title) {
-        setTitle(title);
+    private void loadPlayer(String kpId) {
+        AdBlocker.init(this);
+
         webView.getSettings().setJavaScriptEnabled(true);
         webClient = new AviMoviePlayerWebViewClient();
 
         webView.setWebViewClient(webClient);
 
         setMovieId(kpId);
+
+        // Hide preloader and show webView
+        webView.setVisibility(View.VISIBLE);
+        preloader.setVisibility(View.GONE);
+
         movieLoaded = true;
     }
 
