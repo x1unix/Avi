@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.Locale;
 
 import com.x1unix.avi.R;
 import com.x1unix.avi.model.KPMovie;
@@ -18,6 +19,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
     private List<KPMovie> movies;
     private int rowLayout;
     private Context context;
+    private String currentLang = "ru";
 
 
     public static class MovieViewHolder extends RecyclerView.ViewHolder {
@@ -38,10 +40,11 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         }
     }
 
-    public MoviesAdapter(List<KPMovie> movies, int rowLayout, Context context) {
+    public MoviesAdapter(List<KPMovie> movies, int rowLayout, Context context, Locale currentLocale) {
         this.movies = movies;
         this.rowLayout = rowLayout;
         this.context = context;
+        this.currentLang = currentLocale.getLanguage();
     }
 
     @Override
@@ -54,7 +57,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
 
     @Override
     public void onBindViewHolder(MovieViewHolder holder, final int position) {
-        holder.movieTitle.setText(movies.get(position).getTitle());
+        holder.movieTitle.setText(movies.get(position).getLocalizedTitle(currentLang));
         holder.data.setText(movies.get(position).getReleaseDate());
         holder.movieDescription.setText(movies.get(position).getDescription());
         holder.rating.setText(String.valueOf(movies.get(position).getVoteAverage()));
