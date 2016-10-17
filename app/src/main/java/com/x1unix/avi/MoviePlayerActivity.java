@@ -156,6 +156,18 @@ public class MoviePlayerActivity extends AppCompatActivity {
         Log.i(LSECTION, "Loading url: " + currentUrl);
         webView.loadUrl(currentUrl);
     }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        finishJob();
+    }
+
+    private void finishJob() {
+        // Close player page
+        webView.loadUrl("about:blank");
+        webView = null;
+        movieLoaded = false;
+    }
 
     // Begin Android FullScreen helpers
     @Override
