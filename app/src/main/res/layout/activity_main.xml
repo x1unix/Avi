@@ -46,15 +46,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/avi_wellcome"
-            android:textAppearance="@android:style/TextAppearance.Material.Medium"
             android:textStyle="bold|italic"
             android:gravity="center_vertical|center_horizontal"
-            android:layout_marginBottom="15dp" />
+            android:layout_marginBottom="15dp"
+            android:textSize="18sp" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/avi_start_hint"
-            android:textAppearance="@android:style/TextAppearance.Material.Small"
             android:textStyle="normal|italic"
             android:gravity="center_vertical|center_horizontal" />
     </LinearLayout>
@@ -80,7 +79,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/avi_no_internet"
-            android:textAppearance="@android:style/TextAppearance.Material.Medium"
             android:textStyle="bold|italic"
             android:gravity="center_vertical|center_horizontal"
             android:layout_marginBottom="15dp" />
@@ -88,7 +86,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/avi_connect_please"
-            android:textAppearance="@android:style/TextAppearance.Material.Small"
             android:textStyle="normal|italic"
             android:gravity="center_vertical|center_horizontal" />
     </LinearLayout>
@@ -114,15 +111,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/avi_oops"
-            android:textAppearance="@android:style/TextAppearance.Material.Medium"
             android:textStyle="bold|italic"
             android:gravity="center_vertical|center_horizontal"
-            android:layout_marginBottom="15dp" />
+            android:layout_marginBottom="15dp"
+            android:textSize="18sp" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/avi_error_occured"
-            android:textAppearance="@android:style/TextAppearance.Material.Small"
             android:textStyle="normal|italic"
             android:gravity="center_vertical|center_horizontal" />
     </LinearLayout>
