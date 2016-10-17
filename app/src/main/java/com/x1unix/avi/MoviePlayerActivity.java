@@ -1,7 +1,9 @@
 package com.x1unix.avi;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -11,8 +13,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import com.x1unix.avi.helpers.AdBlocker;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -115,6 +123,9 @@ public class MoviePlayerActivity extends AppCompatActivity {
         mVisible = true;
 
 
+        // Init adBlocker
+        AdBlocker.init(this);
+
         // Set up the user interaction to manually show or hide the system UI.
         webView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,10 +142,26 @@ public class MoviePlayerActivity extends AppCompatActivity {
         webView.getSettings().setJavaScriptEnabled(true);
 
         webView.setWebViewClient(new WebViewClient() {
+            private Map<String, Boolean> loadedUrls = new HashMap<>();
+
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 Log.w(LSECTION, "Client has tried to redirect to '" + url + "'");
                 return true;
+            }
+
+            @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+            @Override
+            public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
+                boolean ad;
+                if (!loadedUrls.containsKey(url)) {
+                    ad = AdBlocker.isAd(url);
+                    loadedUrls.put(url, ad);
+                } else {
+                    ad = loadedUrls.get(url);
+                }
+                return ad ? AdBlocker.createEmptyResource() :
+                        super.shouldInterceptRequest(view, url);
             }
 
             public void onPageStarted (WebView view, String url)

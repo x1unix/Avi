@@ -19,7 +19,7 @@ import okio.BufferedSource;
 import okio.Okio;
 
 public class AdBlocker {
-    private static final String AD_HOSTS_FILE = "pgl.yoyo.org.txt";
+    private static final String AD_HOSTS_FILE = "hosts.txt";
     private static final Set<String> AD_HOSTS = new HashSet<>();
 
     public static void init(final Context context) {
