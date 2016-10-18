@@ -15,3 +15,6 @@ Received Kinopoisk ID from movie used to get player's URL for the movie from Moo
 ## Disclaimer
 1. This application is still in active development phase and not production ready yet.
 2. Author doesn't take responsibillity for the video content. All data is hosted and provided by Moonwalk.
+
+## Bug reports
+You can report a bug or propose a feature in [issues](https://github.com/odin3/Avi/issues) section.
