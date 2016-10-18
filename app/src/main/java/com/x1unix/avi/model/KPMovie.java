@@ -61,7 +61,7 @@ public class KPMovie {
     }
 
     public String getLocalizedTitle(String currentLocale) {
-        Boolean isSlavic = (currentLocale == "ru") || (currentLocale == "uk");
+        Boolean isSlavic = ( currentLocale.equals("ru") || currentLocale.equals("uk") );
         Boolean isSlavicAvailable = (nameRu != null) || (nameRu.length() > 0);
         Boolean isLatinAvailable = (nameEn != null) || (nameEn.length() > 0);
 
