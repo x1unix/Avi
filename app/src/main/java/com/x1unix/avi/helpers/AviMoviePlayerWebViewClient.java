@@ -30,9 +30,8 @@ public class AviMoviePlayerWebViewClient extends WebViewClient {
             loadedUrls.put(url, ad);
         } else {
             ad = loadedUrls.get(url);
-        }
-        return ad ? AdBlocker.createEmptyResource() :
-                super.shouldInterceptRequest(view, url);
+        };
+        return ad ? AdBlocker.createEmptyResource("text/javascript") : super.shouldInterceptRequest(view, url);
     }
 
     public void onPageStarted (WebView view, String url)
