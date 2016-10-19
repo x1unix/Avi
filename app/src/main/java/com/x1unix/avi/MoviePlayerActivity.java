@@ -163,7 +163,7 @@ public class MoviePlayerActivity extends AppCompatActivity {
     }
 
     public void setMovieId(String kpId) {
-        currentUrl = "http://sandbx.ml/?kpid=" + kpId;
+        currentUrl = "http://avi.x1unix.com/?kpid=" + kpId;
         webClient.updateCurrentUrl(currentUrl);
         Log.i(LSECTION, "Loading url: " + currentUrl);
         webView.loadUrl(currentUrl);
