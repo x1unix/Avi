@@ -23,6 +23,8 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+
 import android.net.NetworkInfo;
 
 import com.x1unix.avi.rest.*;
@@ -182,7 +184,10 @@ public class MainActivity extends AppCompatActivity {
             Log.i(TAG, "Response received [" + String.valueOf(statusCode) + "]");
             movies = response.body().getResults();
             Log.i(TAG, "Items Length: " + String.valueOf(movies.size()));
-            moviesSearchResultsView.setAdapter(new MoviesAdapter(movies, R.layout.list_item_movie, getApplicationContext()));
+            moviesSearchResultsView.setAdapter(new MoviesAdapter(movies,
+                    R.layout.list_item_movie,
+                    getApplicationContext(),
+                    getResources().getConfiguration().locale));
         }
 
         @Override

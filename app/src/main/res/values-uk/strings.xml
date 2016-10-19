@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Avi</string>
+    <string name="avi_connect_please">Для пошуку та перегляду фільмів необхідне підключення до Інтернету</string>
+    <string name="avi_error_occured">При останному запиті до серверу сталась помилка. Спробуйте інший запит або спробуйте пізніше</string>
+    <string name="avi_no_internet">Схоже ви не підключені до мережі</string>
+    <string name="avi_oops">Упс, сталась помилка :(</string>
+    <string name="avi_search_hint">Пошук фільмів</string>
+    <string name="avi_start_hint">Для початку роботи, виберіть пошук та уведіть їм\'я бажаного фільму</string>
+    <string name="avi_wellcome">Ласкаво просимо до Avi!</string>
+</resources>

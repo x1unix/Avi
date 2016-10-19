@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebResourceResponse;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
@@ -147,6 +148,7 @@ public class MoviePlayerActivity extends AppCompatActivity {
         AdBlocker.init(this);
 
         webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         webClient = new AviMoviePlayerWebViewClient();
 
         webView.setWebViewClient(webClient);
@@ -175,6 +177,7 @@ public class MoviePlayerActivity extends AppCompatActivity {
     private void finishJob() {
         // Close player page
         webView.loadUrl("about:blank");
+        webView.clearCache(true);
         webView = null;
         movieLoaded = false;
     }

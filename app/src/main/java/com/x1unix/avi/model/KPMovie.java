@@ -60,6 +60,26 @@ public class KPMovie {
         }
     }
 
+    public String getLocalizedTitle(String currentLocale) {
+        Boolean isSlavic = ( currentLocale.equals("ru") || currentLocale.equals("uk") );
+        Boolean isSlavicAvailable = (nameRu != null) || (nameRu.length() > 0);
+        Boolean isLatinAvailable = (nameEn != null) || (nameEn.length() > 0);
+
+        if (isSlavic) {
+            if (isSlavicAvailable) {
+                return nameRu;
+            } else {
+                return nameEn;
+            }
+        } else {
+            if (isLatinAvailable) {
+                return nameEn;
+            } else {
+                return nameRu;
+            }
+        }
+    }
+
     public String getReleaseDate() {
         return this.year;
     }
