@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">Avi</string>
     <string name="avi_wellcome">Добро пожаловать в Avi!</string>
     <string name="avi_search_hint">Поиск фильмов</string>
     <string name="avi_start_hint">Для начала работы, выберите поиск и введите имя желаемого фильма</string>
