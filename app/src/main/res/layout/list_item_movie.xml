@@ -58,7 +58,7 @@
             android:layout_height="15dp"
             android:layout_centerInParent="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/star"
+            android:srcCompat="@drawable/star"
             android:tint="@color/colorAccent" />
 
 
