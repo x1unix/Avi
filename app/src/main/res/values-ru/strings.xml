@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">Avi</string>
     <string name="avi_wellcome">Добро пожаловать в Avi!</string>
     <string name="avi_search_hint">Поиск фильмов</string>
     <string name="avi_start_hint">Для начала работы, выберите поиск и введите имя желаемого фильма</string>
@@ -8,7 +7,4 @@
     <string name="avi_connect_please">Для поиска и просмотра фильмов, необходимо стабильное подключение к сети.</string>
     <string name="avi_oops">Упc, произошла ошибка :(</string>
     <string name="avi_error_occured">При последнем запросе к серверу произошла ошибка. Попробуйте другой запрос или повторите позже.</string>
-    <string name="title_activity_movie_player" translatable="false">MoviePlayerActivity</string>
-
-    <string name="title_activity_fullscreen" translatable="false">FullscreenActivity</string>
 </resources>
