@@ -17,7 +17,7 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="SplashScreenTheme" parent="Theme.AppCompat.Light">
+    <style name="SplashScreenTheme" parent="Theme.AppCompat">
         <item name="android:windowBackground">@drawable/splash_image</item>>
         <item name="colorPrimaryDark">@color/light_gray</item>
         <item name="android:windowFullscreen">false</item>
