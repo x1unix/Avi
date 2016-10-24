@@ -3,7 +3,6 @@ package com.x1unix.avi;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.PorterDuff.Mode;
 import android.net.ConnectivityManager;
 import android.support.v4.view.MenuItemCompat;
@@ -16,29 +15,27 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import android.net.NetworkInfo;
 
 import com.x1unix.avi.rest.*;
 import com.x1unix.avi.model.*;
-import retrofit2.Retrofit;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import com.x1unix.avi.adapter.MoviesAdapter;
 
-public class MainActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity {
 
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = SearchActivity.class.getSimpleName();
     private RecyclerView moviesSearchResultsView;
     private KPApiInterface searchService = null;
     private MenuItem searchItem;

@@ -17,19 +17,14 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="FullscreenCompatTheme" parent="Theme.AppCompat.NoActionBar">
-        <!--<item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>-->
-        <!--<item name="android:windowActionBarOverlay">true</item>-->
-        <!--<item name="android:windowBackground">@null</item>-->
-        <!--<item name="metaButtonBarStyle">?android:attr/buttonBarStyle</item>-->
-        <!--<item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>-->
-
-        <item name="windowNoTitle">true</item>
-        <item name="windowActionBar">false</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowActionBar">false</item>
-        <item name="android:windowFullscreen">true</item>
+    <style name="SplashScreenTheme" parent="Theme.AppCompat.Light">
+        <item name="android:windowBackground">@drawable/splash_image</item>>
+        <item name="colorPrimaryDark">@color/light_gray</item>
+        <item name="android:windowFullscreen">false</item>
         <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
