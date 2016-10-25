@@ -1,7 +1,8 @@
 # Avi
-[![Build Status](https://travis-ci.org/odin3/Avi.svg?branch=master)](https://travis-ci.org/odin3/Avi)
 
-Application that allows to watch movies online from any Android device.
+> Application that allows to watch movies online from any Android device.
+
+[![Build Status](https://travis-ci.org/odin3/Avi.svg?branch=master)](https://travis-ci.org/odin3/Avi)
 
 
 ## How it works

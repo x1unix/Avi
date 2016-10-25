@@ -3,7 +3,7 @@ package com.x1unix.avi;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.graphics.Movie;
 import android.graphics.PorterDuff.Mode;
 import android.net.ConnectivityManager;
 import android.support.v4.view.MenuItemCompat;
@@ -16,29 +16,27 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import android.net.NetworkInfo;
 
 import com.x1unix.avi.rest.*;
 import com.x1unix.avi.model.*;
-import retrofit2.Retrofit;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import com.x1unix.avi.adapter.MoviesAdapter;
 
-public class MainActivity extends AppCompatActivity {
+public class DashboardActivity extends AppCompatActivity {
 
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = DashboardActivity.class.getSimpleName();
     private RecyclerView moviesSearchResultsView;
     private KPApiInterface searchService = null;
     private MenuItem searchItem;
@@ -178,16 +176,22 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onResponse(Call<KPMovieSearchResult>call, Response<KPMovieSearchResult> response) {
             setProgressVisibility(false);
-            setStateVisibility(true, STATE_LIST);
 
             int statusCode = response.code();
-            Log.i(TAG, "Response received [" + String.valueOf(statusCode) + "]");
             movies = response.body().getResults();
-            Log.i(TAG, "Items Length: " + String.valueOf(movies.size()));
-            moviesSearchResultsView.setAdapter(new MoviesAdapter(movies,
+
+            MoviesAdapter adapter = new MoviesAdapter(movies,
                     R.layout.list_item_movie,
                     getApplicationContext(),
-                    getResources().getConfiguration().locale));
+                    getResources().getConfiguration().locale);
+
+            if (adapter.getItemCount() > 0) {
+                setStateVisibility(true, STATE_LIST);
+                moviesSearchResultsView.setAdapter(adapter);
+            } else {
+                setStateVisibility(false, STATE_LIST);
+                setStateVisibility(true, STATE_WELCOME);
+            }
         }
 
         @Override
