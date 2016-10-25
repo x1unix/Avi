@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 import java.util.Locale;
@@ -46,6 +47,15 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         this.rowLayout = rowLayout;
         this.context = context;
         this.currentLang = currentLocale.getLanguage();
+
+        // Show toast message if no items
+        if (getItemCount() == 0) {
+            Toast noItemsMsg = Toast.makeText(
+                    context,
+                    context.getResources().getString(R.string.avi_no_items_msg),
+                    Toast.LENGTH_LONG);
+            noItemsMsg.show();
+        }
     }
 
     @Override
@@ -66,6 +76,6 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
 
     @Override
     public int getItemCount() {
-        return movies.size();
+        return (movies == null) ? 0 : movies.size();
     }
 }

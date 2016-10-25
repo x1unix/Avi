@@ -8,5 +8,6 @@
     <string name="avi_no_internet">Looks like you are offline</string>
     <string name="avi_error_occured">An error occurred during last query. Please try another query or try again later.</string>
     <string name="avi_connect_please">Internet connection required to search and watch movies.</string>
+    <string name="avi_no_items_msg">No items found, try another query.</string>
     <string name="title_activity_movie_player" translatable="false">Avi Movie Player</string>
 </resources>
