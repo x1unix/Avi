@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
-    protected int SPLASH_DISPLAY_LENGTH = 1000;
+    protected int SPLASH_DISPLAY_LENGTH = 500;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,7 +20,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {
-                Intent mainIntent = new Intent(SplashScreenActivity.this,SearchActivity.class);
+                Intent mainIntent = new Intent(SplashScreenActivity.this,DashboardActivity.class);
                 SplashScreenActivity.this.startActivity(mainIntent);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 SplashScreenActivity.this.finish();

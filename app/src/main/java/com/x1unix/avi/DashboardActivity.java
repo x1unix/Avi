@@ -33,9 +33,9 @@ import retrofit2.Response;
 
 import com.x1unix.avi.adapter.MoviesAdapter;
 
-public class SearchActivity extends AppCompatActivity {
+public class DashboardActivity extends AppCompatActivity {
 
-    private static final String TAG = SearchActivity.class.getSimpleName();
+    private static final String TAG = DashboardActivity.class.getSimpleName();
     private RecyclerView moviesSearchResultsView;
     private KPApiInterface searchService = null;
     private MenuItem searchItem;
@@ -178,9 +178,7 @@ public class SearchActivity extends AppCompatActivity {
             setStateVisibility(true, STATE_LIST);
 
             int statusCode = response.code();
-            Log.i(TAG, "Response received [" + String.valueOf(statusCode) + "]");
             movies = response.body().getResults();
-            Log.i(TAG, "Items Length: " + String.valueOf(movies.size()));
             moviesSearchResultsView.setAdapter(new MoviesAdapter(movies,
                     R.layout.list_item_movie,
                     getApplicationContext(),
