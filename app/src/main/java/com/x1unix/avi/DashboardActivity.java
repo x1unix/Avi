@@ -3,6 +3,7 @@ package com.x1unix.avi;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Movie;
 import android.graphics.PorterDuff.Mode;
 import android.net.ConnectivityManager;
 import android.support.v4.view.MenuItemCompat;
@@ -175,14 +176,22 @@ public class DashboardActivity extends AppCompatActivity {
         @Override
         public void onResponse(Call<KPMovieSearchResult>call, Response<KPMovieSearchResult> response) {
             setProgressVisibility(false);
-            setStateVisibility(true, STATE_LIST);
 
             int statusCode = response.code();
             movies = response.body().getResults();
-            moviesSearchResultsView.setAdapter(new MoviesAdapter(movies,
+
+            MoviesAdapter adapter = new MoviesAdapter(movies,
                     R.layout.list_item_movie,
                     getApplicationContext(),
-                    getResources().getConfiguration().locale));
+                    getResources().getConfiguration().locale);
+
+            if (adapter.getItemCount() > 0) {
+                setStateVisibility(true, STATE_LIST);
+                moviesSearchResultsView.setAdapter(adapter);
+            } else {
+                setStateVisibility(false, STATE_LIST);
+                setStateVisibility(true, STATE_WELCOME);
+            }
         }
 
         @Override
