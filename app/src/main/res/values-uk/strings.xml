@@ -8,4 +8,6 @@
     <string name="avi_start_hint">Для початку роботи, виберіть пошук та уведіть їм\'я бажаного фільму</string>
     <string name="avi_no_items_msg">За цим запитом нічого не знайдено.</string>
     <string name="avi_wellcome">Ласкаво просимо до Avi!</string>
+    <string name="menu_settings">Налаштування</string>
+    <string name="menu_help">Допомога</string>
 </resources>
