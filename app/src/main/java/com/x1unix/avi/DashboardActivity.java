@@ -160,14 +160,13 @@ public class DashboardActivity extends AppCompatActivity {
      * Load event handlers for menu buttons in paralel thread
      */
     private void registerMenuItemsClickListeners() {
-        final Activity self = this;
         new Handler().postDelayed(new Runnable() {
            @Override
             public void run() {
                menuItemSettings.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                    @Override
                    public boolean onMenuItemClick(MenuItem item) {
-                       Intent i = new Intent(self, SettingsActivity.class);
+                       Intent i = new Intent(getBaseContext(), SettingsActivity.class);
                        startActivity(i);
                        return false;
                    }

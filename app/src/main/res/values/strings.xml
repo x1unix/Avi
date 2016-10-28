@@ -29,7 +29,7 @@
 
     <!--App Info-->
     <string name="avi_app_version">0.5.0</string>
-    <string name="avi_app_author">© Denis (x1unix) Sedchenko, 2016.</string>
+    <string name="avi_app_author">Denis (x1unix) Sedchenko, 2016.</string>
     <string name="avi_app_mail">avi-app@x1unix.com</string>
 
 </resources>
