@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -47,6 +48,7 @@ public class DashboardActivity extends AppCompatActivity {
     // Menu items
     private MenuItem menuItemSettings;
     private MenuItem menuItemHelp;
+    private Button connectionRefreshBtn;
 
     // Activity states
     private final int STATE_NO_INTERNET = 0;
@@ -117,6 +119,18 @@ public class DashboardActivity extends AppCompatActivity {
             }));
         } else {
             setStateVisibility(true, STATE_NO_INTERNET);
+
+            if (connectionRefreshBtn == null) {
+                connectionRefreshBtn = (Button) findViewById(R.id.connection_refresh_button);
+                connectionRefreshBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setStateVisibility(false, STATE_NO_INTERNET);
+                        setProgressVisibility(true);
+                        prepareView();
+                    }
+                });
+            }
         }
     }
 
