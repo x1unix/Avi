@@ -151,7 +151,6 @@ public class DashboardActivity extends AppCompatActivity {
 
         searchItem = menu.findItem(R.id.action_search);
 
-        prepareView();
         searchView.setQueryHint(getResources().getString(R.string.avi_search_hint));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener( ) {
             @Override
@@ -167,6 +166,13 @@ public class DashboardActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        // Do rest of routine in separate thread
+        new Thread(new Runnable() {
+            public void run() {
+                prepareView();
+            }
+        }).start();
 
         return true;
     }
