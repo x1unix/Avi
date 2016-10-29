@@ -16,16 +16,16 @@
     <!--Settings Props Labels-->
     <string name="pref_category_video">Video</string>
     <string name="pref_category_about">About</string>
-    <string name="pref_ads_enabled">Disable Ads</string>
+    <string name="pref_ads_disabled">Disable Ads</string>
     <string name="pref_app_version">App Version</string>
     <string name="pref_app_author">Author</string>
     <string name="pref_app_feedback">Contact</string>
 
     <!--Settings Props Description-->
-    <string name="pref_ads_enabled_desc">Disable pre-roll ads. Disable this is you have issue with movie player.</string>
+    <string name="pref_ads_disabled_desc">Disable pre-roll ads. Disable this is you have issue with movie player.</string>
 
     <!--Settings keys-->
-    <string name="avi_prop_ads">prop_ads</string>
+    <string name="avi_prop_no_ads">prop_no_ads</string>
 
     <!--App Info-->
     <string name="avi_app_version">0.5.0</string>

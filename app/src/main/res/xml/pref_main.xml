@@ -3,10 +3,10 @@
     <PreferenceCategory
         android:title="@string/pref_category_video">
         <SwitchPreference
-            android:key="@string/avi_prop_ads"
+            android:key="@string/avi_prop_no_ads"
             android:defaultValue="true"
-            android:title="@string/pref_ads_enabled"
-            android:summary="@string/pref_ads_enabled_desc">
+            android:title="@string/pref_ads_disabled"
+            android:summary="@string/pref_ads_disabled_desc">
 
         </SwitchPreference>
     </PreferenceCategory>
