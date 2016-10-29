@@ -17,7 +17,7 @@
     <string name="pref_ads_disabled">Відключити рекламу</string>
     <string name="pref_app_version">Версія</string>
     <string name="pref_app_author">Автор</string>
-    <string name="pref_app_feedback">Зворотній зв'язок</string>
+    <string name="pref_app_feedback">Зворотній зв\'язок</string>
 
     <!--Settings Props Description-->
     <string name="pref_ads_disabled_desc">Відключити рекламу перед переглядом кіно. Рекомендується міняти при виникненні проблем з програванням відео.</string>
