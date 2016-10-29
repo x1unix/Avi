@@ -25,11 +25,11 @@
     <string name="pref_ads_disabled_desc">Disable pre-roll ads. Disable this is you have issue with movie player.</string>
 
     <!--Settings keys-->
-    <string name="avi_prop_no_ads">prop_no_ads</string>
+    <string name="avi_prop_no_ads" translatable="false">prop_no_ads</string>
 
     <!--App Info-->
-    <string name="avi_app_version">0.5.0</string>
     <string name="avi_app_author">Denis (x1unix) Sedchenko, 2016.</string>
-    <string name="avi_app_mail">avi-app@x1unix.com</string>
+    <string name="avi_app_version" translatable="false">0.5.0</string>
+    <string name="avi_app_mail" translatable="false">avi-app@x1unix.com</string>
 
 </resources>
