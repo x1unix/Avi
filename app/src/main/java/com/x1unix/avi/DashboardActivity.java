@@ -127,6 +127,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         // Import menu items
         menuItemSettings = (MenuItem) menu.findItem(R.id.menu_action_settings);
+        menuItemHelp = (MenuItem) menu.findItem(R.id.menu_action_help);
         registerMenuItemsClickListeners();
 
         // Retrieve the SearchView and plug it into SearchManager
@@ -167,6 +168,15 @@ public class DashboardActivity extends AppCompatActivity {
                    @Override
                    public boolean onMenuItemClick(MenuItem item) {
                        Intent i = new Intent(getBaseContext(), SettingsActivity.class);
+                       startActivity(i);
+                       return false;
+                   }
+               });
+
+               menuItemHelp.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                   @Override
+                   public boolean onMenuItemClick(MenuItem item) {
+                       Intent i = new Intent(getBaseContext(), SupportActivity.class);
                        startActivity(i);
                        return false;
                    }

@@ -14,7 +14,7 @@
     <!--Settings Props Labels-->
     <string name="pref_category_video">Видео</string>
     <string name="pref_category_about">О Приложении</string>
-    <string name="pref_ads_disabled">Отключить рекламу</string>
+    <string name="pref_ads_disabled">Блокировать рекламу</string>
     <string name="pref_app_version">Версия</string>
     <string name="pref_app_author">Автор</string>
     <string name="pref_app_feedback">Обратная связь</string>
