@@ -9,6 +9,7 @@
     <string name="avi_no_items_msg">По этому запросу ничего не найдено.</string>
     <string name="avi_settings">Настройки</string>
     <string name="avi_help">Помощь</string>
+    <string name="avi_refresh">Обновить</string>
     <string name="avi_error_occured">При последнем запросе к серверу произошла ошибка. Попробуйте другой запрос или повторите позже.</string>
 
     <!--Settings Props Labels-->

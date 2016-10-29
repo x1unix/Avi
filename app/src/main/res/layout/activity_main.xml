@@ -88,6 +88,15 @@
             android:text="@string/avi_connect_please"
             android:textStyle="normal|italic"
             android:gravity="center_vertical|center_horizontal" />
+
+        <Button
+            android:text="@string/avi_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/connection_refresh_button"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_gravity="center"
+            android:layout_marginTop="28sp" />
     </LinearLayout>
 
     <!-- Error message -->
@@ -129,8 +138,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/progressBar"
         android:layout_centerHorizontal="false"
-        android:layout_centerInParent="true"
-        />
+        android:layout_centerInParent="true" />
 
 
 </RelativeLayout>
