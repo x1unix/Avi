@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/pref_category_video">
+        <SwitchPreference
+            android:key="@string/avi_prop_no_ads"
+            android:defaultValue="true"
+            android:title="@string/pref_ads_disabled"
+            android:summary="@string/pref_ads_disabled_desc">
+
+        </SwitchPreference>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/pref_category_about">
+        <Preference
+            android:title="@string/pref_app_version"
+            android:summary="@string/avi_app_version">
+        </Preference>
+        <Preference
+            android:title="@string/pref_app_author"
+            android:summary="@string/avi_app_author">
+        </Preference>
+        <Preference
+            android:title="@string/pref_app_feedback"
+            android:summary="@string/avi_app_mail">
+        </Preference>
+    </PreferenceCategory>
+</PreferenceScreen>

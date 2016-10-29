@@ -11,7 +11,18 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".DashboardActivity" />
+        <activity
+            android:name=".MoviePlayerActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:hardwareAccelerated="true"
+            android:label="@string/title_activity_movie_player"
+            android:screenOrientation="landscape"
+            android:theme="@style/FullscreenTheme" />
+        <activity
+            android:name=".SplashScreenActivity"
+            android:label="@string/app_name"
+            android:theme="@style/SplashScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,12 +30,25 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MoviePlayerActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_movie_player"
-            android:hardwareAccelerated="true"
-            android:screenOrientation="landscape"
-            android:theme="@style/FullscreenTheme" />
+            android:name=".SettingsActivity"
+            android:label="@string/avi_settings"
+            android:parentActivityName=".DashboardActivity"
+            android:theme="@style/AppTheme">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DashboardActivity" />
+        </activity>
+        <activity
+            android:name=".SupportActivity"
+            android:label="@string/avi_help"
+            android:parentActivityName=".DashboardActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".DashboardActivity" />
+        </activity>
     </application>
 
 </manifest>

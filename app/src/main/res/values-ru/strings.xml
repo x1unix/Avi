@@ -6,5 +6,23 @@
     <string name="avi_no_internet">Похоже вы не подключены к сети.</string>
     <string name="avi_connect_please">Для поиска и просмотра фильмов, необходимо стабильное подключение к сети.</string>
     <string name="avi_oops">Упc, произошла ошибка :(</string>
+    <string name="avi_no_items_msg">По этому запросу ничего не найдено.</string>
+    <string name="avi_settings">Настройки</string>
+    <string name="avi_help">Помощь</string>
+    <string name="avi_refresh">Обновить</string>
     <string name="avi_error_occured">При последнем запросе к серверу произошла ошибка. Попробуйте другой запрос или повторите позже.</string>
+
+    <!--Settings Props Labels-->
+    <string name="pref_category_video">Видео</string>
+    <string name="pref_category_about">О Приложении</string>
+    <string name="pref_ads_disabled">Блокировать рекламу</string>
+    <string name="pref_app_version">Версия</string>
+    <string name="pref_app_author">Автор</string>
+    <string name="pref_app_feedback">Обратная связь</string>
+
+    <!--Settings Props Description-->
+    <string name="pref_ads_disabled_desc">Отключить рекламу перед просмотром видео. Рекомендуется менять при возникновении проблем с проигрыванием видео.</string>
+
+    <!--App Info-->
+    <string name="avi_app_author">Денис (x1unix) Седченко, 2016.</string>
 </resources>

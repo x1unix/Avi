@@ -1,48 +1,54 @@
 package com.x1unix.avi;
 
+import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.graphics.Movie;
 import android.graphics.PorterDuff.Mode;
 import android.net.ConnectivityManager;
+import android.os.Handler;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import android.net.NetworkInfo;
 
 import com.x1unix.avi.rest.*;
 import com.x1unix.avi.model.*;
-import retrofit2.Retrofit;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import com.x1unix.avi.adapter.MoviesAdapter;
 
-public class MainActivity extends AppCompatActivity {
+public class DashboardActivity extends AppCompatActivity {
 
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = DashboardActivity.class.getSimpleName();
     private RecyclerView moviesSearchResultsView;
     private KPApiInterface searchService = null;
     private MenuItem searchItem;
     private List<KPMovie> movies = new ArrayList<KPMovie>();
+
+    // Menu items
+    private MenuItem menuItemSettings;
+    private MenuItem menuItemHelp;
+    private Button connectionRefreshBtn;
 
     // Activity states
     private final int STATE_NO_INTERNET = 0;
@@ -113,6 +119,18 @@ public class MainActivity extends AppCompatActivity {
             }));
         } else {
             setStateVisibility(true, STATE_NO_INTERNET);
+
+            if (connectionRefreshBtn == null) {
+                connectionRefreshBtn = (Button) findViewById(R.id.connection_refresh_button);
+                connectionRefreshBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setStateVisibility(false, STATE_NO_INTERNET);
+                        setProgressVisibility(true);
+                        prepareView();
+                    }
+                });
+            }
         }
     }
 
@@ -120,6 +138,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
+
+        // Import menu items
+        menuItemSettings = (MenuItem) menu.findItem(R.id.menu_action_settings);
+        menuItemHelp = (MenuItem) menu.findItem(R.id.menu_action_help);
+        registerMenuItemsClickListeners();
+
         // Retrieve the SearchView and plug it into SearchManager
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
         SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
@@ -127,7 +151,6 @@ public class MainActivity extends AppCompatActivity {
 
         searchItem = menu.findItem(R.id.action_search);
 
-        prepareView();
         searchView.setQueryHint(getResources().getString(R.string.avi_search_hint));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener( ) {
             @Override
@@ -144,7 +167,37 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        prepareView();
+
         return true;
+    }
+
+    /**
+     * Load event handlers for menu buttons in paralel thread
+     */
+    private void registerMenuItemsClickListeners() {
+        new Handler().postDelayed(new Runnable() {
+           @Override
+            public void run() {
+               menuItemSettings.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                   @Override
+                   public boolean onMenuItemClick(MenuItem item) {
+                       Intent i = new Intent(getBaseContext(), SettingsActivity.class);
+                       startActivity(i);
+                       return false;
+                   }
+               });
+
+               menuItemHelp.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                   @Override
+                   public boolean onMenuItemClick(MenuItem item) {
+                       Intent i = new Intent(getBaseContext(), SupportActivity.class);
+                       startActivity(i);
+                       return false;
+                   }
+               });
+           }
+        }, 100);
     }
 
     private void setProgressVisibility(boolean ifVisible) {
@@ -178,16 +231,22 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onResponse(Call<KPMovieSearchResult>call, Response<KPMovieSearchResult> response) {
             setProgressVisibility(false);
-            setStateVisibility(true, STATE_LIST);
 
             int statusCode = response.code();
-            Log.i(TAG, "Response received [" + String.valueOf(statusCode) + "]");
             movies = response.body().getResults();
-            Log.i(TAG, "Items Length: " + String.valueOf(movies.size()));
-            moviesSearchResultsView.setAdapter(new MoviesAdapter(movies,
+
+            MoviesAdapter adapter = new MoviesAdapter(movies,
                     R.layout.list_item_movie,
                     getApplicationContext(),
-                    getResources().getConfiguration().locale));
+                    getResources().getConfiguration().locale);
+
+            if (adapter.getItemCount() > 0) {
+                setStateVisibility(true, STATE_LIST);
+                moviesSearchResultsView.setAdapter(adapter);
+            } else {
+                setStateVisibility(false, STATE_LIST);
+                setStateVisibility(true, STATE_WELCOME);
+            }
         }
 
         @Override

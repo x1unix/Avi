@@ -3,8 +3,10 @@ package com.x1unix.avi;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -147,9 +149,18 @@ public class MoviePlayerActivity extends AppCompatActivity {
     private void loadPlayer(String kpId) {
         AdBlocker.init(this);
 
+        String propAdDisabled = getResources().getString(R.string.avi_prop_no_ads);
+        SharedPreferences preferences = PreferenceManager
+                .getDefaultSharedPreferences(getBaseContext());
+        boolean isAdBlockEnabled = preferences.getBoolean(propAdDisabled, true);
+
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
-        webClient = new AviMoviePlayerWebViewClient();
+        webClient = new AviMoviePlayerWebViewClient(isAdBlockEnabled);
+
+        // Clean memory
+        propAdDisabled = null;
+        preferences = null;
 
         webView.setWebViewClient(webClient);
 
