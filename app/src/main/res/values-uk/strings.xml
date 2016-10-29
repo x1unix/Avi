@@ -8,4 +8,20 @@
     <string name="avi_start_hint">Для початку роботи, виберіть пошук та уведіть їм\'я бажаного фільму</string>
     <string name="avi_no_items_msg">За цим запитом нічого не знайдено.</string>
     <string name="avi_wellcome">Ласкаво просимо до Avi!</string>
+    <string name="avi_settings">Налаштування</string>
+    <string name="avi_help">Допомога</string>
+
+    <!--Settings Props Labels-->
+    <string name="pref_category_video">Відео</string>
+    <string name="pref_category_about">Про додаток</string>
+    <string name="pref_ads_disabled">Блокувати рекламу</string>
+    <string name="pref_app_version">Версія</string>
+    <string name="pref_app_author">Автор</string>
+    <string name="pref_app_feedback">Зворотній зв\'язок</string>
+
+    <!--Settings Props Description-->
+    <string name="pref_ads_disabled_desc">Відключити рекламу перед переглядом кіно. Рекомендується міняти при виникненні проблем з програванням відео.</string>
+
+    <!--App Info-->
+    <string name="avi_app_author">Денис (x1unix) Седченко, 2016.</string>
 </resources>

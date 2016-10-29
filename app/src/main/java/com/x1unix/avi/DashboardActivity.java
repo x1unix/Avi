@@ -1,11 +1,13 @@
 package com.x1unix.avi;
 
+import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Movie;
 import android.graphics.PorterDuff.Mode;
 import android.net.ConnectivityManager;
+import android.os.Handler;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -41,6 +43,10 @@ public class DashboardActivity extends AppCompatActivity {
     private KPApiInterface searchService = null;
     private MenuItem searchItem;
     private List<KPMovie> movies = new ArrayList<KPMovie>();
+
+    // Menu items
+    private MenuItem menuItemSettings;
+    private MenuItem menuItemHelp;
 
     // Activity states
     private final int STATE_NO_INTERNET = 0;
@@ -118,6 +124,12 @@ public class DashboardActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
+
+        // Import menu items
+        menuItemSettings = (MenuItem) menu.findItem(R.id.menu_action_settings);
+        menuItemHelp = (MenuItem) menu.findItem(R.id.menu_action_help);
+        registerMenuItemsClickListeners();
+
         // Retrieve the SearchView and plug it into SearchManager
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
         SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
@@ -143,6 +155,34 @@ public class DashboardActivity extends AppCompatActivity {
         });
 
         return true;
+    }
+
+    /**
+     * Load event handlers for menu buttons in paralel thread
+     */
+    private void registerMenuItemsClickListeners() {
+        new Handler().postDelayed(new Runnable() {
+           @Override
+            public void run() {
+               menuItemSettings.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                   @Override
+                   public boolean onMenuItemClick(MenuItem item) {
+                       Intent i = new Intent(getBaseContext(), SettingsActivity.class);
+                       startActivity(i);
+                       return false;
+                   }
+               });
+
+               menuItemHelp.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                   @Override
+                   public boolean onMenuItemClick(MenuItem item) {
+                       Intent i = new Intent(getBaseContext(), SupportActivity.class);
+                       startActivity(i);
+                       return false;
+                   }
+               });
+           }
+        }, 100);
     }
 
     private void setProgressVisibility(boolean ifVisible) {

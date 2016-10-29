@@ -8,4 +8,8 @@
         app:showAsAction="ifRoom|collapseActionView"
         android:visible="false"
         app:actionViewClass="android.support.v7.widget.SearchView" />
+    <item android:id="@+id/menu_action_settings"
+        android:title="@string/avi_settings"/>
+    <item android:id="@+id/menu_action_help"
+        android:title="@string/avi_help"/>
 </menu>

@@ -1,7 +1,10 @@
 package com.x1unix.avi.helpers;
 
 import android.annotation.TargetApi;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
@@ -14,6 +17,12 @@ public class AviMoviePlayerWebViewClient extends WebViewClient {
     private String LSECTION = AviMoviePlayerWebViewClient.class.getName();
     private Map<String, Boolean> loadedUrls = new HashMap<>();
     private String currentUrl = "";
+    private boolean disableAds = false;
+
+    public AviMoviePlayerWebViewClient(boolean blockAds) {
+        super();
+        disableAds = blockAds;
+    }
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -24,6 +33,9 @@ public class AviMoviePlayerWebViewClient extends WebViewClient {
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
+        // Do nothing if adblock disabled
+        if (!disableAds) return super.shouldInterceptRequest(view, url);
+
         boolean ad;
         if (!loadedUrls.containsKey(url)) {
             ad = AdBlocker.isAd(url);
