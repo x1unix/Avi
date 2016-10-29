@@ -167,12 +167,7 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
-        // Do rest of routine in separate thread
-        new Thread(new Runnable() {
-            public void run() {
-                prepareView();
-            }
-        }).start();
+        prepareView();
 
         return true;
     }
