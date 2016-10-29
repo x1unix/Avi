@@ -5,6 +5,7 @@ import android.preference.PreferenceManager;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.SwitchPreference;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 
@@ -21,6 +22,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
         getPrefs();
         setContentView(R.layout.activity_settings);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         addPreferencesFromResource(R.xml.pref_main);
         registerPropsEventHandlers();
     }
@@ -48,5 +51,16 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         preferences = PreferenceManager
                 .getDefaultSharedPreferences(getBaseContext());
         propIsAdEnabled = preferences.getBoolean(propIsAdEnabledKey, true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
