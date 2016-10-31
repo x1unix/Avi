@@ -182,7 +182,8 @@ public class MoviePlayerActivity extends AppCompatActivity {
     }
 
     public void setMovieId(String kpId) {
-        currentUrl = "http://avi.x1unix.com/?kpid=" + kpId;
+        String currentLanguage = getResources().getConfiguration().locale.getLanguage();
+        currentUrl = "http://avi.x1unix.com/?kpid=" + kpId + "&lang=" + currentLanguage;
         webClient.updateCurrentUrl(currentUrl);
         Log.i(LSECTION, "Loading url: " + currentUrl);
         webView.loadUrl(currentUrl);
