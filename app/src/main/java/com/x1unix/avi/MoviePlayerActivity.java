@@ -155,6 +155,7 @@ public class MoviePlayerActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        delayedHide(100);
         if (webView != null) webView.onResume();
     }
 
