@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -36,7 +37,6 @@ public class MoviePlayerActivity extends AppCompatActivity {
     private WebView webView;
     private String LSECTION = "MoviePlayer";
     private String currentUrl = "";
-    private ProgressBar preloader;
     private boolean movieLoaded = false;
     private Intent receivedIntent;
     private AviMoviePlayerWebViewClient webClient;
@@ -134,8 +134,6 @@ public class MoviePlayerActivity extends AppCompatActivity {
 
         mVisible = true;
 
-        preloader = (ProgressBar) findViewById(R.id.movie_player_preloader);
-
         // Set up the user interaction to manually show or hide the system UI.
         webView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,6 +167,7 @@ public class MoviePlayerActivity extends AppCompatActivity {
 
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+        webView.setBackgroundColor(Color.BLACK);
         webClient = new AviMoviePlayerWebViewClient(isAdBlockEnabled);
 
         // Clean memory
@@ -176,10 +175,6 @@ public class MoviePlayerActivity extends AppCompatActivity {
         preferences = null;
 
         webView.setWebViewClient(webClient);
-
-        // Hide preloader and show webView
-        webView.setVisibility(View.VISIBLE);
-        preloader.setVisibility(View.GONE);
 
         setMovieId(kpId);
 

@@ -9,17 +9,7 @@
         android:id="@+id/webplayer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
         android:background="@android:color/black" />
-
-    <ProgressBar
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/movie_player_preloader"
-        android:layout_centerHorizontal="false"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center" />
 
 
 </FrameLayout>
