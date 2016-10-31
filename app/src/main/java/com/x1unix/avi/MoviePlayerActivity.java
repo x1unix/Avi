@@ -146,6 +146,18 @@ public class MoviePlayerActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (webView != null) webView.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (webView != null) webView.onResume();
+    }
+
     private void loadPlayer(String kpId) {
         AdBlocker.init(this);
 
