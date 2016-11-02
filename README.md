@@ -14,7 +14,6 @@ Received Kinopoisk ID from movie used to get player's URL for the movie from Moo
 * Network connection
 
 ## Disclaimer
-1. This application is still in beta so it might me unstable on some devices.
 2. Author doesn't take responsibillity for the video content. All data is hosted and provided by Moonwalk.
 
 ## Bug reports
