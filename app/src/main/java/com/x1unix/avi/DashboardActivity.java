@@ -258,19 +258,28 @@ public class DashboardActivity extends AppCompatActivity {
             setProgressVisibility(false);
 
             int statusCode = response.code();
-            movies = response.body().getResults();
 
-            MoviesAdapter adapter = new MoviesAdapter(movies,
-                    R.layout.list_item_movie,
-                    getApplicationContext(),
-                    getResources().getConfiguration().locale);
+            KPMovieSearchResult result = response.body();
 
-            if (adapter.getItemCount() > 0) {
-                setStateVisibility(true, STATE_LIST);
-                moviesSearchResultsView.setAdapter(adapter);
+            if (result != null) {
+                movies = result.getResults();
+
+                MoviesAdapter adapter = new MoviesAdapter(movies,
+                        R.layout.list_item_movie,
+                        getApplicationContext(),
+                        getResources().getConfiguration().locale);
+
+                if (adapter.getItemCount() > 0) {
+                    setStateVisibility(true, STATE_LIST);
+                    moviesSearchResultsView.setAdapter(adapter);
+                } else {
+                    setStateVisibility(false, STATE_LIST);
+                    setStateVisibility(true, STATE_WELCOME);
+                }
             } else {
-                setStateVisibility(false, STATE_LIST);
-                setStateVisibility(true, STATE_WELCOME);
+                // Show message if there is no items
+                Toast.makeText(getApplicationContext(),
+                        getResources().getString(R.string.avi_no_items_msg), Toast.LENGTH_LONG);
             }
         }
 
