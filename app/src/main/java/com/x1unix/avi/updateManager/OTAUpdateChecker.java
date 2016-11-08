@@ -16,6 +16,8 @@ public class OTAUpdateChecker {
                 AviSemVersion receivedVersion = response.body();
                 AviSemVersion current = AviSemVersion.getApplicationVersion();
 
+                receivedVersion.apply();
+
                 if (current.isYoungerThan(receivedVersion)) {
                     otaEventListener.onUpdateAvailable(receivedVersion, current);
                 } else {

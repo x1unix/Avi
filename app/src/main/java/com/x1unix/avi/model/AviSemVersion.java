@@ -3,6 +3,8 @@ package com.x1unix.avi.model;
 import com.google.gson.annotations.SerializedName;
 import com.x1unix.avi.BuildConfig;
 
+import java.util.regex.Pattern;
+
 public class AviSemVersion {
     protected int major = 0;
     protected int minor = 0;
@@ -39,16 +41,16 @@ public class AviSemVersion {
         this.apkUrl = apkUrl;
         this.homepage = homepage;
 
-        applyString();
+        apply();
     }
 
     public AviSemVersion(String semVerString) {
         this.original = semVerString;
-        applyString();
+        apply();
     }
 
-    protected void applyString() {
-        String[] components = this.original.split(".");
+    public void apply() {
+        String[] components = this.original.split(Pattern.quote("."));
         if (components.length == 3) {
             this.major = Integer.valueOf(components[0]);
             this.minor = Integer.valueOf(components[1]);
@@ -77,13 +79,23 @@ public class AviSemVersion {
     }
 
     public boolean isYoungerThan(AviSemVersion compared) {
-        return (this.getMajor() < compared.getMajor()) ||
-                (this.getMinor() < compared.getMinor()) ||
-                (this.getPatch() < compared.getPatch());
+        boolean lessMajor =  this.getMajor() < compared.getMajor(),
+                lessMinor = this.getMinor() < compared.getMinor(),
+                lessPatch = this.getMinor() < compared.getMinor();
+
+        if (lessMajor) return false;
+        if (lessMinor) return false;
+        if (lessPatch) return false;
+
+        return true;
     }
 
     public static AviSemVersion getApplicationVersion() {
         return new AviSemVersion(BuildConfig.VERSION_NAME);
+    }
+
+    public String toString() {
+        return String.valueOf(major) + "." + String.valueOf(minor) + "." + String.valueOf(patch);
     }
 
 }

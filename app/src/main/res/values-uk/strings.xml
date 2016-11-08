@@ -11,6 +11,7 @@
     <string name="avi_settings">Налаштування</string>
     <string name="avi_help">Допомога</string>
     <string name="avi_refresh">Оновити</string>
+    <string name="avi_please_wait">Зачекайте будь-ласка&#8230;</string>
 
     <!--Settings Props Labels-->
     <string name="pref_category_video">Відео</string>
@@ -23,10 +24,16 @@
     <string name="pref_updates_check_now">Перевірити зараз</string>
     <string name="pref_updates_allow_autocheck">Перевіряти автоматично</string>
 
+    <!--Updates-->
+    <string name="upd_searching">Пошук оновлень</string>
+    <string name="upd_not_found">Оновлення не знайдені</string>
+    <string name="upd_error">Помилка при отриманні інформації з репозиторію</string>
+
     <!--Settings Props Description-->
     <string name="pref_ads_disabled_desc">Відключити рекламу перед переглядом кіно. Рекомендується міняти при виникненні проблем з програванням відео.</string>
     <string name="pref_updates_autocheck_desc">Дозволити додатку автоматично перевіряти оновлення.</string>
 
     <!--App Info-->
     <string name="avi_app_author">Денис (x1unix) Седченко, 2016.</string>
+    <string name="avi_please_wait">Зачекайте будь-ласка...</string>
 </resources>

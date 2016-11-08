@@ -13,6 +13,7 @@
     <PreferenceCategory
         android:title="@string/pref_category_updates">
         <Preference
+            android:key="@string/prop_btn_update_now"
             android:title="@string/pref_updates_check_now">
         </Preference>
         <SwitchPreference
