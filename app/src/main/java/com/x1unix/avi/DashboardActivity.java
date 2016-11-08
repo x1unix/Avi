@@ -279,7 +279,8 @@ public class DashboardActivity extends AppCompatActivity {
             } else {
                 // Show message if there is no items
                 Toast.makeText(getApplicationContext(),
-                        getResources().getString(R.string.avi_no_items_msg), Toast.LENGTH_LONG);
+                        getResources().getString(R.string.avi_no_items_msg), Toast.LENGTH_LONG)
+                        .show();
             }
         }
 
