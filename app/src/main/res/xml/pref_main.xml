@@ -11,10 +11,24 @@
         </SwitchPreference>
     </PreferenceCategory>
     <PreferenceCategory
+        android:title="@string/pref_category_updates">
+        <Preference
+            android:key="@string/prop_btn_update_now"
+            android:title="@string/pref_updates_check_now">
+        </Preference>
+        <SwitchPreference
+            android:key="@string/avi_prop_autocheck_updates"
+            android:defaultValue="true"
+            android:title="@string/pref_updates_allow_autocheck"
+            android:summary="@string/pref_updates_autocheck_desc">
+        </SwitchPreference>
+    </PreferenceCategory>
+    <PreferenceCategory
         android:title="@string/pref_category_about">
         <Preference
+            android:key="avi_app_version"
             android:title="@string/pref_app_version"
-            android:summary="@string/avi_app_version">
+            android:summary="">
         </Preference>
         <Preference
             android:title="@string/pref_app_author"
