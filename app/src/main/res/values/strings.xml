@@ -31,6 +31,7 @@
 
     <!--Settings keys-->
     <string name="avi_prop_no_ads" translatable="false">prop_no_ads</string>
+    <string name="avi_prop_autocheck_updates" translatable="false">prop_autocheck_updates</string>
 
     <!--App Info-->
     <string name="avi_app_author">Denis (x1unix) Sedchenko, 2016.</string>
