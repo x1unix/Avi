@@ -1,7 +1,11 @@
 package com.x1unix.avi;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -100,12 +104,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         preloader.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         preloader.setTitle(getResources().getString(R.string.upd_searching));
         preloader.setMessage(getResources().getString(R.string.avi_please_wait));
+        preloader.setCancelable(false);
         preloader.show();
 
         OTAUpdateChecker.checkForUpdates(new OTAStateListener() {
             @Override
             protected void onUpdateAvailable(AviSemVersion availableVersion, AviSemVersion currentVersion) {
                 Log.i("OTA", "avail: " + availableVersion.toString() + ", current: " + currentVersion.toString());
+                showUpdateDialog(availableVersion);
                 preloader.hide();
             }
 
@@ -129,5 +135,26 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                         Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void showUpdateDialog(final AviSemVersion newVer) {
+        AlertDialog.Builder dialInstallUpdate = new AlertDialog.Builder(this);
+        dialInstallUpdate.setMessage("New available version: " + newVer.toString() + "\nDo you want to install it?");
+        dialInstallUpdate.setTitle("New Update Available")
+        .setCancelable(false)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(newVer.getApkUrl()));
+                        startActivity(browserIntent);
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        dialInstallUpdate.show();
     }
 }
