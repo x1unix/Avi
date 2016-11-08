@@ -15,13 +15,17 @@
     <!--Settings Props Labels-->
     <string name="pref_category_video">Видео</string>
     <string name="pref_category_about">О Приложении</string>
+    <string name="pref_category_updates">Обновления</string>
     <string name="pref_ads_disabled">Блокировать рекламу</string>
     <string name="pref_app_version">Версия</string>
     <string name="pref_app_author">Автор</string>
     <string name="pref_app_feedback">Обратная связь</string>
+    <string name="pref_updates_check_now">Проверить сейчас</string>
+    <string name="pref_updates_allow_autocheck">Проверять автоматически</string>
 
     <!--Settings Props Description-->
     <string name="pref_ads_disabled_desc">Отключить рекламу перед просмотром видео. Рекомендуется менять при возникновении проблем с проигрыванием видео.</string>
+    <string name="pref_updates_autocheck_desc">Разрешить приложению автоматически проверять обновления.</string>
 
     <!--App Info-->
     <string name="avi_app_author">Денис (x1unix) Седченко, 2016.</string>
