@@ -139,8 +139,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
     private void showUpdateDialog(final AviSemVersion newVer) {
         AlertDialog.Builder dialInstallUpdate = new AlertDialog.Builder(this);
-        dialInstallUpdate.setMessage("New available version: " + newVer.toString() + "\nDo you want to install it?");
-        dialInstallUpdate.setTitle("New Update Available")
+        String modConfimText = getResources().getString(R.string.upd_confirm);
+        modConfimText = modConfimText.replace("@version", newVer.toString());
+
+        dialInstallUpdate.setMessage(modConfimText);
+        dialInstallUpdate.setTitle(getResources().getString(R.string.upd_new_available))
         .setCancelable(false)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {

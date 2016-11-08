@@ -28,6 +28,8 @@
     <string name="upd_searching">Пошук оновлень</string>
     <string name="upd_not_found">Оновлення не знайдені</string>
     <string name="upd_error">Помилка при отриманні інформації з репозиторію</string>
+    <string name="upd_new_available">Доступне нове оновленняе</string>
+    <string name="upd_confirm">Доступна нова версія: @version \nЗавантажити нову версію?</string>
 
     <!--Settings Props Description-->
     <string name="pref_ads_disabled_desc">Відключити рекламу перед переглядом кіно. Рекомендується міняти при виникненні проблем з програванням відео.</string>

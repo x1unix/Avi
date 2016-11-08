@@ -30,6 +30,8 @@
     <string name="upd_searching">Searching for updates</string>
     <string name="upd_not_found">No updates found</string>
     <string name="upd_error">Failed to get information from repository</string>
+    <string name="upd_new_available">New Update Available</string>
+    <string name="upd_confirm">New available version: @version \nDo you want to install it?</string>
 
     <!--Settings Props Description-->
     <string name="pref_ads_disabled_desc">Disable pre-roll ads. Disable this is you have issue with movie player.</string>
