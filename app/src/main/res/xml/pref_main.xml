@@ -26,8 +26,9 @@
     <PreferenceCategory
         android:title="@string/pref_category_about">
         <Preference
+            android:key="avi_app_version"
             android:title="@string/pref_app_version"
-            android:summary="@string/avi_app_version">
+            android:summary="">
         </Preference>
         <Preference
             android:title="@string/pref_app_author"

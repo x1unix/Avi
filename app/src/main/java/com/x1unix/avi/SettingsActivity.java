@@ -35,6 +35,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         propIsAdEnabledKey = getResources().getString(R.string.avi_prop_no_ads);
         propIsAutoupdateKey = getResources().getString(R.string.avi_prop_autocheck_updates);
         propUpdateNow = getResources().getString(R.string.prop_btn_update_now);
@@ -44,6 +45,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         addPreferencesFromResource(R.xml.pref_main);
+
+        ((Preference) findPreference("avi_app_version")).setSummary(BuildConfig.VERSION_NAME);
         registerPropsEventHandlers();
     }
 
