@@ -9,7 +9,7 @@ import com.x1unix.avi.model.AviSemVersion;
 
 public class OTAUpdateChecker {
     public static void checkForUpdates(final OTAStateListener otaEventListener) {
-        RepoClientInterface repoClient = OTARestClient.getClient().create(RepoClientInterface.class);
+        OTARepoClientInterface repoClient = OTARestClient.getClient().create(OTARepoClientInterface.class);
         Call<AviSemVersion> call = repoClient.getLatestRelease();
         call.enqueue(new Callback<AviSemVersion>() {
             @Override

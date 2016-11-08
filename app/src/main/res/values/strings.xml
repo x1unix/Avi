@@ -43,7 +43,7 @@
 
 
     <!-- Pref buttons keys -->
-    <string name="prop_btn_update_now">prop_btn_update_now</string>
+    <string name="prop_btn_update_now" translatable="false">prop_btn_update_now</string>
 
     <!--App Info-->
     <string name="avi_app_author">Denis (x1unix) Sedchenko, 2016.</string>
