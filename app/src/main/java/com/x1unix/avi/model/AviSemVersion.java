@@ -79,13 +79,10 @@ public class AviSemVersion {
     }
 
     public boolean isYoungerThan(AviSemVersion compared) {
+
         boolean lessMajor =  this.getMajor() < compared.getMajor(),
                 lessMinor = this.getMinor() < compared.getMinor(),
                 lessPatch = this.getMinor() < compared.getMinor();
-
-        if (lessMajor) return false;
-        if (lessMinor) return false;
-        if (lessPatch) return false;
 
         return true;
     }
