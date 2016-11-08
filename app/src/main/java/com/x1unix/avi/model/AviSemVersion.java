@@ -1,14 +1,16 @@
 package com.x1unix.avi.model;
 
+import android.util.Log;
+
 import com.google.gson.annotations.SerializedName;
 import com.x1unix.avi.BuildConfig;
 
 import java.util.regex.Pattern;
 
 public class AviSemVersion {
-    protected int major = 0;
-    protected int minor = 0;
-    protected int patch = 0;
+    public int major = 0;
+    public int minor = 0;
+    public int patch = 0;
 
     @SerializedName("version")
     protected String original = "0.0.0";
@@ -52,9 +54,9 @@ public class AviSemVersion {
     public void apply() {
         String[] components = this.original.split(Pattern.quote("."));
         if (components.length == 3) {
-            this.major = Integer.valueOf(components[0]);
-            this.minor = Integer.valueOf(components[1]);
-            this.patch = Integer.valueOf(components[2]);
+            this.major = Integer.parseInt(components[0]);
+            this.minor = Integer.parseInt(components[1]);
+            this.patch = Integer.parseInt(components[2]);
         }
     }
 
@@ -80,11 +82,28 @@ public class AviSemVersion {
 
     public boolean isYoungerThan(AviSemVersion compared) {
 
-        boolean lessMajor =  this.getMajor() < compared.getMajor(),
-                lessMinor = this.getMinor() < compared.getMinor(),
-                lessPatch = this.getMinor() < compared.getMinor();
+        boolean result = false;
+        if (this.major <= compared.major) {
+            if (this.major < compared.major) {
+                result = true;
+            } else {
+                if (this.minor <= compared.minor) {
+                    if (this.minor < compared.minor) {
+                        result = true;
+                    } else {
+                        if (this.patch < compared.patch) {
+                            result = true;
+                        }
+                    }
+                } else {
+                    result = false;
+                }
+            }
+        } else {
+            result = false;
+        }
 
-        return true;
+        return result;
     }
 
     public static AviSemVersion getApplicationVersion() {

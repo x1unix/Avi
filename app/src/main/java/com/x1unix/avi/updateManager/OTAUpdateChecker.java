@@ -3,6 +3,8 @@ package com.x1unix.avi.updateManager;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import com.rollbar.android.Rollbar;
 import com.x1unix.avi.model.AviSemVersion;
 
 public class OTAUpdateChecker {
@@ -29,6 +31,7 @@ public class OTAUpdateChecker {
             public void onFailure(Call<AviSemVersion>call, Throwable t) {
                 // Log error here since request failed
                 otaEventListener.onError(t);
+                Rollbar.reportException(t, "critical", "Failed to check for updates");
             }
         });
     }

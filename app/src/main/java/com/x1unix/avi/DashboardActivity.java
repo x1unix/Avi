@@ -1,13 +1,19 @@
 package com.x1unix.avi;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Movie;
 import android.graphics.PorterDuff.Mode;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -36,6 +42,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import com.x1unix.avi.adapter.MoviesAdapter;
+import com.x1unix.avi.updateManager.OTAStateListener;
+import com.x1unix.avi.updateManager.OTAUpdateChecker;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -77,6 +85,23 @@ public class DashboardActivity extends AppCompatActivity {
 
         moviesSearchResultsView = (RecyclerView) findViewById(R.id.movies_recycler_view);
         moviesSearchResultsView.setLayoutManager(new LinearLayoutManager(this));
+
+        // Set timer to try to check updates
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                String keyPropAutoUpdate = getResources()
+                        .getString(R.string.avi_prop_autocheck_updates);
+
+                SharedPreferences preferences = PreferenceManager
+                        .getDefaultSharedPreferences(getBaseContext());
+                boolean allowAutoUpdateCheck = preferences.getBoolean(keyPropAutoUpdate, true);
+
+                if (allowAutoUpdateCheck) {
+                    tryFindUpdates();
+                }
+            }
+        }, 1000);
     }
 
     private void registerViews() {
@@ -294,6 +319,39 @@ public class DashboardActivity extends AppCompatActivity {
         // Kickstart player
         Log.i("KPMovieOpen", "Trying to play movie [" + movie.getId() + "]");
         startActivity(mIntent);
+    }
+
+    private void tryFindUpdates() {
+        OTAUpdateChecker.checkForUpdates(new OTAStateListener() {
+            @Override
+            protected void onUpdateAvailable(AviSemVersion availableVersion, AviSemVersion currentVersion) {
+                showUpdateDialog(availableVersion);
+            }
+        });
+    }
+
+    private void showUpdateDialog(final AviSemVersion newVer) {
+        AlertDialog.Builder dialInstallUpdate = new AlertDialog.Builder(this);
+        String modConfimText = getResources().getString(R.string.upd_confirm);
+        modConfimText = modConfimText.replace("@version", newVer.toString());
+
+        dialInstallUpdate.setMessage(modConfimText);
+        dialInstallUpdate.setTitle(getResources().getString(R.string.upd_new_available))
+                .setCancelable(false)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(newVer.getApkUrl()));
+                        startActivity(browserIntent);
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        dialInstallUpdate.show();
     }
 
 

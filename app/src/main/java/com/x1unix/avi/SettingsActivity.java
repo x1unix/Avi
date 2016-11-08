@@ -120,7 +120,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
             @Override
             protected void onUpdateMissing(AviSemVersion availableVersion, AviSemVersion currentVersion) {
-                Log.i("OTA", "Not new: " + availableVersion.toString());
                 preloader.hide();
 
                 Toast.makeText(getApplicationContext(),
@@ -130,7 +129,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
             @Override
             protected void onError(Throwable t) {
-                Log.e("OTA", t.toString());
                 preloader.hide();
 
                 Toast.makeText(getApplicationContext(),
