@@ -277,9 +277,13 @@ public class DashboardActivity extends AppCompatActivity {
                     setStateVisibility(true, STATE_WELCOME);
                 }
             } else {
+                setStateVisibility(false, STATE_LIST);
+                setStateVisibility(true, STATE_WELCOME);
+
                 // Show message if there is no items
                 Toast.makeText(getApplicationContext(),
-                        getResources().getString(R.string.avi_no_items_msg), Toast.LENGTH_LONG);
+                        getResources().getString(R.string.avi_no_items_msg), Toast.LENGTH_LONG)
+                        .show();
             }
         }
 
