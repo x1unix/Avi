@@ -12,16 +12,12 @@ public class KPMovieSearchResult {
     @SerializedName("pagesCount")
     private String pagesTotal;
 
-    @SerializedName("searchFilmsCountResult")
-    private String itemsTotal;
-
     @SerializedName("searchFilms")
     private List<KPMovie> results = new ArrayList<KPMovie>();
 
-    public KPMovieSearchResult(String keyword, String pagesTotal, String itemsTotal, List<KPMovie> results) {
+    public KPMovieSearchResult(String keyword, String pagesTotal, List<KPMovie> results) {
         this.keyword = keyword;
         this.pagesTotal = pagesTotal;
-        this.itemsTotal = itemsTotal;
         this.results = results;
     }
 
@@ -31,14 +27,6 @@ public class KPMovieSearchResult {
 
     public void setTotalPages(String total) {
         this.pagesTotal = total;
-    }
-
-    public int getTotalItens() {
-        return Integer.parseInt(this.itemsTotal);
-    }
-
-    public void setTotalItems(String itemsTotal) {
-        this.itemsTotal = itemsTotal;
     }
 
     public void setKeyword(String keyword) {

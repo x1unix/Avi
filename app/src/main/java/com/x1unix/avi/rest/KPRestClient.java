@@ -1,5 +1,8 @@
 package com.x1unix.avi.rest;
 
+import com.x1unix.avi.kp.KinopoiskRequestInterceptor;
+
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -8,10 +11,16 @@ public class KPRestClient {
     private static Retrofit retrofit = null;
 
     public static Retrofit getClient() {
-        if (retrofit==null) {
+        if (retrofit == null) {
+            KinopoiskRequestInterceptor interceptor = new KinopoiskRequestInterceptor();
+            OkHttpClient client = new OkHttpClient.Builder()
+                    .addInterceptor(interceptor)
+                    .build();
+
             retrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
+                    .baseUrl(BASE_URL)
+                    .client(client)
                     .build();
         }
         return retrofit;
