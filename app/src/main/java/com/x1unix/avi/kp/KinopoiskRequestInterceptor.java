@@ -1,4 +1,5 @@
 package com.x1unix.avi.kp;
+import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import java.io.IOException;
@@ -35,7 +36,8 @@ public class KinopoiskRequestInterceptor implements Interceptor {
         // Generate user token
         Random rand = new Random();
         int clientToken = rand.nextInt((9999 - 1) + 1) + 1;
-        String clientId = DigestUtils.md5Hex(String.valueOf(clientToken));
+        String clientId = new String(Hex.encodeHex(DigestUtils.md5(String.valueOf(clientToken))));
+
 
         // Generate req date
         Date date = new Date();
