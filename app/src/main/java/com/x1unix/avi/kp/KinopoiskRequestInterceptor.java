@@ -41,8 +41,8 @@ public class KinopoiskRequestInterceptor implements Interceptor {
 
         // Generate req date
         Date date = new Date();
-        DateFormat dateFormat = new SimpleDateFormat("H:i m.d.Y");
-        String clientDate = dateFormat.format(dateFormat.format(date));
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm MM.dd.yyyy");
+        String clientDate = dateFormat.format(date);
 
 
         // Put additional headers to look like KP client
