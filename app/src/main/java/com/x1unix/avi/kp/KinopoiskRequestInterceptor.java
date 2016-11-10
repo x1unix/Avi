@@ -3,6 +3,7 @@ import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import java.io.IOException;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,11 +25,21 @@ public class KinopoiskRequestInterceptor implements Interceptor {
 
         Request original = chain.request();
         HttpUrl originalHttpUrl = original.url();
+        URL oUrl = originalHttpUrl.url();
+
+        String commandName = originalHttpUrl.pathSegments().get(2);
+
+        // Build encoded key for query
+        String encodedKey = new String(
+                Hex.encodeHex(DigestUtils.md5(
+                        commandName + "?" + oUrl.getQuery() + "&uuid=" + KP_UUID + KP_SECRET
+                ))
+        );
 
         // Put additional params to auth
         HttpUrl url = originalHttpUrl.newBuilder()
-                .addQueryParameter("key", KP_SECRET)
                 .addQueryParameter("uuid", KP_UUID)
+                .addQueryParameter("key", encodedKey)
                 .build();
 
         Request request = chain.request();
