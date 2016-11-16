@@ -4,7 +4,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class KPRestClient {
-    public static final String BASE_URL = "http://api.kinopoisk.cf";
+    public static final String BASE_URL = "http://kp.x1unix.com";
     private static Retrofit retrofit = null;
 
     public static Retrofit getClient() {
