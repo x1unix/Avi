@@ -9,6 +9,7 @@
     android:minHeight="72dp"
     android:orientation="horizontal"
     android:padding="16dp"
+    android:background="@drawable/list_item_shape"
     android:clickable="true">
 
     <LinearLayout
