@@ -72,7 +72,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 } else {
                     Toast.makeText(getApplicationContext(),
                             getResources().getString(R.string.avi_internet_required),
-                            Toast.LENGTH_SHORT);
+                            Toast.LENGTH_SHORT).show();
                 }
 
                 return false;
@@ -123,7 +123,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         OTAUpdateChecker.checkForUpdates(new OTAStateListener() {
             @Override
             protected void onUpdateAvailable(AviSemVersion availableVersion, AviSemVersion currentVersion) {
-                Log.i("OTA", "avail: " + availableVersion.toString() + ", current: " + currentVersion.toString());
                 showUpdateDialog(availableVersion);
                 preloader.hide();
             }
