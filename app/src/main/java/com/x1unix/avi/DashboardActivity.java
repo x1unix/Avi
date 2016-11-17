@@ -335,12 +335,14 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void tryFindUpdates() {
-        OTAUpdateChecker.checkForUpdates(new OTAStateListener() {
-            @Override
-            protected void onUpdateAvailable(AviSemVersion availableVersion, AviSemVersion currentVersion) {
-                showUpdateDialog(availableVersion);
-            }
-        });
+        if (isNetworkAvailable()) {
+            OTAUpdateChecker.checkForUpdates(new OTAStateListener() {
+                @Override
+                protected void onUpdateAvailable(AviSemVersion availableVersion, AviSemVersion currentVersion) {
+                    showUpdateDialog(availableVersion);
+                }
+            });
+        }
     }
 
     private void showUpdateDialog(final AviSemVersion newVer) {
