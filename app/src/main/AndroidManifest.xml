@@ -49,7 +49,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".DashboardActivity" />
         </activity>
+        <activity
+            android:name=".MovieDetailsActivity"
+            android:label="@string/title_activity_movie_details"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
-
 
 </manifest>
