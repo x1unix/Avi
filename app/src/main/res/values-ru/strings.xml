@@ -6,6 +6,7 @@
     <string name="avi_no_internet">Похоже вы не подключены к сети.</string>
     <string name="avi_connect_please">Для поиска и просмотра фильмов, необходимо стабильное подключение к сети.</string>
     <string name="avi_oops">Упc, произошла ошибка :(</string>
+    <string name="avi_internet_required">Требуется подключение к Интернету</string>
     <string name="avi_no_items_msg">По этому запросу ничего не найдено.</string>
     <string name="avi_settings">Настройки</string>
     <string name="avi_help">Помощь</string>
