@@ -1,89 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="72dp"
-    android:clickable="true"
+    android:layout_marginBottom="3dp"
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
     android:layout_marginTop="7dp"
-    android:layout_marginBottom="3dp"
-    card_view:cardCornerRadius="2dp"
-    card_view:cardBackgroundColor="#ffffff">
+    android:clickable="true"
+    android:minHeight="72dp"
+    android:paddingBottom="0px"
+    android:paddingTop="0px"
+    card_view:cardBackgroundColor="#ffffff"
+    card_view:cardCornerRadius="2dp">
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/movies_layout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center_vertical"
-    android:orientation="horizontal"
-    android:padding="16dp"
-    android:baselineAligned="false">
-
-    <LinearLayout
-        android:layout_width="0dp"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/movies_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top"
-            android:paddingEnd="16dp"
-            android:textStyle="bold"
-            android:textColor="@color/colorBlack"
-            android:text="Title"
-            android:textSize="16sp" />
-
-
-        <TextView
-            android:id="@+id/subtitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingEnd="16dp"
-            android:text="Subtitle"
-            android:textColor="@color/colorGreyLight" />
-
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxLines="3"
-            android:paddingEnd="16dp"
-            android:text="Description"
-            android:textColor="@color/colorGreyLight" />
-
-    </LinearLayout>
-
-
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="35dp"
-        android:orientation="horizontal">
+        android:baselineAligned="false"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
 
         <ImageView
-            android:id="@+id/rating_image"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_centerInParent="true"
-            android:scaleType="centerCrop"
-            app:srcCompat="@drawable/star"
-            android:tint="@color/colorAccent" />
+            android:id="@+id/poster_preview"
+            android:layout_width="64dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/no_poster"
+            app:srcCompat="@drawable/no_poster"
+            android:layout_weight="0.03" />
 
-
-        <TextView
-            android:id="@+id/rating"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="5.0" />
-    </LinearLayout>
+            android:layout_marginStart="20dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
 
-</LinearLayout>
-    </android.support.v7.widget.CardView>
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:layout_marginBottom="3dp"
+                android:paddingEnd="16dp"
+                android:text="Lorem Ipsum Dolor Sit"
+                android:textColor="#000"
+                android:textSize="16dp"
+                android:maxLines="1"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="3"
+                android:paddingEnd="16dp"
+                android:textSize="12dp"
+                android:text="Приключения и боевики"
+                android:textColor="@color/colorGreyLight" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="3dp"
+                    android:textSize="12dp"
+                    android:text="5.0" />
+
+                <ImageView
+                    android:id="@+id/rating_image"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_centerInParent="true"
+                    android:scaleType="centerCrop"
+                    android:tint="@color/colorAccent"
+                    app:srcCompat="@drawable/star"
+                    android:layout_gravity="center_vertical" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text="2011"
+                android:layout_marginTop="5dp"
+                android:textStyle="bold"
+                android:textSize="13dp"
+                android:textColor="@color/colorGreyLight"
+                android:textAlignment="textEnd" />
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>
