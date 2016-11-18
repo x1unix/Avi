@@ -1,46 +1,120 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.x1unix.avi.MovieDetailsActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/app_bar_height"
-        android:fitsSystemWindows="true"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-        </android.support.design.widget.CollapsingToolbarLayout>
-    </android.support.design.widget.AppBarLayout>
-
-    <include layout="@layout/content_movie_details" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
-        app:layout_anchor="@id/app_bar"
-        app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        android:orientation="vertical">
 
-</android.support.design.widget.CoordinatorLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="157dp"
+            android:background="#fff"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="10dp"
+            android:weightSum="1">
+
+            <ImageView
+                android:id="@+id/mainPoster"
+                android:layout_width="86dp"
+                android:layout_height="124dp"
+                app:srcCompat="@drawable/no_poster" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="18dp"
+                android:id="@+id/amd_header"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:id="@+id/amd_movie_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Тарзан. Легенда"
+                    android:textColor="#000"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/amd_genre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="3"
+                    android:paddingEnd="16dp"
+                    android:text="Приключения и боевики"
+                    android:textColor="@color/colorGreyLight"
+                    android:textSize="14dp"
+                    android:layout_below="@+id/amd_movie_title" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:orientation="horizontal"
+                    android:id="@+id/amd_genre_handler"
+                    android:layout_below="@+id/amd_genre">
+
+                    <TextView
+                        android:id="@+id/rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="3dp"
+                        android:text="5.0"
+                        android:textSize="14dp" />
+
+                    <ImageView
+                        android:id="@+id/rating_image"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center_vertical"
+                        android:scaleType="centerCrop"
+                        android:tint="@color/colorAccent"
+                        app:srcCompat="@drawable/star" />
+                </LinearLayout>
+                <Button
+                    android:text="Смотреть"
+                    android:paddingLeft="18dp"
+                    android:paddingRight="18dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/amd_btn_watch"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true" />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_bookmark"
+                    android:background="@null"
+                    android:id="@+id/amd_bookmark_add"
+                    android:layout_alignParentStart="false"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true" />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_bookmark_full"
+                    android:background="@null"
+                    android:id="@+id/amd_bookmark_remove"
+                    android:visibility="gone"
+                    android:layout_alignParentStart="false"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true" />
+            </RelativeLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
