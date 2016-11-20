@@ -29,6 +29,7 @@
                 android:id="@+id/mainPoster"
                 android:layout_width="86dp"
                 android:layout_height="124dp"
+                android:contentDescription="@string/movie_poster"
                 app:srcCompat="@drawable/no_poster" />
 
             <RelativeLayout

@@ -50,4 +50,5 @@
     <string name="length">Тривалість</string>
     <string name="action_add_to_bookmarks">Додати в обране</string>
     <string name="action_remove_from_bookmarks">Видалити з обраного</string>
+    <string name="movie_poster">Постер</string>
 </resources>

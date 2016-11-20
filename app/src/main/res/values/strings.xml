@@ -63,6 +63,7 @@
     <string name="length">Length</string>
     <string name="action_add_to_bookmarks">Add to bookmarks</string>
     <string name="action_remove_from_bookmarks">Remove from bookmarks</string>
+    <string name="movie_poster">Movie poster</string>
 
 
 </resources>
