@@ -140,8 +140,7 @@
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
                 android:textSize="16sp"
-                android:lineSpacingExtra="5sp"
-                android:layout_weight="1" />
+                android:lineSpacingExtra="5sp" />
 
             <LinearLayout
                 android:orientation="vertical"
