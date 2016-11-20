@@ -323,11 +323,14 @@ public class DashboardActivity extends AppCompatActivity {
      * @param movie {KPMovie} movie instance
      */
     private void openMovie(KPMovie movie) {
-        Intent mIntent = new Intent(this, MoviePlayerActivity.class);
+        Intent mIntent = new Intent(this, MovieDetailsActivity.class);
 
         // Put id and title
         mIntent.putExtra("movieId", movie.getId());
         mIntent.putExtra("movieTitle", movie.getTitle());
+        mIntent.putExtra("movieGenre", movie.getGenre());
+        mIntent.putExtra("movieRating", movie.getRating());
+        mIntent.putExtra("movieDescription", movie.getDescription());
 
         // Kickstart player
         Log.i("KPMovieOpen", "Trying to play movie [" + movie.getId() + "]");

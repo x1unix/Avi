@@ -88,6 +88,13 @@ public class KPMovie {
         return this.description;
     }
 
+    public String getGenre() {
+        return (this.genre == null) ? "" : this.genre;
+    }
+    public String getRating() {
+        return (this.rating == null) ? "" : this.rating;
+    }
+
     public double getVoteAverage() {
         if (this.rating == null) return 0;
         String splited[] = this.rating.split(" ");

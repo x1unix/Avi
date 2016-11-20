@@ -26,7 +26,7 @@
             android:weightSum="1">
 
             <ImageView
-                android:id="@+id/mainPoster"
+                android:id="@+id/amd_movie_poster"
                 android:layout_width="86dp"
                 android:layout_height="124dp"
                 android:contentDescription="@string/movie_poster"
@@ -37,7 +37,7 @@
                 android:layout_height="match_parent"
                 android:paddingLeft="18dp"
                 android:id="@+id/amd_header"
-                android:paddingTop="10dp">
+                android:paddingTop="5dp">
 
                 <TextView
                     android:id="@+id/amd_movie_title"
@@ -49,7 +49,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/amd_genre"
+                    android:id="@+id/amd_short_desc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxLines="3"
@@ -64,7 +64,7 @@
                     android:layout_marginTop="4dp"
                     android:orientation="horizontal"
                     android:id="@+id/amd_genre_handler"
-                    android:layout_below="@+id/amd_genre">
+                    android:layout_below="@+id/amd_short_desc">
 
                     <TextView
                         android:id="@+id/amd_rating"
@@ -121,7 +121,6 @@
             style="?android:attr/progressBarStyle"
             android:layout_width="match_parent"
             android:id="@+id/amd_preloader"
-            android:visibility="gone"
             android:layout_marginTop="32dp"
             android:layout_height="80sp" />
 
