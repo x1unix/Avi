@@ -117,10 +117,11 @@
                     android:layout_alignParentTop="true" />
             </RelativeLayout>
         </LinearLayout>
+
         <TextView
             android:text="@string/large_text"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:textColor="#343134"
             android:background="@drawable/border_bottom"
             android:id="@+id/amd_description"
@@ -131,6 +132,129 @@
             android:textSize="16sp"
             android:lineSpacingExtra="5sp"
             android:layout_weight="1" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:background="@drawable/border_bottom"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="Актеры и создатели"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:textColor="@color/amd_gray"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:paddingTop="20dp"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:background="@drawable/border_bottom"
+                android:paddingBottom="20sp"
+                android:layout_height="match_parent">
+                <TextView
+                    android:text="Актеры"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="20dp"
+                    android:textColor="@color/amd_dark" />
+
+                <TextView
+                    android:id="@+id/amd_actors"
+                    android:text="Дэйзи Ридли, Оскар Айзек"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="4sp"
+                    android:textColor="@color/amd_gray" />
+
+                <TextView
+                    android:text="Режисеры"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="20dp"
+                    android:textColor="@color/amd_dark" />
+
+                <TextView
+                    android:id="@+id/amd_directors"
+                    android:text="Дэйзи Ридли, Оскар Айзек"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="4sp"
+                    android:textColor="@color/amd_gray" />
+
+                <TextView
+                    android:text="Продюсеры"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="20dp"
+                    android:textColor="@color/amd_dark" />
+
+                <TextView
+                    android:id="@+id/amd_producers"
+                    android:text="Дэйзи Ридли, Оскар Айзек"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="4sp"
+                    android:textColor="@color/amd_gray" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:background="@drawable/border_bottom"
+                android:layout_marginTop="5sp"
+                android:paddingBottom="20sp"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:text="Возраст. ограничения"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="20dp"
+                    android:textColor="@color/amd_dark" />
+                <TextView
+                    android:id="@+id/amd_age_restrictions"
+                    android:text="PG-13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="4sp"
+                    android:textColor="@color/amd_gray" />
+
+                <TextView
+                    android:text="Год выпуска"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="20dp"
+                    android:textColor="@color/amd_dark" />
+
+                <TextView
+                    android:id="@+id/amd_year"
+                    android:text="2016"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="4sp"
+                    android:textColor="@color/amd_gray" />
+
+                <TextView
+                    android:text="Продолжительность"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="20dp"
+                    android:textColor="@color/amd_dark" />
+
+                <TextView
+                    android:id="@+id/amd_length"
+                    android:text="114 мин."
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="4sp"
+                    android:textColor="@color/amd_gray" />
+            </LinearLayout>
+
+        </LinearLayout>
+
 
     </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
