@@ -121,8 +121,8 @@
             style="?android:attr/progressBarStyle"
             android:layout_width="match_parent"
             android:id="@+id/amd_preloader"
-            android:layout_marginTop="32dp"
-            android:layout_height="80sp" />
+            android:layout_marginTop="52dp"
+            android:layout_height="60sp" />
 
         <LinearLayout
             android:orientation="vertical"

@@ -1,14 +1,11 @@
 package com.x1unix.avi;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Movie;
 import android.graphics.PorterDuff.Mode;
 import android.net.ConnectivityManager;
 import android.net.Uri;
@@ -51,7 +48,7 @@ public class DashboardActivity extends AppCompatActivity {
     private RecyclerView moviesSearchResultsView;
     private KPApiInterface searchService = null;
     private MenuItem searchItem;
-    private List<KPMovie> movies = new ArrayList<KPMovie>();
+    private List<KPMovieItem> movies = new ArrayList<KPMovieItem>();
 
     // Menu items
     private MenuItem menuItemSettings;
@@ -133,7 +130,7 @@ public class DashboardActivity extends AppCompatActivity {
                     new ClickListener() {
                 @Override
                 public void onClick(View view, int position) {
-                    KPMovie movie = movies.get(position);
+                    KPMovieItem movie = movies.get(position);
                     openMovie(movie);
                 }
 
@@ -320,9 +317,9 @@ public class DashboardActivity extends AppCompatActivity {
 
     /**
      * Open movie in player
-     * @param movie {KPMovie} movie instance
+     * @param movie {KPMovieItem} movie instance
      */
-    private void openMovie(KPMovie movie) {
+    private void openMovie(KPMovieItem movie) {
         Intent mIntent = new Intent(this, MovieDetailsActivity.class);
 
         // Put id and title

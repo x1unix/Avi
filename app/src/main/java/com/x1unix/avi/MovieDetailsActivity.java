@@ -38,6 +38,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         extractIntentData();
         setBasicMovieInfo();
+        getFullMovieInfo();
     }
 
     private void extractIntentData() {
@@ -60,5 +61,9 @@ public class MovieDetailsActivity extends AppCompatActivity {
         new DownloadPosterTask(
                 (ImageView) findViewById(R.id.amd_movie_poster)
         ).getPosterByKpId(movieId);
+    }
+
+    private void getFullMovieInfo() {
+
     }
 }
