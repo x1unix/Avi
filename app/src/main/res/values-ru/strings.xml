@@ -38,4 +38,14 @@
 
     <!--App Info-->
     <string name="avi_app_author">Денис (x1unix) Седченко, 2016.</string>
+
+    <!-- Movie details activity -->
+    <string name="action_watch">Смотреть</string>
+    <string name="actors_and_creators">Актеры и создатели</string>
+    <string name="actors">Актеры</string>
+    <string name="directors">Режисеры</string>
+    <string name="producers">Продюсеры</string>
+    <string name="age_restrictions">Возраст. ограничения</string>
+    <string name="release_year">Год выпуска</string>
+    <string name="length">Продолжительность</string>
 </resources>

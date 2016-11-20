@@ -55,4 +55,15 @@
     </string>
     <string name="action_settings">Settings</string>
 
+    <!-- Movie details activity -->
+    <string name="action_watch">Watch</string>
+    <string name="actors_and_creators">Actors And Creators</string>
+    <string name="actors">Actors</string>
+    <string name="directors">Directors</string>
+    <string name="producers">Producers</string>
+    <string name="age_restrictions">Age Restrictions</string>
+    <string name="release_year">Release Year</string>
+    <string name="length">Length</string>
+
+
 </resources>
