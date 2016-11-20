@@ -5,7 +5,7 @@
     <string name="avi_no_internet">Схоже ви не підключені до мережі</string>
     <string name="avi_oops">Упс, сталась помилка :(</string>
     <string name="avi_internet_required">Необхідне підключення до Інтернету</string>
-    <string name="avi_search_hint">Пошук фільмів</string>
+    <string name="avi_search_hint">Пошук фільмів та серіалів</string>
     <string name="avi_start_hint">Для початку роботи, виберіть пошук та уведіть їм\'я бажаного фільму</string>
     <string name="avi_no_items_msg">За цим запитом нічого не знайдено.</string>
     <string name="avi_wellcome">Ласкаво просимо до Avi!</string>
@@ -48,4 +48,6 @@
     <string name="age_restrictions">Вікові обмеження</string>
     <string name="release_year">Рік випуску</string>
     <string name="length">Тривалість</string>
+    <string name="action_add_to_bookmarks">Додати в обране</string>
+    <string name="action_remove_from_bookmarks">Видалити з обраного</string>
 </resources>

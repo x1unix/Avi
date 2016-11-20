@@ -3,7 +3,7 @@
     <string name="app_name" translatable="false">Avi</string>
     <string name="avi_wellcome">Wellcome to Avi!</string>
     <string name="avi_start_hint">To begin, press search button and enter movie name</string>
-    <string name="avi_search_hint">Search movies</string>
+    <string name="avi_search_hint">Search movies and TV-shows</string>
     <string name="avi_oops">Oops, an error occurred :(</string>
     <string name="avi_internet_required">Internet connection required to do this</string>
     <string name="avi_no_internet">Looks like you are offline</string>
@@ -50,9 +50,6 @@
     <string name="avi_app_author">Denis (x1unix) Sedchenko, 2016.</string>
     <string name="avi_app_mail" translatable="false">avi-app@x1unix.com</string>
     <string name="title_activity_movie_details">MovieDetailsActivity</string>
-    <string name="large_text">
-        Через тридцать лет после гибели Дарта Вейдера и Императора галактика по-прежнему в опасности. Государственное образование Первый Орден во главе с таинственным верховным лидером Сноуком и его правой рукой Кайло Реном идёт по стопам Империи, пытаясь захватить всю власть. В это нелёгкое время судьба сводит юную девушку Рей и бывшего штурмовика Первого Ордена Финна с героями войны с Империей - Ханом Соло, Чубаккой и генералом Леей. Вместе они должны дать бой Первому Ордену, однако настаёт тот момент, когда становится очевидно, что лишь джедаи могут остановить Сноука и Кайло Рена.
-    </string>
     <string name="action_settings">Settings</string>
 
     <!-- Movie details activity -->
@@ -64,6 +61,8 @@
     <string name="age_restrictions">Age Restrictions</string>
     <string name="release_year">Release Year</string>
     <string name="length">Length</string>
+    <string name="action_add_to_bookmarks">Add to bookmarks</string>
+    <string name="action_remove_from_bookmarks">Remove from bookmarks</string>
 
 
 </resources>

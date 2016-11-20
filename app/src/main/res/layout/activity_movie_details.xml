@@ -43,7 +43,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-                    android:text="Звёздные войны: Пробуждение силы"
                     android:textColor="#000"
                     android:textSize="20dp"
                     android:textStyle="bold" />
@@ -54,7 +53,6 @@
                     android:layout_height="wrap_content"
                     android:maxLines="3"
                     android:paddingEnd="16dp"
-                    android:text="Приключения и боевики"
                     android:textColor="@color/colorGreyLight"
                     android:textSize="14dp"
                     android:layout_below="@+id/amd_movie_title" />
@@ -68,11 +66,10 @@
                     android:layout_below="@+id/amd_genre">
 
                     <TextView
-                        android:id="@+id/rating"
+                        android:id="@+id/amd_rating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="3dp"
-                        android:text="5.0"
                         android:textSize="14dp" />
 
                     <ImageView
@@ -102,7 +99,8 @@
                     android:id="@+id/amd_bookmark_add"
                     android:layout_alignParentStart="false"
                     android:layout_alignParentEnd="true"
-                    android:layout_alignParentTop="true" />
+                    android:layout_alignParentTop="true"
+                    android:contentDescription="@string/action_add_to_bookmarks"/>
 
                 <ImageButton
                     android:layout_width="wrap_content"
@@ -113,17 +111,17 @@
                     android:visibility="gone"
                     android:layout_alignParentStart="false"
                     android:layout_alignParentEnd="true"
-                    android:layout_alignParentTop="true" />
+                    android:layout_alignParentTop="true"
+                    android:contentDescription="@string/action_remove_from_bookmarks" />
             </RelativeLayout>
         </LinearLayout>
 
         <TextView
-            android:text="@string/large_text"
+            android:id="@+id/amd_description"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:textColor="#343134"
             android:background="@drawable/border_bottom"
-            android:id="@+id/amd_description"
             android:paddingTop="12dp"
             android:paddingBottom="12dp"
             android:paddingStart="20dp"
@@ -163,7 +161,6 @@
 
                 <TextView
                     android:id="@+id/amd_actors"
-                    android:text="Дэйзи Ридли, Оскар Айзек"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="4sp"
@@ -178,7 +175,6 @@
 
                 <TextView
                     android:id="@+id/amd_directors"
-                    android:text="Дэйзи Ридли, Оскар Айзек"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="4sp"
@@ -193,7 +189,6 @@
 
                 <TextView
                     android:id="@+id/amd_producers"
-                    android:text="Дэйзи Ридли, Оскар Айзек"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="4sp"
@@ -215,7 +210,6 @@
                     android:textColor="@color/amd_dark" />
                 <TextView
                     android:id="@+id/amd_age_restrictions"
-                    android:text="PG-13"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="4sp"
@@ -230,7 +224,6 @@
 
                 <TextView
                     android:id="@+id/amd_year"
-                    android:text="2016"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="4sp"
@@ -245,7 +238,6 @@
 
                 <TextView
                     android:id="@+id/amd_length"
-                    android:text="114 мин."
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="4sp"
