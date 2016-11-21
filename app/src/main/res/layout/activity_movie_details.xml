@@ -214,7 +214,18 @@
                     android:layout_marginTop="5sp"
                     android:paddingBottom="20sp"
                     android:layout_height="match_parent">
-
+                    <TextView
+                        android:text="@string/genre"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="20dp"
+                        android:textColor="@color/amd_dark" />
+                    <TextView
+                        android:id="@+id/amd_genre"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="4sp"
+                        android:textColor="@color/amd_gray" />
                     <TextView
                         android:text="@string/age_restrictions"
                         android:layout_width="wrap_content"

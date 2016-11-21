@@ -48,6 +48,7 @@
     <string name="age_restrictions">Возраст. ограничения</string>
     <string name="release_year">Год выпуска</string>
     <string name="length">Продолжительность</string>
+    <string name="genre">Жанр</string>
     <string name="action_add_to_bookmarks">Добавить в избранное</string>
     <string name="action_remove_from_bookmarks">Удалить из избранного</string>
     <string name="movie_poster">Постер к фильму</string>

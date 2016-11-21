@@ -123,6 +123,10 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
     private void applyMovieData(final KPMovie movie) {
         ((TextView) findViewById(R.id.amd_description)).setText(movie.getDescription());
+        ((TextView) findViewById(R.id.amd_genre)).setText(movie.getGenre());
+        ((TextView) findViewById(R.id.amd_age_restrictions)).setText(movie.getRatingMPAA());
+        ((TextView) findViewById(R.id.amd_year)).setText(movie.getYear());
+        ((TextView) findViewById(R.id.amd_length)).setText(movie.getFilmLength());
         setInfoVisibility(true);
     }
 }
