@@ -75,6 +75,10 @@ public class KPMovie {
         return country;
     }
 
+    public String getDescription() {
+        return (description == null) ? "" : description;
+    }
+
     public String getGenre() {
         return genre;
     }

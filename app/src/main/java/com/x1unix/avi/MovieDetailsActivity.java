@@ -122,6 +122,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     }
 
     private void applyMovieData(final KPMovie movie) {
+        ((TextView) findViewById(R.id.amd_description)).setText(movie.getDescription());
         setInfoVisibility(true);
     }
 }
