@@ -19,8 +19,12 @@ import com.x1unix.avi.adapter.MoviesAdapter;
 import com.x1unix.avi.helpers.DownloadPosterTask;
 import com.x1unix.avi.model.KPMovie;
 import com.x1unix.avi.model.KPMovieSearchResult;
+import com.x1unix.avi.model.KPPeople;
 import com.x1unix.avi.rest.KPApiInterface;
 import com.x1unix.avi.rest.KPRestClient;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,6 +40,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private String movieRating;
     private ActionBar actionBar;
     private KPApiInterface client;
+    private String currentLocale;
 
 
 
@@ -52,6 +57,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         extractIntentData();
         setBasicMovieInfo();
+
+        currentLocale = getResources().getConfiguration().locale.getLanguage();
 
         // Get movie info in background
         (new Thread(new Runnable() {
@@ -122,11 +129,31 @@ public class MovieDetailsActivity extends AppCompatActivity {
     }
 
     private void applyMovieData(final KPMovie movie) {
+        // Main Info
         ((TextView) findViewById(R.id.amd_description)).setText(movie.getDescription());
         ((TextView) findViewById(R.id.amd_genre)).setText(movie.getGenre());
         ((TextView) findViewById(R.id.amd_age_restrictions)).setText(movie.getRatingMPAA());
         ((TextView) findViewById(R.id.amd_year)).setText(movie.getYear());
         ((TextView) findViewById(R.id.amd_length)).setText(movie.getFilmLength());
+
+        // Artists, etc.
+        setAuthorInfo(movie.getDirectors(), R.id.amd_directors);
+        setAuthorInfo(movie.getActors(), R.id.amd_actors);
+        setAuthorInfo(movie.getProducers(), R.id.amd_producers);
+
+
+
         setInfoVisibility(true);
+    }
+
+    private void setAuthorInfo(List<KPPeople> src, int targetId) {
+        String val = "-";
+        if(!src.isEmpty()) {
+            val = "";
+            for (KPPeople man: src) {
+                val += man.getName(currentLocale);
+            }
+        }
+        ((TextView) findViewById(targetId)).setText(val);
     }
 }

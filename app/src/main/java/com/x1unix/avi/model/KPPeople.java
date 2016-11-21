@@ -18,9 +18,7 @@ public class KPPeople {
     @SerializedName("professionKey")
     private static String professionKey;
 
-    public KPPeople() {
 
-    }
 
     public KPPeople(String iid, String itype, String inameRU, String inameEN, String iprofessionKey) {
         id = iid;
