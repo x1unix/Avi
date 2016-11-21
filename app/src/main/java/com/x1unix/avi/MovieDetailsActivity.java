@@ -7,11 +7,24 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.x1unix.avi.adapter.MoviesAdapter;
 import com.x1unix.avi.helpers.DownloadPosterTask;
+import com.x1unix.avi.model.KPMovie;
+import com.x1unix.avi.model.KPMovieSearchResult;
+import com.x1unix.avi.rest.KPApiInterface;
+import com.x1unix.avi.rest.KPRestClient;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MovieDetailsActivity extends AppCompatActivity {
 
@@ -22,6 +35,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private String movieDescription;
     private String movieRating;
     private ActionBar actionBar;
+    private KPApiInterface client;
 
 
 
@@ -38,7 +52,14 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         extractIntentData();
         setBasicMovieInfo();
-        getFullMovieInfo();
+
+        // Get movie info in background
+        (new Thread(new Runnable() {
+            @Override
+            public void run() {
+                getFullMovieInfo();
+            }
+        })).start();
     }
 
     private void extractIntentData() {
@@ -63,7 +84,44 @@ public class MovieDetailsActivity extends AppCompatActivity {
         ).getPosterByKpId(movieId);
     }
 
-    private void getFullMovieInfo() {
+    private void setProgressVisibility(boolean ifShow) {
+        int visible = (ifShow) ? View.VISIBLE : View.GONE;
+        ((ProgressBar) findViewById(R.id.amd_preloader)).setVisibility(visible);
+    }
 
+    private void setInfoVisibility(boolean ifShow) {
+        int visible = (ifShow) ? View.VISIBLE : View.GONE;
+        ((LinearLayout) findViewById(R.id.amd_movie_info)).setVisibility(visible);
+    }
+
+    private void getFullMovieInfo() {
+        client = KPRestClient.getClient().create(KPApiInterface.class);
+        Call<KPMovie> call = client.getMovieById(movieId);
+        call.enqueue(new Callback<KPMovie>() {
+            @Override
+            public void onResponse(Call<KPMovie>call, Response<KPMovie> response) {
+                setProgressVisibility(false);
+
+                int statusCode = response.code();
+                KPMovie movie = response.body();
+
+                if (movie != null) {
+                    applyMovieData(movie);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<KPMovie>call, Throwable t) {
+                // Log error here since request failed
+                setProgressVisibility(false);
+
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.err_movie_info_fetch_fail) + t.toString(),
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void applyMovieData(final KPMovie movie) {
+        setInfoVisibility(true);
     }
 }
