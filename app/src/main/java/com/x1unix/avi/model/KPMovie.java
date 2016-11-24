@@ -40,11 +40,11 @@ public class KPMovie {
     private String type;
 
     @SerializedName("creators")
-    private List<KPPeople>[] creators;
+    private List<List<KPPeople>> creators = new ArrayList<>();
 
     public KPMovie(String ifilmID, String inameRU, String inameEN, String iyear, String ifilmLength,
                    String icountry, String igenre, String idescription, String iratingMPAA,
-                   String iratingAgeLimits, String itype, List<KPPeople>[] icreators) {
+                   String iratingAgeLimits, String itype, List<List<KPPeople>> icreators) {
         filmID = ifilmID;
         nameRU = inameRU;
         nameEN = inameEN;
@@ -97,30 +97,30 @@ public class KPMovie {
 
     public List<KPPeople> getDirectors() {
         List<KPPeople> result;
-        if ((creators == null) || (creators.length == 0)) {
+        if ((creators == null) || (creators.size() == 0)) {
             result = new ArrayList<KPPeople>();
         } else {
-            result = creators[0];
+            result = creators.get(0);
         }
         return result;
     }
 
     public List<KPPeople> getActors() {
         List<KPPeople> result;
-        if ((creators == null) || (creators.length < 2)) {
+        if ((creators == null) || (creators.size() < 2)) {
             result = new ArrayList<KPPeople>();
         } else {
-            result = creators[1];
+            result = creators.get(1);
         }
         return result;
     }
 
     public List<KPPeople> getProducers() {
         List<KPPeople> result;
-        if ((creators == null) || (creators.length < 3)) {
+        if ((creators == null) || (creators.size() < 3)) {
             result = new ArrayList<KPPeople>();
         } else {
-            result = creators[2];
+            result = creators.get(2);
         }
         return result;
     }
