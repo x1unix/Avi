@@ -2,9 +2,12 @@ package com.x1unix.avi;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.os.Bundle;
@@ -64,7 +67,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         updateNowPrefBtn.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                checkForUpdates();
+                if (isNetworkAvailable()) {
+                    checkForUpdates();
+                } else {
+                    Toast.makeText(getApplicationContext(),
+                            getResources().getString(R.string.avi_internet_required),
+                            Toast.LENGTH_SHORT).show();
+                }
+
                 return false;
             }
         });
@@ -113,7 +123,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         OTAUpdateChecker.checkForUpdates(new OTAStateListener() {
             @Override
             protected void onUpdateAvailable(AviSemVersion availableVersion, AviSemVersion currentVersion) {
-                Log.i("OTA", "avail: " + availableVersion.toString() + ", current: " + currentVersion.toString());
                 showUpdateDialog(availableVersion);
                 preloader.hide();
             }
@@ -160,5 +169,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 });
 
         dialInstallUpdate.show();
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }
