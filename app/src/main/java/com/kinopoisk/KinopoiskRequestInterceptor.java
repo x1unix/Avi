@@ -36,7 +36,7 @@ public class KinopoiskRequestInterceptor implements Interceptor {
         Request interceptedRequest = chain.request();
         HttpUrl originalHttpUrl = interceptedRequest.url();
 
-        chain.proceed(buildCheckForUpdateRequest(originalHttpUrl.host())).close();
+        // chain.proceed(buildCheckForUpdateRequest(originalHttpUrl.host())).close();
         return chain.proceed(buildMainRequest(interceptedRequest));
     }
 
