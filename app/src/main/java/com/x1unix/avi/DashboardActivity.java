@@ -254,48 +254,42 @@ public class DashboardActivity extends AppCompatActivity {
     /**
      * Search results response handler
      */
-    private Callback<ResponseBody> searchResultHandler = new Callback<ResponseBody>() {
+    private Callback<KPMovieSearchResult> searchResultHandler = new Callback<KPMovieSearchResult>() {
         @Override
-        public void onResponse(Call<ResponseBody>call, Response<ResponseBody> response) {
+        public void onResponse(Call<KPMovieSearchResult>call, Response<KPMovieSearchResult> response) {
             setProgressVisibility(false);
 
-            String s = "";
-            try {
-                 s = response.body().string();
-            } catch(IOException e) {
-
-            }
             int statusCode = response.code();
 
-//            KPMovieSearchResult result = response.body();
-//
-//            if (result != null) {
-//                movies = result.getResults();
-//
-//                MoviesAdapter adapter = new MoviesAdapter(movies,
-//                        R.layout.list_item_movie,
-//                        getApplicationContext(),
-//                        getResources().getConfiguration().locale);
-//
-//                if (adapter.getItemCount() > 0) {
-//                    setStateVisibility(true, STATE_LIST);
-//                    moviesSearchResultsView.setAdapter(adapter);
-//                } else {
-//                    setStateVisibility(false, STATE_LIST);
-//                    setStateVisibility(true, STATE_WELCOME);
-//                }
-//            } else {
-//                setStateVisibility(false, STATE_LIST);
-//                setStateVisibility(true, STATE_WELCOME);
-//
-//                Toast.makeText(getApplicationContext(),
-//                        getResources().getString(R.string.avi_no_items_msg), Toast.LENGTH_LONG)
-//                        .show();
-//            }
+            KPMovieSearchResult result = response.body();
+
+            if (result != null) {
+                movies = result.getResults();
+
+                MoviesAdapter adapter = new MoviesAdapter(movies,
+                        R.layout.list_item_movie,
+                        getApplicationContext(),
+                        getResources().getConfiguration().locale);
+
+                if (adapter.getItemCount() > 0) {
+                    setStateVisibility(true, STATE_LIST);
+                    moviesSearchResultsView.setAdapter(adapter);
+                } else {
+                    setStateVisibility(false, STATE_LIST);
+                    setStateVisibility(true, STATE_WELCOME);
+                }
+            } else {
+                setStateVisibility(false, STATE_LIST);
+                setStateVisibility(true, STATE_WELCOME);
+
+                Toast.makeText(getApplicationContext(),
+                        getResources().getString(R.string.avi_no_items_msg), Toast.LENGTH_LONG)
+                        .show();
+            }
         }
 
         @Override
-        public void onFailure(Call<ResponseBody>call, Throwable t) {
+        public void onFailure(Call<KPMovieSearchResult>call, Throwable t) {
             // Log error here since request failed
             setProgressVisibility(false);
             setStateVisibility(true, STATE_ERROR);
@@ -323,7 +317,7 @@ public class DashboardActivity extends AppCompatActivity {
         setProgressVisibility(true);
 //        Call<KPMovieSearchResult> call = searchService.findMovies(query);
 //        call.enqueue(searchResultHandler);
-        Call<ResponseBody> call = searchService.findMovies(query);
+        Call<KPMovieSearchResult> call = searchService.findMovies(query);
         call.enqueue(searchResultHandler);
     }
 

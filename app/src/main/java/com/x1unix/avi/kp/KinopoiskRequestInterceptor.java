@@ -1,4 +1,6 @@
 package com.x1unix.avi.kp;
+import android.os.Build;
+
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -18,7 +20,11 @@ import okhttp3.Response;
 public class KinopoiskRequestInterceptor implements Interceptor {
 
     private final String KP_SECRET = "a17qbcw1du0aedm";
-    private final String KP_UUID = "b551edb50f87445ba338f307a2e6baee";
+    private final String KP_UUID = "84e8b92499a32a3d0d8ea956e6a05d76";
+    private final String KP_CLIENTID = "55decdcf6d4cd1bcaa1b3856";
+
+    private final String OS_API = String.valueOf(android.os.Build.VERSION.SDK_INT);
+    private final String OS_VERSION = Build.VERSION.RELEASE;
 
     @Override
     public Response intercept(Chain chain) throws IOException {
@@ -58,17 +64,16 @@ public class KinopoiskRequestInterceptor implements Interceptor {
 
         // Put additional headers to look like KP client
         request = request.newBuilder()
-                .addHeader("Android-Api-Version", "22")
                 .removeHeader("User-Agent")
-                .addHeader("User-Agent", "Android client (5.0 / api21), ru.kinopoisk/3.11.2 (27) (gzip)")
-                .addHeader("countryID", "2")
-                .addHeader("ClientId", "55decdcf6d4cd1bcaa1b3856")
                 .addHeader("device", "android")
-                .addHeader("Accept", "application/json")
+                .addHeader("Android-Api-Version", "22")
+                .addHeader("countryID", "2")
+                .addHeader("ClientId", KP_CLIENTID)
                 .addHeader("clientDate", clientDate)
                 .addHeader("cityID", "2")
                 .addHeader("Image-Scale", "3")
                 .addHeader("Cache-Control", "max-stale=0")
+                .addHeader("User-Agent", "Android client (5.1 / api22), ru.kinopoisk/3.7.0 (45)")
                 .addHeader("Accept-Encoding", "gzip")
                 .addHeader("Cookie", "user_country=ru")
                 .url(url)

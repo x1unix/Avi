@@ -14,15 +14,15 @@ public class KPRestClient {
     public static Retrofit getClient() {
         if (retrofit == null) {
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-            logging.setLevel(HttpLoggingInterceptor.Level.HEADERS);
+            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
             KinopoiskRequestInterceptor interceptor = new KinopoiskRequestInterceptor();
             OkHttpClient client = new OkHttpClient.Builder()
                     .addInterceptor(interceptor)
                     .addInterceptor(logging)
                     .build();
-//.addConverterFactory(GsonConverterFactory.create())
             retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
                     .client(client)
                     .build();
         }

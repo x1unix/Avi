@@ -11,6 +11,6 @@ import retrofit2.http.Query;
 
 public interface KPApiInterface {
     @GET("getKPSearchInFilms")
-    Call<ResponseBody> findMovies(@Query("keyword") String keyword);
+    Call<KPMovieSearchResult> findMovies(@Query("keyword") String keyword);
 
 }
