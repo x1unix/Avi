@@ -1,6 +1,7 @@
 package com.x1unix.avi.rest;
 
 import com.x1unix.avi.model.KPMovieSearchResult;
+import com.x1unix.avi.model.KPSearchResponse;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -11,6 +12,6 @@ import retrofit2.http.Query;
 
 public interface KPApiInterface {
     @GET("getKPSearchInFilms")
-    Call<KPMovieSearchResult> findMovies(@Query("keyword") String keyword);
+    Call<KPSearchResponse> findMovies(@Query("keyword") String keyword);
 
 }
