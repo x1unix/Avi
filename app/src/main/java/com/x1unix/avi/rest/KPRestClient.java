@@ -6,6 +6,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import com.kinopoisk.*;
 
 public class KPRestClient {
     public static final String BASE_URL = "https://ext.kinopoisk.ru/ios/3.11.0/";
@@ -13,18 +14,7 @@ public class KPRestClient {
 
     public static Retrofit getClient() {
         if (retrofit == null) {
-            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-            KinopoiskRequestInterceptor interceptor = new KinopoiskRequestInterceptor();
-            OkHttpClient client = new OkHttpClient.Builder()
-                    .addInterceptor(interceptor)
-                    .addInterceptor(logging)
-                    .build();
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .client(client)
-                    .build();
+            retrofit = (new NetworkApiFactory()).getClient();
         }
         return retrofit;
     }

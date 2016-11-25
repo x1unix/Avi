@@ -58,10 +58,10 @@ public class NetworkApiFactory {
         return JacksonConverterFactory.create(objectMapper);
     }
 
-    Retrofit getClient(OkHttpClient client) {
+    public Retrofit getClient() {
         return new Retrofit.Builder()
                 .baseUrl(Constants.KINOPOISK_ENDPOINT + Constants.API_VERSION + "/")
-                .client(client)
+                .client(provideHttpClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
