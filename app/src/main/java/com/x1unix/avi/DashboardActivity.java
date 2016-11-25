@@ -29,6 +29,7 @@ import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
 import android.util.Log;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +38,7 @@ import android.net.NetworkInfo;
 import com.x1unix.avi.rest.*;
 import com.x1unix.avi.model.*;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -252,43 +254,52 @@ public class DashboardActivity extends AppCompatActivity {
     /**
      * Search results response handler
      */
-    private Callback<KPMovieSearchResult> searchResultHandler = new Callback<KPMovieSearchResult>() {
+    private Callback<KPSearchResponse> searchResultHandler = new Callback<KPSearchResponse>() {
         @Override
-        public void onResponse(Call<KPMovieSearchResult>call, Response<KPMovieSearchResult> response) {
+        public void onResponse(Call<KPSearchResponse>call, Response<KPSearchResponse> response) {
             setProgressVisibility(false);
 
             int statusCode = response.code();
 
-            KPMovieSearchResult result = response.body();
+            KPSearchResponse resp = response.body();
 
-            if (result != null) {
-                movies = result.getResults();
+            if (resp != null) {
+                KPMovieSearchResult result = resp.getData();
 
-                MoviesAdapter adapter = new MoviesAdapter(movies,
-                        R.layout.list_item_movie,
-                        getApplicationContext(),
-                        getResources().getConfiguration().locale);
+                if (result != null) {
+                    movies = result.getResults();
 
-                if (adapter.getItemCount() > 0) {
-                    setStateVisibility(true, STATE_LIST);
-                    moviesSearchResultsView.setAdapter(adapter);
+                    MoviesAdapter adapter = new MoviesAdapter(movies,
+                            R.layout.list_item_movie,
+                            getApplicationContext(),
+                            getResources().getConfiguration().locale);
+
+                    if (adapter.getItemCount() > 0) {
+                        setStateVisibility(true, STATE_LIST);
+                        moviesSearchResultsView.setAdapter(adapter);
+                    } else {
+                        setStateVisibility(false, STATE_LIST);
+                        setStateVisibility(true, STATE_WELCOME);
+                    }
                 } else {
-                    setStateVisibility(false, STATE_LIST);
-                    setStateVisibility(true, STATE_WELCOME);
+                    showNoItems();
                 }
             } else {
-                setStateVisibility(false, STATE_LIST);
-                setStateVisibility(true, STATE_WELCOME);
-
-                // Show message if there is no items
-                Toast.makeText(getApplicationContext(),
-                        getResources().getString(R.string.avi_no_items_msg), Toast.LENGTH_LONG)
-                        .show();
+                showNoItems();
             }
         }
 
+        private void showNoItems() {
+            setStateVisibility(false, STATE_LIST);
+            setStateVisibility(true, STATE_WELCOME);
+
+            Toast.makeText(getApplicationContext(),
+                    getResources().getString(R.string.avi_no_items_msg), Toast.LENGTH_LONG)
+                    .show();
+        }
+
         @Override
-        public void onFailure(Call<KPMovieSearchResult>call, Throwable t) {
+        public void onFailure(Call<KPSearchResponse>call, Throwable t) {
             // Log error here since request failed
             setProgressVisibility(false);
             setStateVisibility(true, STATE_ERROR);
@@ -314,7 +325,9 @@ public class DashboardActivity extends AppCompatActivity {
         setStateVisibility(false, STATE_WELCOME);
 
         setProgressVisibility(true);
-        Call<KPMovieSearchResult> call = searchService.findMovies(query);
+//        Call<KPMovieSearchResult> call = searchService.findMovies(query);
+//        call.enqueue(searchResultHandler);
+        Call<KPSearchResponse> call = searchService.findMovies(query);
         call.enqueue(searchResultHandler);
     }
 
