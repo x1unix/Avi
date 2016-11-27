@@ -8,13 +8,13 @@ import com.google.gson.annotations.SerializedName;
 
 public class KPSearchResponse {
     @SerializedName("resultCode")
-    private int resultCode = 0;
+    protected int resultCode = 0;
 
     @SerializedName("message")
-    private String message = "";
+    protected String message = "";
 
     @SerializedName("data")
-    private KPMovieSearchResult data;
+    protected KPMovieSearchResult data;
 
     public KPSearchResponse(int code, String msg, KPMovieSearchResult res) {
         resultCode = code;
