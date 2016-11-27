@@ -14,6 +14,7 @@
     <string name="avi_help">Help</string>
     <string name="avi_refresh">Refresh</string>
     <string name="avi_please_wait">Please wait&#8230;</string>
+    <string name="feature_not_available">Feature will be available on future releases.</string>
     <string name="title_activity_movie_player" translatable="false">Avi Movie Player</string>
 
     <!--Settings Props Labels-->

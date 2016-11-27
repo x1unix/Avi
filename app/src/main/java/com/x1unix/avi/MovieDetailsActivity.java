@@ -92,6 +92,9 @@ public abstract class MovieDetailsActivity extends AppCompatActivity implements 
                 watchMovie();
                 break;
             default:
+                Toast.makeText(getApplicationContext(),
+                        getResources().getString(R.string.feature_not_available),
+                        Toast.LENGTH_LONG).show();
                 break;
         }
     }

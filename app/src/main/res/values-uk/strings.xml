@@ -13,6 +13,7 @@
     <string name="avi_help">Допомога</string>
     <string name="avi_refresh">Оновити</string>
     <string name="avi_please_wait">Зачекайте будь-ласка&#8230;</string>
+    <string name="feature_not_available">Функція буде доступна в майбутніх релізах</string>
 
     <!--Settings Props Labels-->
     <string name="pref_category_video">Відео</string>
