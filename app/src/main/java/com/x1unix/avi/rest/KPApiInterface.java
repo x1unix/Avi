@@ -14,7 +14,7 @@ public interface KPApiInterface {
     @GET("getKPSearchInFilms")
     Call<KPSearchResponse> findMovies(@Query("keyword") String keyword);
 
-    @GET("getFilm")
+    @GET("getKPFilmDetailView")
     Call<KPMovie> getMovieById(@Query("filmID") String filmId);
 
 }
