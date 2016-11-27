@@ -125,6 +125,31 @@
             android:layout_height="60sp" />
 
         <LinearLayout
+            android:id="@+id/amd_msg_fail"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginTop="32dp">
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:textColor="@color/amd_dark"
+                android:text="@string/err_movie_info_fetch_fail"
+                android:gravity="center_horizontal"
+                android:textSize="16sp">
+            </TextView>
+
+            <Button
+                android:id="@+id/amd_retry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/avi_refresh"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp">
+            </Button>
+        </LinearLayout>
+        <LinearLayout
             android:id="@+id/amd_movie_info"
             android:orientation="vertical"
             android:layout_width="match_parent"

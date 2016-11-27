@@ -34,7 +34,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public abstract class MovieDetailsActivity extends AppCompatActivity implements View.OnClickListener{
+public class MovieDetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Intent args;
     private String movieId;
@@ -48,6 +48,7 @@ public abstract class MovieDetailsActivity extends AppCompatActivity implements 
 
     private ImageButton btnAddToBookmarks;
     private Button btnWatchMovie;
+    private Button btnRetry;
 
 
 
@@ -82,14 +83,20 @@ public abstract class MovieDetailsActivity extends AppCompatActivity implements 
     private void initUIElements() {
         btnAddToBookmarks = (ImageButton) findViewById(R.id.amd_bookmark_add);
         btnWatchMovie = (Button) findViewById(R.id.amd_btn_watch);
+        btnRetry = (Button) findViewById(R.id.amd_retry);
 
         btnWatchMovie.setOnClickListener(this);
+        btnAddToBookmarks.setOnClickListener(this);
+        btnRetry.setOnClickListener(this);
     }
 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.amd_btn_watch:
                 watchMovie();
+                break;
+            case R.id.amd_retry:
+                retry();
                 break;
             default:
                 Toast.makeText(getApplicationContext(),
@@ -142,8 +149,17 @@ public abstract class MovieDetailsActivity extends AppCompatActivity implements 
         ((LinearLayout) findViewById(R.id.amd_movie_info)).setVisibility(visible);
     }
 
+    private void setErrVisibility(boolean ifShow) {
+        int visible = (ifShow) ? View.VISIBLE : View.GONE;
+        ((LinearLayout) findViewById(R.id.amd_msg_fail)).setVisibility(visible);
+    }
+
+
+
     private void getFullMovieInfo() {
-        client = KPRestClient.getClient().create(KPApiInterface.class);
+        if (client == null) {
+            client = KPRestClient.getClient().create(KPApiInterface.class);
+        }
         Call<KPMovieDetailViewResponse> call = client.getMovieById(movieId);
         call.enqueue(new Callback<KPMovieDetailViewResponse>() {
             @Override
@@ -169,9 +185,18 @@ public abstract class MovieDetailsActivity extends AppCompatActivity implements 
             }
         });
     }
+
+    private void retry() {
+        setErrVisibility(false);
+        setProgressVisibility(true);
+        getFullMovieInfo();
+    }
+
     private void showNoMovieDataMsg(String msg) {
         // Log error here since request failed
         setProgressVisibility(false);
+        setErrVisibility(true);
+
         String prefix = getResources().getString(R.string.err_movie_info_fetch_fail);
         Toast.makeText(getApplicationContext(), prefix + " " + msg,
                 Toast.LENGTH_LONG).show();
