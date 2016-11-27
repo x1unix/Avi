@@ -38,6 +38,7 @@
     <string name="pref_updates_autocheck_desc">Разрешить приложению автоматически проверять обновления.</string>
 
     <!--App Info-->
+    <string name="action_settings">Настройки</string>
     <string name="avi_app_author">Денис (x1unix) Седченко, 2016.</string>
 
     <!-- Movie details activity -->
