@@ -15,4 +15,7 @@
     <color name="black_overlay">#66000000</color>
     <color name="quantum_gray">#FAFAFA</color>
     <color name="light_gray">#bbb</color>
+
+    <color name="amd_gray">#605F61</color>
+    <color name="amd_dark">#1C1C1C</color>
 </resources>

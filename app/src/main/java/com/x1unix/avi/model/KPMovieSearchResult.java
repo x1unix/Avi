@@ -13,9 +13,9 @@ public class KPMovieSearchResult {
     private String pagesTotal;
 
     @SerializedName("searchFilms")
-    private List<KPMovie> results = new ArrayList<KPMovie>();
+    private List<KPMovieItem> results = new ArrayList<KPMovieItem>();
 
-    public KPMovieSearchResult(String keyword, String pagesTotal, List<KPMovie> results) {
+    public KPMovieSearchResult(String keyword, String pagesTotal, String itemsTotal, List<KPMovieItem> results) {
         this.keyword = keyword;
         this.pagesTotal = pagesTotal;
         this.results = results;
@@ -33,11 +33,11 @@ public class KPMovieSearchResult {
         this.keyword = keyword;
     }
 
-    public void setResults(List<KPMovie> items) {
+    public void setResults(List<KPMovieItem> items) {
         this.results = items;
     }
 
-    public List<KPMovie> getResults() {
+    public List<KPMovieItem> getResults() {
         return this.results;
     }
 

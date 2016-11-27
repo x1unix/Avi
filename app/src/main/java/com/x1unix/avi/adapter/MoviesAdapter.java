@@ -1,9 +1,7 @@
 package com.x1unix.avi.adapter;
 
 import android.content.Context;
-import android.media.Image;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +13,14 @@ import android.widget.Toast;
 import java.util.List;
 import java.util.Locale;
 
+import com.bumptech.glide.Glide;
+import com.kinopoisk.Constants;
 import com.x1unix.avi.R;
-import com.x1unix.avi.helpers.DownloadPosterTask;
-import com.x1unix.avi.model.KPMovie;
+import com.x1unix.avi.model.KPMovieItem;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewHolder> {
 
-    private List<KPMovie> movies;
+    private List<KPMovieItem> movies;
     private int rowLayout;
     private Context context;
     private String currentLang = "ru";
@@ -35,6 +34,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         TextView rating;
         ImageView posterView;
         String kpId;
+        Context context;
 
 
         public MovieViewHolder(View v) {
@@ -45,14 +45,18 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
             movieDescription = (TextView) v.findViewById(R.id.description);
             rating = (TextView) v.findViewById(R.id.rating);
             posterView = (ImageView) v.findViewById(R.id.poster_preview);
+            context = v.getContext();
         }
 
-        public void loadPoster() {
-            new DownloadPosterTask(posterView).getPosterByKpId(kpId);
+        public void loadPoster(Context context) {
+            Glide.with(context)
+                    .load(Constants.getPosterUrl(kpId))
+                    .placeholder(R.drawable.no_poster)
+                    .into(posterView);
         }
     }
 
-    public MoviesAdapter(List<KPMovie> movies, int rowLayout, Context context, Locale currentLocale) {
+    public MoviesAdapter(List<KPMovieItem> movies, int rowLayout, Context context, Locale currentLocale) {
         this.movies = movies;
         this.rowLayout = rowLayout;
         this.context = context;
@@ -78,13 +82,13 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
 
     @Override
     public void onBindViewHolder(MovieViewHolder holder, final int position) {
-        KPMovie cMovie = movies.get(position);
+        KPMovieItem cMovie = movies.get(position);
         holder.movieTitle.setText(cMovie.getLocalizedTitle(currentLang));
         holder.data.setText(cMovie.getReleaseDate());
         holder.movieDescription.setText(cMovie.getDescription());
         holder.rating.setText(String.valueOf(cMovie.getVoteAverage()));
         holder.kpId = cMovie.getId();
-        holder.loadPoster();
+        holder.loadPoster(context);
     }
 
     @Override
