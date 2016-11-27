@@ -4,19 +4,19 @@ import com.google.gson.annotations.SerializedName;
 
 public class KPPeople {
     @SerializedName("id")
-    private static String id;
+    private String id;
 
     @SerializedName("type")
-    private static String type;
+    private String type;
 
     @SerializedName("nameRU")
-    private static String nameRU;
+    private String nameRU;
 
     @SerializedName("nameEN")
-    private static String nameEN;
+    private String nameEN;
 
     @SerializedName("professionKey")
-    private static String professionKey;
+    private String professionKey;
 
 
 

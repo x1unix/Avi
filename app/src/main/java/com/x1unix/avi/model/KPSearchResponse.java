@@ -22,6 +22,8 @@ public class KPSearchResponse {
         data = res;
     }
 
+    public KPSearchResponse() {}
+
     public KPMovieSearchResult getData() {
         return data;
     }

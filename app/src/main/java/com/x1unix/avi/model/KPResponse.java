@@ -6,23 +6,22 @@ import com.google.gson.annotations.SerializedName;
  * Created by ascii on 27.11.2016.
  */
 
-public class KPMovieDetailViewResponse {
+public class KPResponse {
     @SerializedName("resultCode")
     protected int resultCode = 0;
 
     @SerializedName("message")
     protected String message = "";
 
-    @SerializedName("data")
-    protected KPMovie data;
 
-    public KPMovieDetailViewResponse(int code, String msg, KPMovie res) {
-        resultCode = code;
-        message = msg;
-        data = res;
-    };
+    protected Object data;
 
-    public KPMovie getResult() {
+    public KPResponse(int code, String message) {
+        this.message = message;
+        this.resultCode = code;
+    }
+
+    public Object getResult() {
         return data;
     }
 
@@ -30,4 +29,7 @@ public class KPMovieDetailViewResponse {
         return (message == null) ? "" : message;
     }
 
+    public int getResultCode() {
+        return resultCode;
+    }
 }

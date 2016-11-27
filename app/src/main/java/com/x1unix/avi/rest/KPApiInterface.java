@@ -1,6 +1,7 @@
 package com.x1unix.avi.rest;
 
 import com.x1unix.avi.model.KPMovie;
+import com.x1unix.avi.model.KPMovieDetailViewResponse;
 import com.x1unix.avi.model.KPSearchResponse;
 
 import okhttp3.ResponseBody;
@@ -15,6 +16,6 @@ public interface KPApiInterface {
     Call<KPSearchResponse> findMovies(@Query("keyword") String keyword);
 
     @GET("getKPFilmDetailView")
-    Call<KPMovie> getMovieById(@Query("filmID") String filmId);
+    Call<KPMovieDetailViewResponse> getMovieById(@Query("filmID") String filmId);
 
 }

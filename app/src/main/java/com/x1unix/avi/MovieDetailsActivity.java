@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.x1unix.avi.adapter.MoviesAdapter;
 import com.x1unix.avi.helpers.DownloadPosterTask;
 import com.x1unix.avi.model.KPMovie;
+import com.x1unix.avi.model.KPMovieDetailViewResponse;
 import com.x1unix.avi.model.KPMovieSearchResult;
 import com.x1unix.avi.model.KPPeople;
 import com.x1unix.avi.rest.KPApiInterface;
@@ -103,29 +104,37 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
     private void getFullMovieInfo() {
         client = KPRestClient.getClient().create(KPApiInterface.class);
-        Call<KPMovie> call = client.getMovieById(movieId);
-        call.enqueue(new Callback<KPMovie>() {
+        Call<KPMovieDetailViewResponse> call = client.getMovieById(movieId);
+        call.enqueue(new Callback<KPMovieDetailViewResponse>() {
             @Override
-            public void onResponse(Call<KPMovie>call, Response<KPMovie> response) {
+            public void onResponse(Call<KPMovieDetailViewResponse>call, Response<KPMovieDetailViewResponse> response) {
                 setProgressVisibility(false);
 
                 int statusCode = response.code();
-                KPMovie movie = response.body();
+                KPMovieDetailViewResponse result = response.body();
 
-                if (movie != null) {
-                    applyMovieData(movie);
+                if (result != null) {
+                    KPMovie movie = result.getResult();
+                    if (movie == null) {
+                        showNoMovieDataMsg(result.getMessage());
+                    } else {
+                        applyMovieData(movie);
+                    }
                 }
             }
 
             @Override
-            public void onFailure(Call<KPMovie>call, Throwable t) {
-                // Log error here since request failed
-                setProgressVisibility(false);
-
-                Toast.makeText(getApplicationContext(), getResources().getString(R.string.err_movie_info_fetch_fail) + t.toString(),
-                        Toast.LENGTH_LONG).show();
+            public void onFailure(Call<KPMovieDetailViewResponse>call, Throwable t) {
+                showNoMovieDataMsg(t.toString());
             }
         });
+    }
+    private void showNoMovieDataMsg(String msg) {
+        // Log error here since request failed
+        setProgressVisibility(false);
+        String prefix = getResources().getString(R.string.err_movie_info_fetch_fail);
+        Toast.makeText(getApplicationContext(), prefix + " " + msg,
+                Toast.LENGTH_LONG).show();
     }
 
     private void applyMovieData(final KPMovie movie) {
@@ -146,12 +155,15 @@ public class MovieDetailsActivity extends AppCompatActivity {
         setInfoVisibility(true);
     }
 
-    private void setAuthorInfo(List<KPPeople> src, int targetId) {
+    private void setAuthorInfo(KPPeople[] src, int targetId) {
         String val = "-";
-        if(!src.isEmpty()) {
+        if(src.length > 0) {
             val = "";
-            for (KPPeople man: src) {
-                val += man.getName(currentLocale);
+            for(int c = 0; c < src.length; c++) {
+                val += src[c].getName(currentLocale);
+                if (c < (src.length - 1)) {
+                    val += ", ";
+                }
             }
         }
         ((TextView) findViewById(targetId)).setText(val);
