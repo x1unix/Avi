@@ -1,6 +1,7 @@
 package com.x1unix.avi;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -31,7 +34,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MovieDetailsActivity extends AppCompatActivity {
+public abstract class MovieDetailsActivity extends AppCompatActivity implements View.OnClickListener{
 
     private Intent args;
     private String movieId;
@@ -42,6 +45,9 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private ActionBar actionBar;
     private KPApiInterface client;
     private String currentLocale;
+
+    private ImageButton btnAddToBookmarks;
+    private Button btnWatchMovie;
 
 
 
@@ -68,6 +74,37 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 getFullMovieInfo();
             }
         })).start();
+
+        // Init UI elements
+        initUIElements();
+    }
+
+    private void initUIElements() {
+        btnAddToBookmarks = (ImageButton) findViewById(R.id.amd_bookmark_add);
+        btnWatchMovie = (Button) findViewById(R.id.amd_btn_watch);
+
+        btnWatchMovie.setOnClickListener(this);
+    }
+
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.amd_btn_watch:
+                watchMovie();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void watchMovie() {
+        Intent wmIntent = new Intent(this, MoviePlayerActivity.class);
+
+        // Put id and title
+        wmIntent.putExtra("movieId", movieId);
+        wmIntent.putExtra("movieTitle", movieTitle);
+
+        // Kickstart player
+        startActivity(wmIntent);
     }
 
     private void extractIntentData() {
