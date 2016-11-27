@@ -127,6 +127,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
 
         Glide.with(getApplicationContext())
                 .load(Constants.getPosterUrl(movieId))
+                .placeholder(R.drawable.no_poster)
                 .into((ImageView) findViewById(R.id.amd_movie_poster));
     }
 

@@ -51,6 +51,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         public void loadPoster(Context context) {
             Glide.with(context)
                     .load(Constants.getPosterUrl(kpId))
+                    .placeholder(R.drawable.no_poster)
                     .into(posterView);
         }
     }
