@@ -53,6 +53,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         registerPropsEventHandlers();
     }
 
+
+
     private void registerPropsEventHandlers() {
         // Adblock prop
         Preference customPref = (Preference) findPreference(propIsAdEnabledKey);
