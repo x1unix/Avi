@@ -32,6 +32,8 @@ licenses:
     - 'google-gdk-license-.+'
 sudo: required
 after_failure: "cat $TRAVIS_BUILD_DIR/app/build/outputs/lint-results-debug.xml"
+after_success:
+    - ./deploy.sh
 script:
   - ./gradlew assemble lint
 # after_script:
