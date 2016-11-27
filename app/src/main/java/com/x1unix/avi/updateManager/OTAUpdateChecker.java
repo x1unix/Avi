@@ -31,7 +31,6 @@ public class OTAUpdateChecker {
             public void onFailure(Call<AviSemVersion>call, Throwable t) {
                 // Log error here since request failed
                 otaEventListener.onError(t);
-                Rollbar.reportException(t, "critical", "Failed to check for updates");
             }
         });
     }

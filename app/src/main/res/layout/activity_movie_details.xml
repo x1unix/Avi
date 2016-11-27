@@ -1,0 +1,302 @@
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.x1unix.avi.MovieDetailsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:background="#fff"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="157dp"
+            android:background="@drawable/border_bottom"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:weightSum="1">
+
+            <ImageView
+                android:id="@+id/amd_movie_poster"
+                android:layout_width="86dp"
+                android:layout_height="124dp"
+                android:contentDescription="@string/movie_poster"
+                app:srcCompat="@drawable/no_poster" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="18dp"
+                android:id="@+id/amd_header"
+                android:paddingTop="5dp">
+
+                <TextView
+                    android:id="@+id/amd_movie_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:textColor="#000"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/amd_short_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="3"
+                    android:paddingEnd="16dp"
+                    android:textColor="@color/colorGreyLight"
+                    android:textSize="14dp"
+                    android:layout_below="@+id/amd_movie_title" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:orientation="horizontal"
+                    android:id="@+id/amd_genre_handler"
+                    android:layout_below="@+id/amd_short_desc">
+
+                    <TextView
+                        android:id="@+id/amd_rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="3dp"
+                        android:textSize="14dp" />
+
+                    <ImageView
+                        android:id="@+id/rating_image"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="center_vertical"
+                        android:scaleType="centerCrop"
+                        android:tint="@color/colorAccent"
+                        app:srcCompat="@drawable/star" />
+                </LinearLayout>
+                <Button
+                    android:text="@string/action_watch"
+                    android:paddingLeft="18dp"
+                    android:paddingRight="18dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/amd_btn_watch"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true" />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_bookmark"
+                    android:background="@null"
+                    android:id="@+id/amd_bookmark_add"
+                    android:layout_alignParentStart="false"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:contentDescription="@string/action_add_to_bookmarks"/>
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/ic_bookmark_full"
+                    android:background="@null"
+                    android:id="@+id/amd_bookmark_remove"
+                    android:visibility="gone"
+                    android:layout_alignParentStart="false"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:contentDescription="@string/action_remove_from_bookmarks" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <ProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:id="@+id/amd_preloader"
+            android:layout_marginTop="52dp"
+            android:layout_height="60sp" />
+
+        <LinearLayout
+            android:id="@+id/amd_msg_fail"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginTop="32dp">
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:textColor="@color/amd_dark"
+                android:text="@string/err_movie_info_fetch_fail"
+                android:gravity="center_horizontal"
+                android:textSize="16sp">
+            </TextView>
+
+            <Button
+                android:id="@+id/amd_retry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/avi_refresh"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp">
+            </Button>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/amd_movie_info"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+            <TextView
+                android:id="@+id/amd_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#343134"
+                android:background="@drawable/border_bottom"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:textSize="16sp"
+                android:lineSpacingExtra="5sp" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:background="@drawable/border_bottom"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:text="@string/actors_and_creators"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:textColor="@color/amd_gray"
+                    android:textAllCaps="true"
+                    android:textStyle="bold"
+                    android:paddingTop="20dp"
+                    android:layout_weight="1" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/border_bottom"
+                    android:paddingBottom="20sp"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:text="@string/actors"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="20dp"
+                        android:textColor="@color/amd_dark" />
+
+                    <TextView
+                        android:id="@+id/amd_actors"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="4sp"
+                        android:textColor="@color/amd_gray" />
+
+                    <TextView
+                        android:text="@string/directors"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="20dp"
+                        android:textColor="@color/amd_dark" />
+
+                    <TextView
+                        android:id="@+id/amd_directors"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="4sp"
+                        android:textColor="@color/amd_gray" />
+
+                    <TextView
+                        android:text="@string/producers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="20dp"
+                        android:textColor="@color/amd_dark" />
+
+                    <TextView
+                        android:id="@+id/amd_producers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="4sp"
+                        android:textColor="@color/amd_gray" />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/border_bottom"
+                    android:layout_marginTop="5sp"
+                    android:paddingBottom="20sp"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:text="@string/genre"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="20dp"
+                        android:textColor="@color/amd_dark" />
+                    <TextView
+                        android:id="@+id/amd_genre"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="4sp"
+                        android:textColor="@color/amd_gray" />
+                    <TextView
+                        android:text="@string/age_restrictions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="20dp"
+                        android:textColor="@color/amd_dark" />
+                    <TextView
+                        android:id="@+id/amd_age_restrictions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="4sp"
+                        android:textColor="@color/amd_gray" />
+
+                    <TextView
+                        android:text="@string/release_year"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="20dp"
+                        android:textColor="@color/amd_dark" />
+
+                    <TextView
+                        android:id="@+id/amd_year"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="4sp"
+                        android:textColor="@color/amd_gray" />
+
+                    <TextView
+                        android:text="@string/length"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="20dp"
+                        android:textColor="@color/amd_dark" />
+
+                    <TextView
+                        android:id="@+id/amd_length"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="4sp"
+                        android:textColor="@color/amd_gray" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>

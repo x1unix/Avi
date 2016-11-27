@@ -3,10 +3,10 @@ package com.x1unix.avi.model;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by ascii on 25.11.2016.
+ * Created by ascii on 27.11.2016.
  */
 
-public class KPSearchResponse {
+public class KPMovieDetailViewResponse {
     @SerializedName("resultCode")
     protected int resultCode = 0;
 
@@ -14,25 +14,20 @@ public class KPSearchResponse {
     protected String message = "";
 
     @SerializedName("data")
-    protected KPMovieSearchResult data;
+    protected KPMovie data;
 
-    public KPSearchResponse(int code, String msg, KPMovieSearchResult res) {
+    public KPMovieDetailViewResponse(int code, String msg, KPMovie res) {
         resultCode = code;
         message = msg;
         data = res;
-    }
+    };
 
-    public KPSearchResponse() {}
-
-    public KPMovieSearchResult getData() {
+    public KPMovie getResult() {
         return data;
     }
 
     public String getMessage() {
-        return message;
+        return (message == null) ? "" : message;
     }
 
-    public int getResultCode() {
-        return resultCode;
-    }
 }
