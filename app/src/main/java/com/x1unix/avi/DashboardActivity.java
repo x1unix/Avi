@@ -322,8 +322,6 @@ public class DashboardActivity extends AppCompatActivity {
         setStateVisibility(false, STATE_WELCOME);
 
         setProgressVisibility(true);
-//        Call<KPMovieSearchResult> call = searchService.findMovies(query);
-//        call.enqueue(searchResultHandler);
         Call<KPSearchResponse> call = searchService.findMovies(query);
         call.enqueue(searchResultHandler);
     }

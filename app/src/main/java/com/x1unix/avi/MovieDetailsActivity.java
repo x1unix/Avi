@@ -1,14 +1,9 @@
 package com.x1unix.avi;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -18,17 +13,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.x1unix.avi.adapter.MoviesAdapter;
-import com.x1unix.avi.helpers.DownloadPosterTask;
+import com.bumptech.glide.Glide;
+import com.kinopoisk.Constants;
 import com.x1unix.avi.model.KPMovie;
 import com.x1unix.avi.model.KPMovieDetailViewResponse;
-import com.x1unix.avi.model.KPMovieSearchResult;
 import com.x1unix.avi.model.KPPeople;
 import com.x1unix.avi.rest.KPApiInterface;
 import com.x1unix.avi.rest.KPRestClient;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -134,9 +125,9 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
 
         setTitle(movieTitle);
 
-        new DownloadPosterTask(
-                (ImageView) findViewById(R.id.amd_movie_poster)
-        ).getPosterByKpId(movieId);
+        Glide.with(getApplicationContext())
+                .load(Constants.getPosterUrl(movieId))
+                .into((ImageView) findViewById(R.id.amd_movie_poster));
     }
 
     private void setProgressVisibility(boolean ifShow) {

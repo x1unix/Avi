@@ -13,8 +13,9 @@ import android.widget.Toast;
 import java.util.List;
 import java.util.Locale;
 
+import com.bumptech.glide.Glide;
+import com.kinopoisk.Constants;
 import com.x1unix.avi.R;
-import com.x1unix.avi.helpers.DownloadPosterTask;
 import com.x1unix.avi.model.KPMovieItem;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewHolder> {
@@ -33,6 +34,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         TextView rating;
         ImageView posterView;
         String kpId;
+        Context context;
 
 
         public MovieViewHolder(View v) {
@@ -43,10 +45,13 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
             movieDescription = (TextView) v.findViewById(R.id.description);
             rating = (TextView) v.findViewById(R.id.rating);
             posterView = (ImageView) v.findViewById(R.id.poster_preview);
+            context = v.getContext();
         }
 
-        public void loadPoster() {
-            new DownloadPosterTask(posterView).getPosterByKpId(kpId);
+        public void loadPoster(Context context) {
+            Glide.with(context)
+                    .load(Constants.getPosterUrl(kpId))
+                    .into(posterView);
         }
     }
 
@@ -82,7 +87,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieViewH
         holder.movieDescription.setText(cMovie.getDescription());
         holder.rating.setText(String.valueOf(cMovie.getVoteAverage()));
         holder.kpId = cMovie.getId();
-        holder.loadPoster();
+        holder.loadPoster(context);
     }
 
     @Override
