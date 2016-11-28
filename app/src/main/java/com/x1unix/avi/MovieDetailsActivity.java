@@ -229,9 +229,12 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
         if(src.length > 0) {
             val = "";
             for(int c = 0; c < src.length; c++) {
-                val += src[c].getName(currentLocale);
-                if (c < (src.length - 1)) {
-                    val += ", ";
+                String name = src[c].getName(currentLocale);
+                if (name != null) {
+                    val += src[c].getName(currentLocale);
+                    if (c < (src.length - 1)) {
+                        val += ", ";
+                    }
                 }
             }
         }
