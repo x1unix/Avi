@@ -29,24 +29,29 @@ public class KPPeople {
     }
 
     public String getName(String currentLocale) {
-        Boolean isSlavic = ( currentLocale.equals("ru") || currentLocale.equals("uk") );
-        Boolean isSlavicAvailable = (nameRU != null) || (nameRU.length() > 0);
-        Boolean isLatinAvailable = (nameEN != null) || (nameEN.length() > 0);
-
         String value;
 
-        if (isSlavic) {
-            if (isSlavicAvailable) {
-                value = nameRU;
+        try {
+            Boolean isSlavic = ( currentLocale.equals("ru") || currentLocale.equals("uk") );
+            Boolean isSlavicAvailable = (nameRU != null) || (nameRU.length() > 0);
+            Boolean isLatinAvailable = (nameEN != null) || (nameEN.length() > 0);
+
+
+            if (isSlavic) {
+                if (isSlavicAvailable) {
+                    value = nameRU;
+                } else {
+                    value = nameEN;
+                }
             } else {
-                value = nameEN;
+                if (isLatinAvailable) {
+                    value = nameEN;
+                } else {
+                    value = nameRU;
+                }
             }
-        } else {
-            if (isLatinAvailable) {
-                value = nameEN;
-            } else {
-                value = nameRU;
-            }
+        } catch (Exception ex) {
+            value = null;
         }
 
         return value;
