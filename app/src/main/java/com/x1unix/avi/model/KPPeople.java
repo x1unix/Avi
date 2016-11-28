@@ -33,8 +33,8 @@ public class KPPeople {
 
         try {
             Boolean isSlavic = ( currentLocale.equals("ru") || currentLocale.equals("uk") );
-            Boolean isSlavicAvailable = (nameRU != null) || (nameRU.length() > 0);
-            Boolean isLatinAvailable = (nameEN != null) || (nameEN.length() > 0);
+            Boolean isSlavicAvailable = (nameRU != null) && (nameRU.length() > 0);
+            Boolean isLatinAvailable = (nameEN != null) && (nameEN.length() > 0);
 
 
             if (isSlavic) {
