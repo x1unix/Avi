@@ -84,7 +84,15 @@ public class KPMovie {
     }
 
     public String getRatingMPAA() {
-        return (ratingMPAA == null) ? ratingAgeLimits : ratingMPAA;
+        String value;
+        if (ratingMPAA != null) {
+            value = ratingMPAA + " (" + ratingAgeLimits + "+)";
+        } else if (ratingAgeLimits != null) {
+            value = ratingAgeLimits;
+        } else {
+            value = "-";
+        }
+        return value;
     }
 
     public String getRatingAgeLimits() {
