@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.appcompat.*;
 
 import com.rollbar.android.Rollbar;
 
 import java.io.IOError;
 import java.io.IOException;
+import android.support.v7.appcompat.BuildConfig;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -18,7 +20,10 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
 
-        Rollbar.init(this, "b2769f6943314e52be560fe9c2ab7626", "production");
+        if (!BuildConfig.DEBUG) {
+            // Init Rollbar monitor on release
+            Rollbar.init(this, "b2769f6943314e52be560fe9c2ab7626", "production");
+        }
     }
 
     @Override
