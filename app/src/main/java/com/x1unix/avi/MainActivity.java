@@ -4,15 +4,12 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.appcompat.*;
 
 import com.rollbar.android.Rollbar;
 
-import java.io.IOError;
-import java.io.IOException;
 import android.support.v7.appcompat.BuildConfig;
 
-public class SplashScreenActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
     protected int SPLASH_DISPLAY_LENGTH = 500;
     @Override
@@ -33,10 +30,10 @@ public class SplashScreenActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {
-                Intent mainIntent = new Intent(SplashScreenActivity.this,DashboardActivity.class);
-                SplashScreenActivity.this.startActivity(mainIntent);
+                Intent mainIntent = new Intent(MainActivity.this,DashboardActivity.class);
+                MainActivity.this.startActivity(mainIntent);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                SplashScreenActivity.this.finish();
+                MainActivity.this.finish();
             }
         }, SPLASH_DISPLAY_LENGTH);
     }
