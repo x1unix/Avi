@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -39,6 +40,8 @@ public class MoviePlayerActivity extends AppCompatActivity {
     private ViewGroup videoLayout;
     private View loadingView;
 
+    private ActionBar actionBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,12 @@ public class MoviePlayerActivity extends AppCompatActivity {
         }
 
         webView = (AviWebView) findViewById(R.id.webplayer);
+
+        actionBar = getSupportActionBar();
+
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         if (!movieLoaded) {
             // Load player with intent data
@@ -111,7 +120,7 @@ public class MoviePlayerActivity extends AppCompatActivity {
                         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
                     }
 
-                    getSupportActionBar().hide();
+                    if (actionBar != null) actionBar.hide();
                 }
                 else
                 {
@@ -125,7 +134,7 @@ public class MoviePlayerActivity extends AppCompatActivity {
                         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
                     }
 
-                    getSupportActionBar().show();
+                    if (actionBar != null) actionBar.show();
                 }
 
             }
@@ -180,5 +189,16 @@ public class MoviePlayerActivity extends AppCompatActivity {
         webView.clearCache(true);
         webView = null;
         movieLoaded = false;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
