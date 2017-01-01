@@ -3,10 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@color/quantum_gray" />
-    <item android:gravity="center" android:drawable="@drawable/ic_avi" />
-    <item
-        android:gravity="bottom|center_horizontal"
-        android:drawable="@drawable/ic_avi_wide"
-        android:bottom="@dimen/avi_logo_text_margin_bottom">
+    <item>
+        <bitmap
+            android:gravity="center"
+            android:src="@drawable/avi_r" />
+    </item>
+    <item android:bottom="@dimen/avi_logo_text_margin_bottom">
+        <bitmap android:gravity="bottom|center_horizontal"
+            android:src="@drawable/avi_wide_r" />
     </item>
 </layer-list>

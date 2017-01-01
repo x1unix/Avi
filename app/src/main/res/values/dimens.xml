@@ -5,5 +5,5 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="text_margin">16dp</dimen>
-    <dimen name="avi_logo_text_margin_bottom">102sp</dimen>
+    <dimen name="avi_logo_text_margin_bottom">100dp</dimen>
 </resources>
