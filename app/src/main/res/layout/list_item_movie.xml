@@ -52,6 +52,7 @@
                 android:text="Lorem Ipsum Dolor Sit"
                 android:textColor="#000"
                 android:textSize="16dp"
+                android:ellipsize="end"
                 android:maxLines="1"
                 android:textStyle="normal" />
 
