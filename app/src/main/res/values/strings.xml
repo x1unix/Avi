@@ -66,6 +66,7 @@
     <string name="action_remove_from_bookmarks">Remove from bookmarks</string>
     <string name="movie_poster">Movie poster</string>
     <string name="err_movie_info_fetch_fail">Failed to get movie information</string>
+    <string name="loading">Loading</string>
 
 
 </resources>

@@ -1,25 +1,24 @@
-package com.x1unix.avi.helpers;
+package com.x1unix.avi.webplayer;
 
 import android.annotation.TargetApi;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Build;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.x1unix.avi.helpers.AdBlocker;
+
 import java.util.HashMap;
 import java.util.Map;
 
-public class AviMoviePlayerWebViewClient extends WebViewClient {
-    private String LSECTION = AviMoviePlayerWebViewClient.class.getName();
+public class AviWebViewClient extends WebViewClient {
+    private String LSECTION = AviWebViewClient.class.getName();
     private Map<String, Boolean> loadedUrls = new HashMap<>();
     private String currentUrl = "";
     private boolean disableAds = false;
 
-    public AviMoviePlayerWebViewClient(boolean blockAds) {
+    public AviWebViewClient(boolean blockAds) {
         super();
         disableAds = blockAds;
     }

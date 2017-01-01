@@ -17,6 +17,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -120,6 +121,21 @@ public class DashboardActivity extends AppCompatActivity {
     private void prepareView() {
         setProgressVisibility(false);
         boolean hasInet = isNetworkAvailable();
+
+        // EEGG
+        ((ImageView) findViewById(R.id.testBtn)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent wmIntent = new Intent(getApplicationContext(), MoviePlayerActivity.class);
+
+                // Put id and title
+                wmIntent.putExtra("movieId", "770");
+                wmIntent.putExtra("movieTitle", "Ocean's Eleven");
+
+                // Kickstart player
+                startActivity(wmIntent);
+            }
+        });
 
         setSearchVisibility(hasInet);
 
