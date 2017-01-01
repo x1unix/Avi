@@ -55,4 +55,5 @@
     <string name="action_remove_from_bookmarks">Видалити з обраного</string>
     <string name="movie_poster">Постер</string>
     <string name="err_movie_info_fetch_fail">Помилка при отриманні інформації про фільм</string>
+    <string name="loading">Завантаження</string>
 </resources>
