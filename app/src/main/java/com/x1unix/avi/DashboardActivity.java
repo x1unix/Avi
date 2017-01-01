@@ -13,6 +13,8 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.appcompat.*;
+import android.support.v7.appcompat.BuildConfig;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -122,20 +124,22 @@ public class DashboardActivity extends AppCompatActivity {
         setProgressVisibility(false);
         boolean hasInet = isNetworkAvailable();
 
-        // EEGG
-        ((ImageView) findViewById(R.id.testBtn)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent wmIntent = new Intent(getApplicationContext(), MoviePlayerActivity.class);
+        // For test purposes
+        if (BuildConfig.DEBUG) {
+            ((ImageView) findViewById(R.id.testBtn)).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent wmIntent = new Intent(getApplicationContext(), MoviePlayerActivity.class);
 
-                // Put id and title
-                wmIntent.putExtra("movieId", "770");
-                wmIntent.putExtra("movieTitle", "Ocean's Eleven");
+                    // Put id and title
+                    wmIntent.putExtra("movieId", "770");
+                    wmIntent.putExtra("movieTitle", "Ocean's Eleven");
 
-                // Kickstart player
-                startActivity(wmIntent);
-            }
-        });
+                    // Kickstart player
+                    startActivity(wmIntent);
+                }
+            });
+        }
 
         setSearchVisibility(hasInet);
 
