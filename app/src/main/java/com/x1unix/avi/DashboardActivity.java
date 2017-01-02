@@ -118,7 +118,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         if (isNetworkAvailable()) {
             setWellcomeVisibility(true);
-            setSearchVisibility(true);
+            setSearchVisibility(false);
 
             // Register RecyclerView event listener
 //            moviesSearchResultsView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(),
