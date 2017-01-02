@@ -50,8 +50,7 @@
         android:layout_marginTop="54dp"
         android:orientation="vertical"
         android:id="@+id/no_internet_screen"
-
-        >
+        android:visibility="gone">
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="100dp"

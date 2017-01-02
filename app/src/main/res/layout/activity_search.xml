@@ -38,23 +38,27 @@
         >
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="128dp"
-            app:srcCompat="@drawable/ic_mood_bad"
-            android:layout_marginBottom="25dp" />
+            android:layout_height="100dp"
+            app:srcCompat="@drawable/ic_error"
+            android:layout_marginBottom="18dp" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/avi_oops"
-            android:textStyle="bold|italic"
             android:gravity="center_vertical|center_horizontal"
-            android:layout_marginBottom="15dp"
+            android:textAlignment="center"
+            android:paddingLeft="10sp"
+            android:paddingRight="10sp"
+            android:layout_marginBottom="28dp"
+            android:textStyle="normal"
             android:textSize="18sp" />
-        <TextView
-            android:layout_width="match_parent"
+        <Button
+            android:text="@string/avi_refresh"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/avi_error_occured"
-            android:textStyle="normal|italic"
-            android:gravity="center_vertical|center_horizontal" />
+            android:id="@+id/retry_button"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_gravity="center" />
     </LinearLayout>
 
     <ProgressBar
@@ -63,5 +67,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/progressBar"
         android:layout_centerHorizontal="false"
+        android:visibility="gone"
         android:layout_centerInParent="true" />
 </RelativeLayout>

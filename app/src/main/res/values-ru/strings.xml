@@ -5,7 +5,7 @@
     <string name="avi_start_hint">Для начала работы, выберите поиск и введите имя желаемого фильма</string>
     <string name="avi_no_internet">Требуется подключение к Интернету.</string>
     <string name="avi_connect_please">Для поиска и просмотра фильмов, необходимо стабильное подключение к сети.</string>
-    <string name="avi_oops">Упc, произошла ошибка :(</string>
+    <string name="avi_oops">Не удалось выполнить поиск</string>
     <string name="avi_internet_required">Требуется подключение к Интернету</string>
     <string name="avi_no_items_msg">По этому запросу ничего не найдено.</string>
     <string name="avi_settings">Настройки</string>
