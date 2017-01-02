@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.os.Bundle;
 import android.view.Menu;
@@ -50,48 +51,17 @@ import com.x1unix.avi.updateManager.OTAUpdateChecker;
 
 public class DashboardActivity extends AppCompatActivity {
 
-    private static final String TAG = DashboardActivity.class.getSimpleName();
-    private RecyclerView moviesSearchResultsView;
-    private KPApiInterface searchService = null;
     private MenuItem searchItem;
-    private List<KPMovieItem> movies = new ArrayList<KPMovieItem>();
-    private GridLayoutManager lLayout;
 
     // Menu items
     private MenuItem menuItemSettings;
     private MenuItem menuItemHelp;
     private Button connectionRefreshBtn;
 
-    // Activity states
-    private final int STATE_NO_INTERNET = 0;
-    private final int STATE_WELCOME = 1;
-    private final int STATE_ERROR = 2;
-    private final int STATE_LIST = 3;
-
-    // Views
-    private ProgressBar progress;
-
-    private LinearLayout[] states = {null, null, null, null};
-    private int views[] = new int[4];
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // Collect views
-        progress = (ProgressBar) findViewById(R.id.progressBar);
-        registerViews();
-
-        // Set progress color
-        progress.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorAccentDark), Mode.MULTIPLY);
-        setProgressVisibility(true);
-
-        moviesSearchResultsView = (RecyclerView) findViewById(R.id.movies_recycler_view);
-
-        boolean isTablet = getResources().getBoolean(R.bool.isTablet);
-        int colsCount  = getResources().getInteger(R.integer.colsCount);
-        moviesSearchResultsView.setLayoutManager((isTablet) ? new GridLayoutManager(this, colsCount) : new LinearLayoutManager(this));
 
         // Set timer to try to check updates
         new Handler().postDelayed(new Runnable() {
@@ -111,22 +81,21 @@ public class DashboardActivity extends AppCompatActivity {
         }, 1000);
     }
 
-    private void registerViews() {
-        views[0] = R.id.no_internet_screen;
-        views[1] = R.id.wellcome_screen;
-        views[2] = R.id.error_message_screen;
-        views[3] = R.id.movies_results_screen;;
+    private void setNoInternetVisibility(boolean ifVisible) {
+        ((LinearLayout) findViewById(R.id.no_internet_screen))
+                .setVisibility(ifVisible ? View.VISIBLE : View.GONE);
     }
 
-    private LinearLayout getStateView(int stateId) {
-        if (states[stateId] == null) {
-            states[stateId] = (LinearLayout) findViewById(views[stateId]);
-        }
-        return states[stateId];
+    private void setSearchVisibility(boolean ifVisible) {
+        searchItem.setVisible(ifVisible);
+    }
+
+    private void setWellcomeVisibility(boolean ifVisible) {
+        ((LinearLayout) findViewById(R.id.wellcome_screen))
+                .setVisibility(ifVisible ? View.VISIBLE : View.GONE);
     }
 
     private void prepareView() {
-        setProgressVisibility(false);
         boolean hasInet = isNetworkAvailable();
 
         // For test purposes
@@ -146,36 +115,36 @@ public class DashboardActivity extends AppCompatActivity {
             });
         }
 
-        setSearchVisibility(hasInet);
 
         if (isNetworkAvailable()) {
-            setStateVisibility(true, STATE_WELCOME);
+            setWellcomeVisibility(true);
+            setSearchVisibility(true);
 
             // Register RecyclerView event listener
-            moviesSearchResultsView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(),
-                    moviesSearchResultsView,
-                    new ClickListener() {
-                @Override
-                public void onClick(View view, int position) {
-                    KPMovieItem movie = movies.get(position);
-                    openMovie(movie);
-                }
-
-                @Override
-                public void onLongClick(View view, int position) {
-
-                }
-            }));
+//            moviesSearchResultsView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(),
+//                    moviesSearchResultsView,
+//                    new ClickListener() {
+//                @Override
+//                public void onClick(View view, int position) {
+//                    KPMovieItem movie = movies.get(position);
+//                    openMovie(movie);
+//                }
+//
+//                @Override
+//                public void onLongClick(View view, int position) {
+//
+//                }
+//            }));
         } else {
-            setStateVisibility(true, STATE_NO_INTERNET);
+            setWellcomeVisibility(false);
+            setSearchVisibility(false);
+            setNoInternetVisibility(true);
 
             if (connectionRefreshBtn == null) {
                 connectionRefreshBtn = (Button) findViewById(R.id.connection_refresh_button);
                 connectionRefreshBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        setStateVisibility(false, STATE_NO_INTERNET);
-                        setProgressVisibility(true);
                         prepareView();
                     }
                 });
@@ -221,6 +190,12 @@ public class DashboardActivity extends AppCompatActivity {
         return true;
     }
 
+    private void performSearch(String query) {
+        startActivity(
+                (new Intent(this, SearchActivity.class)).putExtra("query", query)
+        );
+    }
+
     /**
      * Load event handlers for menu buttons in paralel thread
      */
@@ -249,17 +224,6 @@ public class DashboardActivity extends AppCompatActivity {
         }, 100);
     }
 
-    private void setProgressVisibility(boolean ifVisible) {
-        progress.setVisibility(ifVisible ? View.VISIBLE : View.GONE);
-    }
-
-    private void setSearchVisibility(boolean ifVisible) {
-        searchItem.setVisible(ifVisible);
-    }
-
-    private void setStateVisibility(boolean ifVisible, int stateId) {
-        getStateView(stateId).setVisibility(ifVisible ? View.VISIBLE : View.GONE);
-    }
 
 
     /**
@@ -273,102 +237,6 @@ public class DashboardActivity extends AppCompatActivity {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-    /**
-     * Search results response handler
-     */
-    private Callback<KPSearchResponse> searchResultHandler = new Callback<KPSearchResponse>() {
-        @Override
-        public void onResponse(Call<KPSearchResponse>call, Response<KPSearchResponse> response) {
-            setProgressVisibility(false);
-
-            int statusCode = response.code();
-
-            KPSearchResponse resp = response.body();
-
-            if (resp != null) {
-                KPMovieSearchResult result = resp.getData();
-
-                if (result != null) {
-                    movies = result.getResults();
-
-                    MoviesAdapter adapter = new MoviesAdapter(movies,
-                            R.layout.list_item_movie,
-                            getApplicationContext(),
-                            getResources().getConfiguration().locale);
-
-                    if (adapter.getItemCount() > 0) {
-                        setStateVisibility(true, STATE_LIST);
-                        moviesSearchResultsView.setAdapter(adapter);
-                    } else {
-                        setStateVisibility(false, STATE_LIST);
-                        setStateVisibility(true, STATE_WELCOME);
-                    }
-                } else {
-                    showNoItems();
-                }
-            } else {
-                showNoItems();
-            }
-        }
-
-        private void showNoItems() {
-            setStateVisibility(false, STATE_LIST);
-            setStateVisibility(true, STATE_WELCOME);
-
-            Toast.makeText(getApplicationContext(),
-                    getResources().getString(R.string.avi_no_items_msg), Toast.LENGTH_LONG)
-                    .show();
-        }
-
-        @Override
-        public void onFailure(Call<KPSearchResponse>call, Throwable t) {
-            // Log error here since request failed
-            setProgressVisibility(false);
-            setStateVisibility(true, STATE_ERROR);
-
-            Log.e(TAG, "Failed to get items: " + t.toString());
-            Toast.makeText(getApplicationContext(), "Failed to perform search: " + t.toString(),
-                    Toast.LENGTH_LONG).show();
-        }
-    };
-
-    /**
-     * Perform search
-     * @param query {String} Search query
-     */
-    private void performSearch(String query) {
-        if (searchService == null) {
-            searchService = KPRestClient.getClient().create(KPApiInterface.class);
-        }
-
-        setStateVisibility(false, STATE_LIST);
-        setStateVisibility(false, STATE_NO_INTERNET);
-        setStateVisibility(false, STATE_ERROR);
-        setStateVisibility(false, STATE_WELCOME);
-
-        setProgressVisibility(true);
-        Call<KPSearchResponse> call = searchService.findMovies(query);
-        call.enqueue(searchResultHandler);
-    }
-
-    /**
-     * Open movie in player
-     * @param movie {KPMovieItem} movie instance
-     */
-    private void openMovie(KPMovieItem movie) {
-        Intent mIntent = new Intent(this, MovieDetailsActivity.class);
-
-        // Put id and title
-        mIntent.putExtra("movieId", movie.getId());
-        mIntent.putExtra("movieTitle", movie.getTitle());
-        mIntent.putExtra("movieGenre", movie.getGenre());
-        mIntent.putExtra("movieRating", movie.getRating());
-        mIntent.putExtra("movieDescription", movie.getDescription());
-
-        // Kickstart player
-        Log.i("KPMovieOpen", "Trying to play movie [" + movie.getId() + "]");
-        startActivity(mIntent);
-    }
 
     private void tryFindUpdates() {
         if (isNetworkAvailable()) {
@@ -380,6 +248,8 @@ public class DashboardActivity extends AppCompatActivity {
             });
         }
     }
+
+
 
     private void showUpdateDialog(final AviSemVersion newVer) {
         AlertDialog.Builder dialInstallUpdate = new AlertDialog.Builder(this);
