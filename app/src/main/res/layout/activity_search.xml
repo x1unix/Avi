@@ -10,7 +10,6 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    android:baselineAligned="false"
     tools:context="com.x1unix.avi.SearchActivity">
     <!-- Search Results -->
     <LinearLayout
@@ -82,9 +81,8 @@
     <ProgressBar
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/progressBar"
-        android:layout_centerHorizontal="false"
         android:visibility="gone"
-        android:layout_centerInParent="true" />
+        android:layout_gravity="center"/>
 </LinearLayout>

@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
@@ -92,6 +93,10 @@ public class SearchActivity extends AppCompatActivity  implements View.OnClickLi
                         PorterDuff.Mode.MULTIPLY);
 
         searchResultsView = (RecyclerView) findViewById(R.id.movies_recycler_view);
+
+        boolean isTablet = getResources().getBoolean(R.bool.isTablet);
+        int colsCount  = (isTablet) ? getResources().getInteger(R.integer.colsCount) : 1;
+        searchResultsView.setLayoutManager((isTablet) ? new GridLayoutManager(this, colsCount) : new LinearLayoutManager(this));
 
         // Register RecyclerView event listener
         searchResultsView.addOnItemTouchListener(
