@@ -118,23 +118,9 @@ public class DashboardActivity extends AppCompatActivity {
 
         if (isNetworkAvailable()) {
             setWellcomeVisibility(true);
-            setSearchVisibility(false);
-
-            // Register RecyclerView event listener
-//            moviesSearchResultsView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(),
-//                    moviesSearchResultsView,
-//                    new ClickListener() {
-//                @Override
-//                public void onClick(View view, int position) {
-//                    KPMovieItem movie = movies.get(position);
-//                    openMovie(movie);
-//                }
-//
-//                @Override
-//                public void onLongClick(View view, int position) {
-//
-//                }
-//            }));
+            setNoInternetVisibility(false);
+            setSearchVisibility(true);
+            
         } else {
             setWellcomeVisibility(false);
             setSearchVisibility(false);

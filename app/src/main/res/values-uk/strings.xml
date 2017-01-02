@@ -56,4 +56,7 @@
     <string name="movie_poster">Постер</string>
     <string name="err_movie_info_fetch_fail">Помилка при отриманні інформації про фільм</string>
     <string name="loading">Завантаження</string>
+
+    <string name="search_for">Пошук</string>
+    <string name="no_results">Нічого не знайдено</string>
 </resources>
