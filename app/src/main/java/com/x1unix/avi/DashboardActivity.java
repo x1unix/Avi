@@ -15,6 +15,7 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.appcompat.*;
 import android.support.v7.appcompat.BuildConfig;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -54,6 +55,7 @@ public class DashboardActivity extends AppCompatActivity {
     private KPApiInterface searchService = null;
     private MenuItem searchItem;
     private List<KPMovieItem> movies = new ArrayList<KPMovieItem>();
+    private GridLayoutManager lLayout;
 
     // Menu items
     private MenuItem menuItemSettings;
@@ -86,7 +88,10 @@ public class DashboardActivity extends AppCompatActivity {
         setProgressVisibility(true);
 
         moviesSearchResultsView = (RecyclerView) findViewById(R.id.movies_recycler_view);
-        moviesSearchResultsView.setLayoutManager(new LinearLayoutManager(this));
+
+        boolean isTablet = getResources().getBoolean(R.bool.isTablet);
+        int colsCount  = getResources().getInteger(R.integer.colsCount);
+        moviesSearchResultsView.setLayoutManager((isTablet) ? new GridLayoutManager(this, colsCount) : new LinearLayoutManager(this));
 
         // Set timer to try to check updates
         new Handler().postDelayed(new Runnable() {
