@@ -124,7 +124,7 @@ public class DashboardActivity extends AppCompatActivity {
             setWellcomeVisibility(true);
             setNoInternetVisibility(false);
             setSearchVisibility(true);
-            
+
         } else {
             setWellcomeVisibility(false);
             setSearchVisibility(false);
@@ -147,29 +147,30 @@ public class DashboardActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
 
+
         // Import menu items
         menuItemSettings = (MenuItem) menu.findItem(R.id.menu_action_settings);
         menuItemHelp = (MenuItem) menu.findItem(R.id.menu_action_help);
         registerMenuItemsClickListeners();
 
         // Retrieve the SearchView and plug it into SearchManager
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
         SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
         searchItem = menu.findItem(R.id.action_search);
 
         searchView.setQueryHint(getResources().getString(R.string.avi_search_hint));
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener( ) {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean   onQueryTextChange( String newText ) {
+            public boolean onQueryTextChange(String newText) {
                 // your text view here
                 // textView.setText(newText);
                 return false;
             }
 
             @Override
-            public boolean   onQueryTextSubmit(String query) {
+            public boolean onQueryTextSubmit(String query) {
                 performSearch(query);
                 return false;
             }
@@ -181,6 +182,7 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     private void performSearch(String query) {
+        searchItem.collapseActionView();
         startActivity(
                 (new Intent(this, SearchActivity.class)).putExtra("query", query)
         );
@@ -191,33 +193,33 @@ public class DashboardActivity extends AppCompatActivity {
      */
     private void registerMenuItemsClickListeners() {
         new Handler().postDelayed(new Runnable() {
-           @Override
+            @Override
             public void run() {
-               menuItemSettings.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                   @Override
-                   public boolean onMenuItemClick(MenuItem item) {
-                       Intent i = new Intent(getBaseContext(), SettingsActivity.class);
-                       startActivity(i);
-                       return false;
-                   }
-               });
+                menuItemSettings.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Intent i = new Intent(getBaseContext(), SettingsActivity.class);
+                        startActivity(i);
+                        return false;
+                    }
+                });
 
-               menuItemHelp.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                   @Override
-                   public boolean onMenuItemClick(MenuItem item) {
-                       Intent i = new Intent(getBaseContext(), SupportActivity.class);
-                       startActivity(i);
-                       return false;
-                   }
-               });
-           }
+                menuItemHelp.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Intent i = new Intent(getBaseContext(), SupportActivity.class);
+                        startActivity(i);
+                        return false;
+                    }
+                });
+            }
         }, 100);
     }
 
 
-
     /**
      * Is network available
+     *
      * @return {boolean} Result
      */
     private boolean isNetworkAvailable() {
@@ -238,7 +240,6 @@ public class DashboardActivity extends AppCompatActivity {
             }, allowUnstable);
         }
     }
-
 
 
     private void showUpdateDialog(final AviSemVersion newVer) {
