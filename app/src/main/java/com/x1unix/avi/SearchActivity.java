@@ -84,7 +84,7 @@ public class SearchActivity extends AppCompatActivity  implements View.OnClickLi
     }
 
     private void initUI() {
-        setTitle(getResources().getString(R.string.search_for) + " \"" + query + "\'");
+        setTitle(getResources().getString(R.string.search_for) + " \"" + query + "\"");
         progress = (ProgressBar) findViewById(R.id.progressBar);
 
         // Set progress color
