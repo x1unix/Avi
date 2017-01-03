@@ -242,27 +242,7 @@ public class DashboardActivity extends AppCompatActivity {
 
 
     private void showUpdateDialog(final AviSemVersion newVer) {
-        AlertDialog.Builder dialInstallUpdate = new AlertDialog.Builder(this);
-        String modConfimText = getResources().getString(R.string.upd_confirm);
-        modConfimText = modConfimText.replace("@version", newVer.toString());
-
-        dialInstallUpdate.setMessage(modConfimText);
-        dialInstallUpdate.setTitle(getResources().getString(R.string.upd_new_available))
-                .setCancelable(false)
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(newVer.getApkUrl()));
-                        startActivity(browserIntent);
-                        dialog.cancel();
-                    }
-                })
-                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-
-        dialInstallUpdate.show();
+        OTAUpdateChecker.makeDialog(this, newVer).show();
     }
 
 
