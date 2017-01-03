@@ -8,7 +8,7 @@ import com.rollbar.android.Rollbar;
 import com.x1unix.avi.model.AviSemVersion;
 
 public class OTAUpdateChecker {
-    public static void checkForUpdates(final OTAStateListener otaEventListener) {
+    public static void checkForUpdates(final OTAStateListener otaEventListener, final boolean allowNightlies) {
         OTARepoClientInterface repoClient = OTARestClient.getClient().create(OTARepoClientInterface.class);
         Call<AviSemVersion> call = repoClient.getLatestRelease();
         call.enqueue(new Callback<AviSemVersion>() {
@@ -20,7 +20,11 @@ public class OTAUpdateChecker {
 
                 receivedVersion.apply();
 
-                if (current.isYoungerThan(receivedVersion)) {
+                boolean isNew = current.isYoungerThan(receivedVersion);
+                boolean isStable = receivedVersion.isStable();
+                boolean isSuitable = (isStable || allowNightlies);
+
+                if (isNew && isSuitable) {
                     otaEventListener.onUpdateAvailable(receivedVersion, current);
                 } else {
                     otaEventListener.onUpdateMissing(receivedVersion, current);

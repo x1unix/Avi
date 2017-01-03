@@ -70,12 +70,16 @@ public class DashboardActivity extends AppCompatActivity {
                 String keyPropAutoUpdate = getResources()
                         .getString(R.string.avi_prop_autocheck_updates);
 
+                String keyAllowUnstable = getResources()
+                        .getString(R.string.avi_prop_allow_unstable);
+
                 SharedPreferences preferences = PreferenceManager
                         .getDefaultSharedPreferences(getBaseContext());
                 boolean allowAutoUpdateCheck = preferences.getBoolean(keyPropAutoUpdate, true);
+                boolean allowUnstable = preferences.getBoolean(keyAllowUnstable, false);
 
                 if (allowAutoUpdateCheck) {
-                    tryFindUpdates();
+                    tryFindUpdates(allowUnstable);
                 }
             }
         }, 1000);
@@ -224,14 +228,14 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
 
-    private void tryFindUpdates() {
+    private void tryFindUpdates(boolean allowUnstable) {
         if (isNetworkAvailable()) {
             OTAUpdateChecker.checkForUpdates(new OTAStateListener() {
                 @Override
                 protected void onUpdateAvailable(AviSemVersion availableVersion, AviSemVersion currentVersion) {
                     showUpdateDialog(availableVersion);
                 }
-            });
+            }, allowUnstable);
         }
     }
 

@@ -59,4 +59,5 @@
 
     <string name="search_for">Пошук</string>
     <string name="no_results">Нічого не знайдено</string>
+    <string name="unstable_versions_desc">Нестабільні збірки включають в себе найновіші функції і можливості, але можуть містити помилки.</string>
 </resources>

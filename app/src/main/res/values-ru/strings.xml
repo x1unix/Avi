@@ -59,4 +59,6 @@
 
     <string name="search_for">Поиск</string>
     <string name="no_results">Ничего не найдено</string>
+    <string name="allow_unstable_versions">Предлагать нестабильные версии</string>
+    <string name="unstable_versions_desc">Нестабильные сборки приложения включают в себя самые новые функции и возможности, но могут содержать ошибки.</string>
 </resources>
