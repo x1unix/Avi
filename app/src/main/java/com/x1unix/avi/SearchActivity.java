@@ -35,7 +35,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SearchActivity extends AppCompatActivity  implements View.OnClickListener{
+public class SearchActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ProgressBar progress;
     private GridLayoutManager lLayout;
@@ -61,7 +61,9 @@ public class SearchActivity extends AppCompatActivity  implements View.OnClickLi
 
         initUI();
 
-        performSearch(query);
+        if (query != null) {
+            performSearch(query);
+        }
     }
 
     @Override
@@ -84,7 +86,13 @@ public class SearchActivity extends AppCompatActivity  implements View.OnClickLi
     }
 
     private void initUI() {
-        setTitle(getResources().getString(R.string.search_for) + " \"" + query + "\"");
+        String title = "";
+        if (query == null) {
+            title = getResources().getString(R.string.avi_search_hint);
+        } else {
+            title = getResources().getString(R.string.search_for) + " \"" + query + "\"";
+        }
+        setTitle(title);
         progress = (ProgressBar) findViewById(R.id.progressBar);
 
         // Set progress color
@@ -95,7 +103,7 @@ public class SearchActivity extends AppCompatActivity  implements View.OnClickLi
         searchResultsView = (RecyclerView) findViewById(R.id.movies_recycler_view);
 
         boolean isTablet = getResources().getBoolean(R.bool.isTablet);
-        int colsCount  = (isTablet) ? getResources().getInteger(R.integer.colsCount) : 1;
+        int colsCount = (isTablet) ? getResources().getInteger(R.integer.colsCount) : 1;
         searchResultsView.setLayoutManager((isTablet) ? new GridLayoutManager(this, colsCount) : new LinearLayoutManager(this));
 
         // Register RecyclerView event listener
@@ -130,9 +138,9 @@ public class SearchActivity extends AppCompatActivity  implements View.OnClickLi
         searchItem = menu.findItem(R.id.action_search);
 
         searchView.setQueryHint(getResources().getString(R.string.avi_search_hint));
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener( ) {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextChange( String newText ) {
+            public boolean onQueryTextChange(String newText) {
                 // your text view here
                 // textView.setText(newText);
                 return false;
@@ -140,11 +148,17 @@ public class SearchActivity extends AppCompatActivity  implements View.OnClickLi
 
             @Override
             public boolean onQueryTextSubmit(String newQuery) {
-                query = newQuery;
-                performSearch();
+                if (newQuery.length() > 0) {
+                    query = newQuery;
+                    performSearch();
+                }
                 return false;
             }
         });
+
+        if (query == null) {
+            searchItem.expandActionView();
+        }
 
         return true;
     }
@@ -216,6 +230,7 @@ public class SearchActivity extends AppCompatActivity  implements View.OnClickLi
         private void setErrorText(String txt) {
             ((TextView) findViewById(R.id.err_msg)).setText(txt);
         }
+
         @Override
         public void onFailure(Call<KPSearchResponse> call, Throwable t) {
             // Log error here since request failed
@@ -234,6 +249,8 @@ public class SearchActivity extends AppCompatActivity  implements View.OnClickLi
      */
     private void performSearch(String query) {
         this.query = query;
+
+        setTitle(getResources().getString(R.string.search_for) + " \"" + query + "\"");
 
         if (searchService == null) {
             searchService = KPRestClient.getClient().create(KPApiInterface.class);
