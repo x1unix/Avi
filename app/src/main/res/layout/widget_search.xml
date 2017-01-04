@@ -8,29 +8,33 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:padding="0dp"
-        android:background="#ffffff">
+        android:background="@drawable/block_rounded">
 
         <ImageView
             android:id="@+id/textView"
             android:layout_width="35dp"
             android:layout_height="match_parent"
             android:gravity="start"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:src="@drawable/avi_wide_r"
-            android:layout_marginLeft="15dp"
-            android:layout_marginStart="15dp"
-            android:textStyle="bold"/>
-
-        <ImageView
-            android:id="@+id/actionButton"
-            android:layout_width="30dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/avi_wide_r"
             android:layout_marginRight="15dp"
             android:layout_marginEnd="15dp"
-            android:src="@drawable/avi_r" />
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/actionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:textStyle="italic"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:textColor="#aaa"
+            android:text="@string/avi_search_hint"/>
 
     </RelativeLayout>
 </FrameLayout>
