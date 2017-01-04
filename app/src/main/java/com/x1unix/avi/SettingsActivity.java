@@ -33,6 +33,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     private String propIsAdEnabledKey;
     private String propIsAutoupdateKey;
     private String propUpdateNow;
+    private String propAllowUnstable;
     private SharedPreferences preferences;
 
     @Override
@@ -42,6 +43,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         propIsAdEnabledKey = getResources().getString(R.string.avi_prop_no_ads);
         propIsAutoupdateKey = getResources().getString(R.string.avi_prop_autocheck_updates);
         propUpdateNow = getResources().getString(R.string.prop_btn_update_now);
+        propAllowUnstable = getResources().getString(R.string.avi_prop_allow_unstable);
 
         getPrefs();
         setContentView(R.layout.activity_settings);
@@ -63,6 +65,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         // Autoupdate prop
         Preference autoUpdatePref = (Preference) findPreference(propIsAutoupdateKey);
         autoUpdatePref.setOnPreferenceChangeListener(onTogglePreferenceListener);
+
+        // Autoupdate prop
+        Preference unstablePref = (Preference) findPreference(propAllowUnstable);
+        unstablePref.setOnPreferenceChangeListener(onTogglePreferenceListener);
 
         // Update Now Button
         Preference updateNowPrefBtn = (Preference) findPreference(propUpdateNow);
@@ -122,6 +128,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         preloader.setCancelable(false);
         preloader.show();
 
+        boolean allowUnstable = preferences.getBoolean(propAllowUnstable, false);
+
         OTAUpdateChecker.checkForUpdates(new OTAStateListener() {
             @Override
             protected void onUpdateAvailable(AviSemVersion availableVersion, AviSemVersion currentVersion) {
@@ -146,31 +154,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                         getResources().getString(R.string.upd_error),
                         Toast.LENGTH_SHORT).show();
             }
-        });
+        }, allowUnstable);
     }
 
     private void showUpdateDialog(final AviSemVersion newVer) {
-        AlertDialog.Builder dialInstallUpdate = new AlertDialog.Builder(this);
-        String modConfimText = getResources().getString(R.string.upd_confirm);
-        modConfimText = modConfimText.replace("@version", newVer.toString());
-
-        dialInstallUpdate.setMessage(modConfimText);
-        dialInstallUpdate.setTitle(getResources().getString(R.string.upd_new_available))
-        .setCancelable(false)
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(newVer.getApkUrl()));
-                        startActivity(browserIntent);
-                        dialog.cancel();
-                    }
-                })
-                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-
-        dialInstallUpdate.show();
+        OTAUpdateChecker.makeDialog(this, newVer).show();;
     }
 
     private boolean isNetworkAvailable() {

@@ -1,0 +1,4 @@
+<resources>
+    <bool name="isTablet">true</bool>
+    <integer name="colsCount">4</integer>
+</resources>

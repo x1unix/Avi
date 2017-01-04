@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_search"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.x1unix.avi.SearchActivity">
+    <!-- Search Results -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/movies_results_screen"
+        android:visibility="gone"
+        >
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/movies_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            />
+    </LinearLayout>
+    <!-- Error -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="54dp"
+        android:orientation="vertical"
+        android:id="@+id/error_message_screen"
+        android:baselineAligned="false"
+        android:visibility="gone"
+        >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            app:srcCompat="@drawable/ic_error"
+            android:layout_marginBottom="18dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/avi_oops"
+            android:gravity="center_vertical|center_horizontal"
+            android:textAlignment="center"
+            android:paddingLeft="10sp"
+            android:paddingRight="10sp"
+            android:layout_marginBottom="28dp"
+            android:textStyle="normal"
+            android:textSize="18sp" />
+        <Button
+            android:text="@string/avi_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/retry_button"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_gravity="center" />
+        <TextView
+            android:id="@+id/err_msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal|bottom"
+            android:textColor="#ccc"
+            android:textSize="15sp"
+            android:paddingLeft="5sp"
+            android:paddingRight="5sp"
+            android:paddingBottom="15sp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/nothing_found"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="18sp"
+        android:text="@string/no_results"
+        android:visibility="gone"
+        android:gravity="center" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/progressBar"
+        android:visibility="gone"
+        android:layout_gravity="center"/>
+</LinearLayout>

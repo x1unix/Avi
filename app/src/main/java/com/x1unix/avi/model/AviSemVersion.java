@@ -110,6 +110,10 @@ public class AviSemVersion {
         return new AviSemVersion(BuildConfig.VERSION_NAME);
     }
 
+    public boolean isStable() {
+        return stable;
+    }
+
     public String toString() {
         return String.valueOf(major) + "." + String.valueOf(minor) + "." + String.valueOf(patch);
     }

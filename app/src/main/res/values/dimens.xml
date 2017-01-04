@@ -6,4 +6,5 @@
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="avi_logo_text_margin_bottom">100dp</dimen>
+    <dimen name="list_item_width">180sp</dimen>
 </resources>

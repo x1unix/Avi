@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="avi_wellcome">Добро пожаловать в Avi!</string>
-    <string name="avi_search_hint">Поиск фильмов сериалов</string>
+    <string name="avi_search_hint">Поиск фильмов и сериалов</string>
     <string name="avi_start_hint">Для начала работы, выберите поиск и введите имя желаемого фильма</string>
-    <string name="avi_no_internet">Похоже вы не подключены к сети.</string>
+    <string name="avi_no_internet">Требуется подключение к Интернету.</string>
     <string name="avi_connect_please">Для поиска и просмотра фильмов, необходимо стабильное подключение к сети.</string>
-    <string name="avi_oops">Упc, произошла ошибка :(</string>
+    <string name="avi_oops">Не удалось выполнить поиск</string>
     <string name="avi_internet_required">Требуется подключение к Интернету</string>
     <string name="avi_no_items_msg">По этому запросу ничего не найдено.</string>
     <string name="avi_settings">Настройки</string>
@@ -56,4 +56,9 @@
     <string name="movie_poster">Постер к фильму</string>
     <string name="err_movie_info_fetch_fail">Ошибка при получении информации о фильме</string>
     <string name="loading">Загрузка</string>
+
+    <string name="search_for">Поиск</string>
+    <string name="no_results">Ничего не найдено</string>
+    <string name="allow_unstable_versions">Предлагать нестабильные версии</string>
+    <string name="unstable_versions_desc">Нестабильные сборки приложения включают в себя самые новые функции и возможности, но могут содержать ошибки.</string>
 </resources>

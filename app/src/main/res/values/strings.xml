@@ -4,9 +4,9 @@
     <string name="avi_wellcome">Wellcome to Avi!</string>
     <string name="avi_start_hint">To begin, press search button and enter movie name</string>
     <string name="avi_search_hint">Search movies and TV-shows</string>
-    <string name="avi_oops">Oops, an error occurred :(</string>
+    <string name="avi_oops">Failed to get search results</string>
     <string name="avi_internet_required">Internet connection required to do this</string>
-    <string name="avi_no_internet">Looks like you are offline</string>
+    <string name="avi_no_internet">No Network Connection</string>
     <string name="avi_error_occured">An error occurred during last query. Please try another query or try again later.</string>
     <string name="avi_connect_please">Internet connection required to search and watch movies.</string>
     <string name="avi_no_items_msg">No items found, try another query.</string>
@@ -42,6 +42,7 @@
     <!--Settings keys-->
     <string name="avi_prop_no_ads" translatable="false">prop_no_ads</string>
     <string name="avi_prop_autocheck_updates" translatable="false">prop_autocheck_updates</string>
+    <string name="avi_prop_allow_unstable" translatable="false">prop_allow_unstable</string>
 
 
     <!-- Pref buttons keys -->
@@ -68,5 +69,9 @@
     <string name="err_movie_info_fetch_fail">Failed to get movie information</string>
     <string name="loading">Loading</string>
 
+    <string name="search_for">Search for</string>
+    <string name="no_results">Nothing found</string>
+    <string name="allow_unstable_versions">Allow unstable versions</string>
+    <string name="unstable_versions_desc">Unstable versions includes the latest features, but may have issues and errors.</string>
 
 </resources>
