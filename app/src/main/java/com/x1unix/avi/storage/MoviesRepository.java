@@ -26,11 +26,13 @@ public class MoviesRepository {
 
     private Context context;
     private DBHelper dbHelper;
-    private SQLiteDatabase db = dbHelper.getWritableDatabase();
+    private SQLiteDatabase db;
+    private Boolean connected = false;
 
     public MoviesRepository(Context context) {
         this.context = context;
         dbHelper = new DBHelper(context);
+        connect();
     }
 
     public MoviesRepository addMovie(KPMovie movie) {
@@ -94,6 +96,15 @@ public class MoviesRepository {
         return movie;
     }
 
+    public void close() {
+        connected = false;
+        db.close();
+    }
+
+    public void connect() {
+        db = dbHelper.getWritableDatabase();
+        connected = true;
+    }
 
     private static String getStringValue(String value, Cursor c) {
         return c.getString(c.getColumnIndex(value));
@@ -118,7 +129,7 @@ public class MoviesRepository {
         );
     }
 
-    public MoviesRepository getInstance(Context context) {
+    public static MoviesRepository getInstance(Context context) {
         return new MoviesRepository(context);
     }
 }
