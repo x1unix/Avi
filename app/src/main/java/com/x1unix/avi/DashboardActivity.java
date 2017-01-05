@@ -107,11 +107,14 @@ public class DashboardActivity extends AppCompatActivity {
             ((ImageView) findViewById(R.id.testBtn)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent wmIntent = new Intent(getApplicationContext(), MoviePlayerActivity.class);
+                    Intent wmIntent = new Intent(getApplicationContext(), MovieDetailsActivity.class);
 
                     // Put id and title
                     wmIntent.putExtra("movieId", "770");
                     wmIntent.putExtra("movieTitle", "Ocean's Eleven");
+                    wmIntent.putExtra("movieGenre", "Test");
+                    wmIntent.putExtra("movieDescription", "Test");
+                    wmIntent.putExtra("movieRating", "5.0");
 
                     // Kickstart player
                     startActivity(wmIntent);

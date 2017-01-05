@@ -65,7 +65,7 @@ public class MoviesRepository {
         String query = "SELECT * FROM " + MoviesRepository.TABLE_MOVIES + " where filmID = " + kpId;
         Cursor cursor = db.rawQuery(query, null);
 
-        boolean exists = (cursor.getCount() <= 0);
+        boolean exists = (cursor.getCount() > 0);
         cursor.close();
 
         return exists;

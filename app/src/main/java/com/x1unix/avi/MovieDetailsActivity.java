@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +22,7 @@ import com.x1unix.avi.model.KPMovieDetailViewResponse;
 import com.x1unix.avi.model.KPPeople;
 import com.x1unix.avi.rest.KPApiInterface;
 import com.x1unix.avi.rest.KPRestClient;
+import com.x1unix.avi.storage.MoviesRepository;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,6 +43,8 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
     private ImageButton btnAddToBookmarks;
     private Button btnWatchMovie;
     private Button btnRetry;
+    private MoviesRepository moviesRepository;
+    private String LOG_TAG = "MovieDetailsActivity";
 
 
 
@@ -55,6 +59,8 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
+        moviesRepository = MoviesRepository.getInstance(this);
+
         extractIntentData();
         setBasicMovieInfo();
 
@@ -64,7 +70,13 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
         (new Thread(new Runnable() {
             @Override
             public void run() {
-                getFullMovieInfo();
+                if (moviesRepository.movieExists(movieId)) {
+                    Log.d(LOG_TAG, "#" + movieId + " Cached!");
+                    // TODO: get data from cache
+                } else {
+                    Log.d(LOG_TAG, "#" + movieId +" No data in cache");
+                    getFullMovieInfo();
+                }
             }
         })).start();
 
@@ -220,6 +232,8 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
         setAuthorInfo(movie.getProducers(), R.id.amd_producers);
 
 
+        // Save movie to the cache
+        moviesRepository.addMovie(movie);
 
         setInfoVisibility(true);
     }
