@@ -135,4 +135,16 @@ public class KPMovie {
         return result;
     }
 
+    public String getNameRU() {
+        return this.nameRU;
+    }
+
+    public String getNameEN() {
+        return this.nameEN;
+    }
+
+    public List<KPPeople[]> getCreators() {
+        return creators;
+    }
+
 }

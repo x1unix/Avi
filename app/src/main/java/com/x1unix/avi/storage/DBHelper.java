@@ -4,13 +4,11 @@ package com.x1unix.avi.storage;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 class DBHelper extends SQLiteOpenHelper {
 
     public DBHelper(Context context) {
-        // конструктор суперкласса
-        super(context, "myDB", null, 1);
+        super(context, "avi", null, 1);
     }
 
     @Override
