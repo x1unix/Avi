@@ -44,7 +44,7 @@ public class MoviesRepository {
         cv.put("country", movie.getCountry());
         cv.put("genre", movie.getGenre());
         cv.put("description", movie.getDescription());
-        cv.put("ratingMPAA", movie.getRatingMPAA());
+        cv.put("ratingMPAA", movie.getTrueRatingMPAA());
         cv.put("ratingAgeLimits", movie.getRatingAgeLimits());
         cv.put("type", movie.getType());
 
@@ -81,9 +81,7 @@ public class MoviesRepository {
 
 //        try {
             if ((c != null) && c.moveToFirst()) {
-                while (!c.isAfterLast()) {
-                    movie = MoviesRepository.getMovieFromCursor(c);
-                }
+                movie = MoviesRepository.getMovieFromCursor(c);
             }
 //        } catch (Exception e) {
 //            movie = null;

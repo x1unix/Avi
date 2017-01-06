@@ -95,6 +95,10 @@ public class KPMovie {
         return value;
     }
 
+    public String getTrueRatingMPAA() {
+        return ratingMPAA;
+    }
+
     public String getRatingAgeLimits() {
         return ratingAgeLimits;
     }
