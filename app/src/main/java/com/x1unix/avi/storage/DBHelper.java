@@ -28,7 +28,7 @@ class DBHelper extends SQLiteOpenHelper {
                 "    nameEN          VARCHAR (128) DEFAULT \"\",\n" +
                 "    year            VARCHAR (12)  DEFAULT \"\",\n" +
                 "    filmLength      VARCHAR (10)  DEFAULT 0,\n" +
-                "    counrty          VARCHAR (48)  DEFAULT \"\",\n" +
+                "    country         VARCHAR (48)  DEFAULT \"\",\n" +
                 "    genre           VARCHAR (64)  DEFAULT \"\",\n" +
                 "    description     TEXT          DEFAULT \"\",\n" +
                 "    ratingMPAA      VARCHAR (10)  DEFAULT \"\",\n" +

@@ -75,7 +75,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
 
                     // Import data from cache
                     KPMovie movie = moviesRepository.getMovieById(movieId);
-                    applyMovieData(movie);
+                    applyMovieData(movie, false);
                 } else {
                     Log.d(LOG_TAG, "#" + movieId +" No data in cache");
                     getFullMovieInfo();
@@ -183,8 +183,6 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
         call.enqueue(new Callback<KPMovieDetailViewResponse>() {
             @Override
             public void onResponse(Call<KPMovieDetailViewResponse>call, Response<KPMovieDetailViewResponse> response) {
-                setProgressVisibility(false);
-
                 int statusCode = response.code();
                 KPMovieDetailViewResponse result = response.body();
 
@@ -222,6 +220,8 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void applyMovieData(final KPMovie movie, boolean cacheItem) {
+        setProgressVisibility(false);
+
         // Main Info
         ((TextView) findViewById(R.id.amd_description)).setText(movie.getDescription());
         ((TextView) findViewById(R.id.amd_genre)).setText(movie.getGenre());
@@ -236,7 +236,9 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
 
 
         // Save movie to the cache
-        if (cacheItem) moviesRepository.addMovie(movie);
+        if (cacheItem) {
+            moviesRepository.addMovie(movie);
+        }
 
         setInfoVisibility(true);
     }

@@ -41,7 +41,7 @@ public class MoviesRepository {
         cv.put("nameEN", movie.getNameEN());
         cv.put("year", movie.getYear());
         cv.put("filmLength", movie.getFilmLength());
-        cv.put("counrty", movie.getCountry());
+        cv.put("country", movie.getCountry());
         cv.put("genre", movie.getGenre());
         cv.put("description", movie.getDescription());
         cv.put("ratingMPAA", movie.getRatingMPAA());
