@@ -4,8 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.support.v7.appcompat.BuildConfig;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -14,14 +12,13 @@ import com.x1unix.avi.model.KPMovie;
 import com.x1unix.avi.model.KPPeople;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MoviesRepository {
 
     public static final String TABLE_MOVIES = "movies";
     private static final String LOG_TAG = "MoviesRepository";
-    public static final Type MOVIE_TYPE = new TypeToken<ArrayList<List<KPPeople[]>>>() {
+    public static final Type MOVIE_TYPE = new TypeToken<List<KPPeople[]>>() {
     }.getType();
 
     private Context context;
@@ -44,7 +41,7 @@ public class MoviesRepository {
         cv.put("nameEN", movie.getNameEN());
         cv.put("year", movie.getYear());
         cv.put("filmLength", movie.getFilmLength());
-        cv.put("county", movie.getCountry());
+        cv.put("counrty", movie.getCountry());
         cv.put("genre", movie.getGenre());
         cv.put("description", movie.getDescription());
         cv.put("ratingMPAA", movie.getRatingMPAA());
@@ -79,17 +76,18 @@ public class MoviesRepository {
 
 
         KPMovie movie = null;
-        Cursor c = db.rawQuery(getSelect() + " where filmID = " + filmId, null);
+        String query = getSelect() + " where filmID = " + filmId + ";";
+        Cursor c = db.rawQuery(query, null);
 
-        try {
+//        try {
             if ((c != null) && c.moveToFirst()) {
                 while (!c.isAfterLast()) {
                     movie = MoviesRepository.getMovieFromCursor(c);
                 }
             }
-        } catch (Exception e) {
-            movie = null;
-        }
+//        } catch (Exception e) {
+//            movie = null;
+//        }
 
         if (c != null) c.close();
 
@@ -111,7 +109,9 @@ public class MoviesRepository {
     }
 
     public static KPMovie getMovieFromCursor(Cursor c) {
-        List<KPPeople[]> p = (new Gson()).fromJson(getStringValue("description", c), MoviesRepository.MOVIE_TYPE);
+        String cr = getStringValue("creators", c);
+
+        List<KPPeople[]> p = (new Gson()).fromJson(cr, MOVIE_TYPE);
 
         return new KPMovie(
                 getStringValue("filmID", c),

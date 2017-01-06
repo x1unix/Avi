@@ -72,7 +72,10 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
             public void run() {
                 if (moviesRepository.movieExists(movieId)) {
                     Log.d(LOG_TAG, "#" + movieId + " Cached!");
-                    // TODO: get data from cache
+
+                    // Import data from cache
+                    KPMovie movie = moviesRepository.getMovieById(movieId);
+                    applyMovieData(movie);
                 } else {
                     Log.d(LOG_TAG, "#" + movieId +" No data in cache");
                     getFullMovieInfo();
@@ -218,7 +221,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
                 Toast.LENGTH_LONG).show();
     }
 
-    private void applyMovieData(final KPMovie movie) {
+    private void applyMovieData(final KPMovie movie, boolean cacheItem) {
         // Main Info
         ((TextView) findViewById(R.id.amd_description)).setText(movie.getDescription());
         ((TextView) findViewById(R.id.amd_genre)).setText(movie.getGenre());
@@ -233,9 +236,13 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
 
 
         // Save movie to the cache
-        moviesRepository.addMovie(movie);
+        if (cacheItem) moviesRepository.addMovie(movie);
 
         setInfoVisibility(true);
+    }
+
+    private void applyMovieData(final KPMovie movie) {
+        applyMovieData(movie, true);
     }
 
     private void setAuthorInfo(KPPeople[] src, int targetId) {

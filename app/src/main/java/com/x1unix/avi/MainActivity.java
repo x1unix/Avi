@@ -7,8 +7,6 @@ import android.os.Bundle;
 
 import com.rollbar.android.Rollbar;
 
-import android.support.v7.appcompat.BuildConfig;
-
 public class MainActivity extends AppCompatActivity {
 
     protected int SPLASH_DISPLAY_LENGTH = 500;
