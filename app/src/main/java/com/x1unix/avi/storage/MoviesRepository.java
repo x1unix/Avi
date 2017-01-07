@@ -18,6 +18,7 @@ public class MoviesRepository {
 
     public static final String TABLE_MOVIES = "movies";
     public static final String TABLE_FAVORITES = "favorites";
+    public static final String TABLE_VIEWED = "viewed";
 
     private static final String LOG_TAG = "MoviesRepository";
     public static final Type MOVIE_TYPE = new TypeToken<List<KPPeople[]>>() {
@@ -70,13 +71,42 @@ public class MoviesRepository {
         return exists;
     }
 
+    public boolean movieHistoryExists(String kpId) {
+        String query = "SELECT * FROM " + MoviesRepository.TABLE_VIEWED + " where filmID = " + kpId + ";";
+        Cursor cursor = db.rawQuery(query, null);
+
+        boolean exists = (cursor.getCount() > 0);
+        cursor.close();
+
+        return exists;
+    }
+
+    public void addItemToHistory(String kpId) {
+        ContentValues cv = new ContentValues();
+        cv.put("filmID", kpId);
+        cv.put("lastViewed", getCurrentTimeStamp());
+
+        long rowID = db.insert(MoviesRepository.TABLE_VIEWED, null, cv);
+        Log.d(MoviesRepository.LOG_TAG, "Movie added to history #" + kpId);
+    }
+
+    public void updateItemHistory(String kpId) {
+        ContentValues cv = new ContentValues();
+        cv.put("filmID", kpId);
+        cv.put("lastViewed", getCurrentTimeStamp());
+
+        db.update(MoviesRepository.TABLE_VIEWED, cv, "filmID="+kpId, null);
+    }
+
+    private long getCurrentTimeStamp() {
+        return System.currentTimeMillis()/1000;
+    }
+
     private String getSelect() {
         return "SELECT * FROM " + MoviesRepository.TABLE_MOVIES;
     }
 
     public KPMovie getMovieById(String filmId) {
-
-
         KPMovie movie = null;
         String query = getSelect() + " where filmID = " + filmId + ";";
         Cursor c = db.rawQuery(query, null);

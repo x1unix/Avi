@@ -23,6 +23,7 @@ import android.view.WindowManager;
 import android.webkit.WebView;
 
 import com.x1unix.avi.helpers.AdBlocker;
+import com.x1unix.avi.storage.MoviesRepository;
 import com.x1unix.avi.webplayer.*;
 
 public class MoviePlayerActivity extends AppCompatActivity {
@@ -39,8 +40,13 @@ public class MoviePlayerActivity extends AppCompatActivity {
     private View nonVideoLayout;
     private ViewGroup videoLayout;
     private View loadingView;
+    private String movieId;
 
     private ActionBar actionBar;
+
+    private MoviesRepository moviesRepository;
+
+    private final String LOG_TAG = "WebPlayer";
 
 
     @Override
@@ -52,6 +58,8 @@ public class MoviePlayerActivity extends AppCompatActivity {
         nonVideoLayout = findViewById(R.id.nonVideoLayout);
         videoLayout = (ViewGroup)findViewById(R.id.videoLayout);
         loadingView = getLayoutInflater().inflate(R.layout.view_loading_video, null);
+
+        moviesRepository = MoviesRepository.getInstance(this);
 
         // Set activity title
         receivedIntent = getIntent();
@@ -70,9 +78,28 @@ public class MoviePlayerActivity extends AppCompatActivity {
         if (!movieLoaded) {
             // Load player with intent data
             if (receivedIntent != null) {
-                loadPlayer(receivedIntent.getStringExtra("movieId"));
+                movieId = receivedIntent.getStringExtra("movieId");
+                loadPlayer(movieId);
+
+                // Save visit in separate thread
+                saveVisitInHistory();
             }
         }
+    }
+
+    private void saveVisitInHistory() {
+        (new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (moviesRepository.movieHistoryExists(movieId)) {
+                    Log.d(LOG_TAG, "Update visit history - #" + movieId);
+                    moviesRepository.updateItemHistory(movieId);
+                } else {
+                    Log.d(LOG_TAG, "Add to history - #" + movieId);
+                    moviesRepository.addItemToHistory(movieId);
+                }
+            }
+        })).run();
     }
 
     @Override
@@ -179,6 +206,8 @@ public class MoviePlayerActivity extends AppCompatActivity {
     }
     @Override
     public void onDestroy() {
+        moviesRepository.close();
+        moviesRepository = null;
         super.onDestroy();
         finishJob();
     }

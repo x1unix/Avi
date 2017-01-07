@@ -115,6 +115,19 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
         btnRetry.setOnClickListener(this);
     }
 
+    @Override
+    public void onStop() {
+        moviesRepository.close();
+        moviesRepository = null;
+        super.onStop();
+    }
+
+    @Override
+    public void onRestart() {
+        moviesRepository = MoviesRepository.getInstance(this);
+        super.onRestart();
+    }
+
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.amd_btn_watch:

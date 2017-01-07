@@ -52,7 +52,7 @@ class DBHelper extends SQLiteOpenHelper {
                 "    filmID INT PRIMARY KEY\n" +
                 "             REFERENCES movies (filmID) \n" +
                 "             NOT NULL\n" +
-                "             UNIQUE\n" +
+                "             UNIQUE,\n" +
                 "    lastViewed BIGINT DEFAULT (0)" +
                 ");\n");
 
