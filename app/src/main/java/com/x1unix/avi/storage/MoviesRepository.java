@@ -17,6 +17,8 @@ import java.util.List;
 public class MoviesRepository {
 
     public static final String TABLE_MOVIES = "movies";
+    public static final String TABLE_FAVORITES = "favorites";
+
     private static final String LOG_TAG = "MoviesRepository";
     public static final Type MOVIE_TYPE = new TypeToken<List<KPPeople[]>>() {
     }.getType();
@@ -59,7 +61,7 @@ public class MoviesRepository {
     }
 
     public boolean movieExists(String kpId) {
-        String query = "SELECT * FROM " + MoviesRepository.TABLE_MOVIES + " where filmID = " + kpId;
+        String query = "SELECT * FROM " + MoviesRepository.TABLE_MOVIES + " where filmID = " + kpId + ";";
         Cursor cursor = db.rawQuery(query, null);
 
         boolean exists = (cursor.getCount() > 0);
@@ -79,17 +81,40 @@ public class MoviesRepository {
         String query = getSelect() + " where filmID = " + filmId + ";";
         Cursor c = db.rawQuery(query, null);
 
-//        try {
+        try {
             if ((c != null) && c.moveToFirst()) {
                 movie = MoviesRepository.getMovieFromCursor(c);
             }
-//        } catch (Exception e) {
-//            movie = null;
-//        }
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Failed to get movie from cursor, query: \n" + query + "\n Message: " + e.getMessage());
+            movie = null;
+        }
 
         if (c != null) c.close();
 
         return movie;
+    }
+
+    public boolean isInFavorites(String kpId) {
+        String query = "SELECT * FROM " + MoviesRepository.TABLE_FAVORITES + " where filmID = " + kpId + ";";
+        Cursor cursor = db.rawQuery(query, null);
+
+        boolean exists = (cursor.getCount() > 0);
+        cursor.close();
+
+        return exists;
+    }
+
+    public boolean removeFromFavorites(String kpId) {
+        return db.delete(MoviesRepository.TABLE_FAVORITES, "filmID = " + kpId, null) > 0;
+    }
+
+    public void addToFavorites(String kpId) {
+        ContentValues cv = new ContentValues();
+        cv.put("filmID", kpId);
+
+        long rowID = db.insert(MoviesRepository.TABLE_FAVORITES, null, cv);
+        Log.d(MoviesRepository.LOG_TAG, "Add to favorites, ID: " + rowID);
     }
 
     public void close() {

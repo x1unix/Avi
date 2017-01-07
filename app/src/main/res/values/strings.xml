@@ -74,4 +74,7 @@
     <string name="allow_unstable_versions">Allow unstable versions</string>
     <string name="unstable_versions_desc">Unstable versions includes the latest features, but may have issues and errors.</string>
 
+    <string name="added_to_favs">Element added to favorites</string>
+    <string name="removed_from_favs">Element removed from favorites</string>
+
 </resources>

@@ -61,4 +61,7 @@
     <string name="no_results">Нічого не знайдено</string>
     <string name="allow_unstable_versions">Пропонувати нестабільні версії</string>
     <string name="unstable_versions_desc">Нестабільні збірки включають в себе найновіші функції і можливості, але можуть містити помилки.</string>
+
+    <string name="added_to_favs">Елемент доданий в обране</string>
+    <string name="removed_from_favs">Елемент видалений з обраного</string>
 </resources>

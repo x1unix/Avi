@@ -2,6 +2,7 @@ package com.x1unix.avi;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -41,10 +42,13 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
     private String currentLocale;
 
     private ImageButton btnAddToBookmarks;
+    private ImageButton btnRmFromBookmarks;
+
     private Button btnWatchMovie;
     private Button btnRetry;
     private MoviesRepository moviesRepository;
     private String LOG_TAG = "MovieDetailsActivity";
+    private boolean isCached = false;
 
 
 
@@ -76,6 +80,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
                     // Import data from cache
                     KPMovie movie = moviesRepository.getMovieById(movieId);
                     applyMovieData(movie, false);
+                    isCached = true;
                 } else {
                     Log.d(LOG_TAG, "#" + movieId +" No data in cache");
                     getFullMovieInfo();
@@ -100,11 +105,13 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
 
     private void initUIElements() {
         btnAddToBookmarks = (ImageButton) findViewById(R.id.amd_bookmark_add);
+        btnRmFromBookmarks = (ImageButton) findViewById(R.id.amd_bookmark_remove);
         btnWatchMovie = (Button) findViewById(R.id.amd_btn_watch);
         btnRetry = (Button) findViewById(R.id.amd_retry);
 
         btnWatchMovie.setOnClickListener(this);
         btnAddToBookmarks.setOnClickListener(this);
+        btnRmFromBookmarks.setOnClickListener(this);
         btnRetry.setOnClickListener(this);
     }
 
@@ -115,6 +122,18 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
                 break;
             case R.id.amd_retry:
                 retry();
+                break;
+            case R.id.amd_bookmark_add:
+                btnAddToBookmarks.setVisibility(View.GONE);
+                moviesRepository.addToFavorites(movieId);
+                setBookmarkedVisibility(true);
+                showSnackMessage(R.string.added_to_favs);
+                break;
+            case R.id.amd_bookmark_remove:
+                btnRmFromBookmarks.setVisibility(View.GONE);
+                moviesRepository.removeFromFavorites(movieId);
+                setBookmarkedVisibility(false);
+                showSnackMessage(R.string.removed_from_favs);
                 break;
             default:
                 Toast.makeText(getApplicationContext(),
@@ -171,6 +190,11 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
     private void setErrVisibility(boolean ifShow) {
         int visible = (ifShow) ? View.VISIBLE : View.GONE;
         ((LinearLayout) findViewById(R.id.amd_msg_fail)).setVisibility(visible);
+    }
+
+    private void setBookmarkedVisibility(boolean ifShow) {
+        btnRmFromBookmarks.setVisibility((ifShow) ? View.VISIBLE : View.GONE);
+        btnAddToBookmarks.setVisibility((!ifShow) ? View.VISIBLE : View.GONE);
     }
 
 
@@ -240,6 +264,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
             moviesRepository.addMovie(movie);
         }
 
+        setBookmarkedVisibility(moviesRepository.isInFavorites(movieId));
         setInfoVisibility(true);
     }
 
@@ -262,5 +287,11 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
             }
         }
         ((TextView) findViewById(targetId)).setText(val);
+    }
+
+    private void showSnackMessage(int stringId) {
+        Snackbar.make(findViewById(android.R.id.content),
+                    getResources().getString(stringId),
+                    Snackbar.LENGTH_LONG).show();
     }
 }
