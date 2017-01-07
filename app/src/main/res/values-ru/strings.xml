@@ -64,4 +64,7 @@
 
     <string name="added_to_favs">Элемент добавлен в избранное</string>
     <string name="removed_from_favs">Элемент удален из избранного</string>
+
+    <string name="favorites">Избранное</string>
+    <string name="viewed">Недавние</string>
 </resources>

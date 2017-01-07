@@ -40,6 +40,12 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initBackgroundUpdate();
+    }
+
+    
+
+    private void initBackgroundUpdate() {
         // Set timer to try to check updates
         if (!BuildConfig.DEBUG) {
             new Handler().postDelayed(new Runnable() {
@@ -63,7 +69,6 @@ public class DashboardActivity extends AppCompatActivity {
             }, 1000);
         }
     }
-
     private void setNoInternetVisibility(boolean ifVisible) {
         ((LinearLayout) findViewById(R.id.no_internet_screen))
                 .setVisibility(ifVisible ? View.VISIBLE : View.GONE);

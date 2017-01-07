@@ -24,6 +24,7 @@ public class NewDashboardActivity extends AppCompatActivity {
 
         // Get the ViewPager and set it's PagerAdapter so that it can display items
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+
         viewPager.setAdapter(new DashboardFragmentPagerAdapter(getSupportFragmentManager(),
                 NewDashboardActivity.this));
 

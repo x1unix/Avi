@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {
-                Intent mainIntent = new Intent(MainActivity.this,DashboardActivity.class);
+                Intent mainIntent = new Intent(MainActivity.this, NewDashboardActivity.class);
                 MainActivity.this.startActivity(mainIntent);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 MainActivity.this.finish();
