@@ -53,6 +53,7 @@ class DBHelper extends SQLiteOpenHelper {
                 "             REFERENCES movies (filmID) \n" +
                 "             NOT NULL\n" +
                 "             UNIQUE\n" +
+                "    lastViewed BIGINT DEFAULT (0)" +
                 ");\n");
 
         return this;
