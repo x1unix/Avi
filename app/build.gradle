@@ -5,7 +5,7 @@ android {
     buildToolsVersion "24.0.3"
     defaultConfig {
         applicationId "com.x1unix.avi"
-        minSdkVersion 16
+        minSdkVersion 14
         targetSdkVersion 24
         versionCode 20170104
         versionName "1.0.0"
