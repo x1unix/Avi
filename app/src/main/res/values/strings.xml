@@ -76,5 +76,7 @@
 
     <string name="added_to_favs">Element added to favorites</string>
     <string name="removed_from_favs">Element removed from favorites</string>
+    <string name="favorites">Favorites</string>
+    <string name="viewed">Recently viewed</string>
 
 </resources>
