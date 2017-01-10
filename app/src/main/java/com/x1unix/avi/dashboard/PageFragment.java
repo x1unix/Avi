@@ -21,8 +21,8 @@ public class PageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_page, container, false);
-        TextView textView = (TextView) view;
-        textView.setText("Fragment");
+        // TextView textView = (TextView) view;
+        // textView.setText("Fragment");
         return view;
     }
 }

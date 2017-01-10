@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/no_items_block"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center" />
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        app:srcCompat="@drawable/ic_subject"
+        android:id="@+id/imageView"
+        android:layout_height="200sp" />
+</LinearLayout>
