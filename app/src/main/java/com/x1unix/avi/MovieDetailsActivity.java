@@ -274,7 +274,9 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
 
         // Save movie to the cache
         if (cacheItem) {
-            moviesRepository.addMovie(movie);
+            moviesRepository.addMovie(
+                    movie.setShortDescription(movieDescription).setStars(movieRating)
+            );
         }
 
         setBookmarkedVisibility(moviesRepository.isInFavorites(movieId));

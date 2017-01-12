@@ -51,6 +51,8 @@ public class MoviesRepository {
         cv.put("ratingMPAA", movie.getTrueRatingMPAA());
         cv.put("ratingAgeLimits", movie.getRatingAgeLimits());
         cv.put("type", movie.getType());
+        cv.put("shortDescription", movie.getShortDescription());
+        cv.put("stars", movie.getStars());
 
         // Serialize data to JSON and save as BLOB
         cv.put("creators", (new Gson()).toJson(movie.getCreators()));
@@ -210,7 +212,9 @@ public class MoviesRepository {
                 getStringValue("ratingMPAA", c),
                 getStringValue("ratingAgeLimits", c),
                 getStringValue("type", c),
-                p
+                p,
+                getStringValue("shortDescription", c),
+                getStringValue("stars", c)
         );
     }
 

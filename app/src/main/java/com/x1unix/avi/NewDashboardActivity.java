@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 
 import com.x1unix.avi.dashboard.*;
+import com.x1unix.avi.storage.MoviesRepository;
 
 public class NewDashboardActivity extends AppCompatActivity {
 
@@ -26,11 +27,14 @@ public class NewDashboardActivity extends AppCompatActivity {
     // Menu items
     private MenuItem menuItemSettings;
     private MenuItem menuItemHelp;
+    private MoviesRepository moviesRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
+        moviesRepository = MoviesRepository.getInstance(this);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -40,7 +44,7 @@ public class NewDashboardActivity extends AppCompatActivity {
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
 
         viewPager.setAdapter(new DashboardFragmentPagerAdapter(getSupportFragmentManager(),
-                NewDashboardActivity.this));
+                NewDashboardActivity.this, moviesRepository));
 
         // Give the TabLayout the ViewPager
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);

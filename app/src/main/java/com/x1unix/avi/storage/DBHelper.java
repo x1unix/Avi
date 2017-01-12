@@ -34,7 +34,9 @@ class DBHelper extends SQLiteOpenHelper {
                 "    ratingMPAA      VARCHAR (10)  DEFAULT \"\",\n" +
                 "    ratingAgeLimits VARCHAR (5)   DEFAULT \"\",\n" +
                 "    type            VARCHAR (32)  DEFAULT \"\",\n" +
-                "    creators        BLOB          DEFAULT \"\"\n" +
+                "    creators        BLOB          DEFAULT \"\",\n" +
+                "    shortDescription VARCHAR (64)  DEFAULT \"\",\n" +
+                "    stars            VARCHAR (10)  DEFAULT \"5.0\"" +
                 ");");
     }
 

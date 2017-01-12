@@ -42,9 +42,15 @@ public class KPMovie {
     @SerializedName("creators")
     private List<KPPeople[]> creators;
 
+    // Values stored in db
+    private String shortDescription = "";
+
+    private String stars = "5.0";
+
     public KPMovie(String ifilmID, String inameRU, String inameEN, String iyear, String ifilmLength,
                    String icountry, String igenre, String idescription, String iratingMPAA,
-                   String iratingAgeLimits, String itype, List<KPPeople[]> icreators) {
+                   String iratingAgeLimits, String itype, List<KPPeople[]> icreators,
+                   String ishortDescription, String istars) {
         filmID = ifilmID;
         nameRU = inameRU;
         nameEN = inameEN;
@@ -57,6 +63,8 @@ public class KPMovie {
         ratingAgeLimits = iratingAgeLimits;
         type = itype;
         creators = icreators;
+        shortDescription = ishortDescription;
+        stars = istars;
     }
 
     public String getId() {
@@ -149,6 +157,24 @@ public class KPMovie {
 
     public List<KPPeople[]> getCreators() {
         return creators;
+    }
+
+    public KPMovie setStars(String istars) {
+        stars = istars;
+        return this;
+    }
+
+    public KPMovie setShortDescription(String idescription) {
+        shortDescription = idescription;
+        return this;
+    }
+
+    public String getStars() {
+        return (stars == null) ? "5.0" : stars;
+    }
+
+    public String getShortDescription() {
+        return shortDescription;
     }
 
 }
