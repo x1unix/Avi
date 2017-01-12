@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.x1unix.avi.R;
+import com.x1unix.avi.storage.MoviesRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,14 +19,14 @@ public class DashboardFragmentPagerAdapter extends FragmentPagerAdapter {
     private Context context;
     private Resources res;
 
-    public DashboardFragmentPagerAdapter(FragmentManager fm, Context context) {
+    public DashboardFragmentPagerAdapter(FragmentManager fm, Context context, MoviesRepository aMoviesRepository) {
         super(fm);
         this.context = context;
         this.res = context.getResources();
 
         // Add two test fragments
-        this.fragments.add(new FavoritesTabFragment());
-        this.fragments.add(new HistoryTabFragment());
+        this.fragments.add(FavoritesTabFragment.getInstance(aMoviesRepository));
+        this.fragments.add(HistoryTabFragment.getInstance(aMoviesRepository));
     }
 
     @Override

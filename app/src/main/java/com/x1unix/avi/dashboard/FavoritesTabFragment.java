@@ -7,9 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.x1unix.avi.R;
+import com.x1unix.avi.storage.MoviesRepository;
 
 public class FavoritesTabFragment extends Fragment {
-    public static final String ARG_PAGE = "ARG_PAGE";
+    private MoviesRepository moviesRepository;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,5 +24,14 @@ public class FavoritesTabFragment extends Fragment {
         // TextView textView = (TextView) view;
         // textView.setText("Fragment");
         return view;
+    }
+
+    public FavoritesTabFragment setMoviesRepository(MoviesRepository m) {
+        moviesRepository = m;
+        return this;
+    }
+
+    public static FavoritesTabFragment getInstance(MoviesRepository m) {
+        return (new FavoritesTabFragment()).setMoviesRepository(m);
     }
 }
