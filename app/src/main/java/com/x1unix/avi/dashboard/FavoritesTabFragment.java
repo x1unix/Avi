@@ -5,11 +5,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.x1unix.avi.R;
 
-public class PageFragment extends Fragment {
+public class FavoritesTabFragment extends Fragment {
     public static final String ARG_PAGE = "ARG_PAGE";
 
     @Override
@@ -20,7 +19,7 @@ public class PageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_page, container, false);
+        View view = inflater.inflate(R.layout.tab_favorites, container, false);
         // TextView textView = (TextView) view;
         // textView.setText("Fragment");
         return view;

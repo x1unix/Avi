@@ -67,4 +67,6 @@
 
     <string name="favorites">Обране</string>
     <string name="viewed">Недавні</string>
+    <string name="tab_favs_no_items">Тут з\'являться фільми і серіали, як тільки ви додасте їх в Вибране</string>
+    <string name="tab_history_no_items">Тут з\'являться переглянуті вами фільми й серіали</string>
 </resources>

@@ -24,8 +24,8 @@ public class DashboardFragmentPagerAdapter extends FragmentPagerAdapter {
         this.res = context.getResources();
 
         // Add two test fragments
-        this.fragments.add(new PageFragment());
-        this.fragments.add(new PageFragment());
+        this.fragments.add(new FavoritesTabFragment());
+        this.fragments.add(new HistoryTabFragment());
     }
 
     @Override

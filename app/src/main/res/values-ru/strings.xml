@@ -67,4 +67,6 @@
 
     <string name="favorites">Избранное</string>
     <string name="viewed">Недавние</string>
+    <string name="tab_favs_no_items">Здесь появятся фильмы и сериалы, как только вы добавите их в Избранное</string>
+    <string name="tab_history_no_items">Здесь появятся просмотренные вами фильмы и сериалы</string>
 </resources>
