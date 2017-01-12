@@ -73,7 +73,7 @@ public class FavoritesTabFragment extends Fragment {
     private void initRecycleView() {
         boolean isTablet = getResources().getBoolean(R.bool.isTablet);
         int colsCount = (isTablet) ? getResources().getInteger(R.integer.colsCount) : 1;
-        itemsListView.setLayoutManager((isTablet) ? new GridLayoutManager(getContext(), colsCount) : new LinearLayoutManager(getContext()));
+        itemsListView.setLayoutManager(new GridLayoutManager(getContext(), colsCount));
 
         // Register RecyclerView event listener
         itemsListView.addOnItemTouchListener(
