@@ -169,6 +169,30 @@ public class KPMovie {
         return this;
     }
 
+    public String getLocalizedTitle(String currentLocale) {
+        Boolean isSlavic = ( currentLocale.equals("ru") || currentLocale.equals("uk") );
+        Boolean isSlavicAvailable = (nameRU != null) && (nameRU.length() > 0);
+        Boolean isLatinAvailable = (nameEN != null) && (nameEN.length() > 0);
+
+        String title = nameRU;
+
+        if (isSlavic) {
+            if (isSlavicAvailable) {
+                title = nameRU;
+            } else {
+                title = nameEN;
+            }
+        } else {
+            if (isLatinAvailable) {
+                title = nameEN;
+            } else {
+                title = nameRU;
+            }
+        }
+
+        return title;
+    }
+
     public String getStars() {
         return (stars == null) ? "5.0" : stars;
     }

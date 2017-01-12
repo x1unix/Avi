@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DashboardFragmentPagerAdapter extends FragmentPagerAdapter {
-    final int PAGE_COUNT = 3;
     private final int tabTitles[] = new int[] { R.string.favorites, R.string.viewed};
     private final List<Fragment> fragments = new ArrayList<>();
     private Context context;

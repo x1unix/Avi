@@ -26,6 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
         android:layout_marginTop="54dp"
         android:orientation="vertical"
         android:id="@+id/error_message_screen"
