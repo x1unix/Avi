@@ -12,6 +12,7 @@ import com.x1unix.avi.model.KPMovie;
 import com.x1unix.avi.model.KPPeople;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MoviesRepository {
@@ -145,6 +146,37 @@ public class MoviesRepository {
 
         long rowID = db.insert(MoviesRepository.TABLE_FAVORITES, null, cv);
         Log.d(MoviesRepository.LOG_TAG, "Add to favorites, ID: " + rowID);
+    }
+
+    private ArrayList<KPMovie> getMoviesFromPlaylist(String playlistName, String extraQuery) {
+        ArrayList<KPMovie> result = new ArrayList<KPMovie>();
+
+        if (extraQuery == null) extraQuery = "";
+
+        Cursor c = db.rawQuery("select m.*\n" +
+                "    from movies m\n" +
+                "    left join " + playlistName + " f\n" +
+                "    on m.filmID = f.filmID " + extraQuery + ";", null);
+
+        if (c.moveToFirst()) {
+            do {
+                result.add(MoviesRepository.getMovieFromCursor(c));
+            } while(c.moveToNext());
+        }
+
+        if (c != null && !c.isClosed()){
+            c.close();
+        }
+
+        return result;
+    }
+
+    public ArrayList<KPMovie> getFavoritesMovies() {
+        return getMoviesFromPlaylist(TABLE_FAVORITES, null);
+    }
+
+    public ArrayList<KPMovie> getViewedMovies() {
+        return getMoviesFromPlaylist(TABLE_VIEWED, "order by f.lastViewed DESC limit 80");
     }
 
     public void close() {
