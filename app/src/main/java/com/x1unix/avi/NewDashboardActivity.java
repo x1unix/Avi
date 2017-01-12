@@ -2,6 +2,7 @@ package com.x1unix.avi;
 
 import android.app.SearchManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.MenuItemCompat;
@@ -88,7 +89,10 @@ public class NewDashboardActivity extends AppCompatActivity {
     }
 
     private void performSearch(String query) {
-        searchItem.collapseActionView();
+
+        if (Build.VERSION.SDK_INT > 14) {
+            searchItem.collapseActionView();
+        }
         startActivity(
                 (new Intent(this, SearchActivity.class)).putExtra("query", query)
         );

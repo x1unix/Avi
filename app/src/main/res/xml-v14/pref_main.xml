@@ -2,13 +2,13 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
         android:title="@string/pref_category_video">
-        <CheckBoxPreference
+        <SwitchPreference
             android:key="@string/avi_prop_no_ads"
             android:defaultValue="true"
             android:title="@string/pref_ads_disabled"
             android:summary="@string/pref_ads_disabled_desc">
 
-        </CheckBoxPreference>
+        </SwitchPreference>
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/pref_category_updates">
@@ -16,18 +16,18 @@
             android:key="@string/prop_btn_update_now"
             android:title="@string/pref_updates_check_now">
         </Preference>
-        <CheckBoxPreference
+        <SwitchPreference
             android:key="@string/avi_prop_autocheck_updates"
             android:defaultValue="true"
             android:title="@string/pref_updates_allow_autocheck"
             android:summary="@string/pref_updates_autocheck_desc">
-        </CheckBoxPreference>
-        <CheckBoxPreference
+        </SwitchPreference>
+        <SwitchPreference
             android:key="@string/avi_prop_allow_unstable"
             android:defaultValue="false"
             android:title="@string/allow_unstable_versions"
             android:summary="@string/unstable_versions_desc">
-        </CheckBoxPreference>
+        </SwitchPreference>
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/pref_category_about">
