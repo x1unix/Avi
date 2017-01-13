@@ -9,7 +9,7 @@ import com.rollbar.android.Rollbar;
 
 public class MainActivity extends AppCompatActivity {
 
-    protected int SPLASH_DISPLAY_LENGTH = 500;
+    protected int SPLASH_DISPLAY_LENGTH = 300;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
