@@ -24,6 +24,7 @@ public class DashboardTabFragment extends Fragment {
     protected ArrayList<KPMovie> items;
     protected RecyclerView itemsListView;
     protected String currentLang = "ru";
+    protected GridLayoutManager gridLayoutManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,10 @@ public class DashboardTabFragment extends Fragment {
 
         currentLang = getResources().getConfiguration().locale.getLanguage();
 
+    }
+
+    protected void onLayoutUpdate() {
+        updateSpanCount();
     }
 
     protected int getTabView() {
@@ -73,10 +78,22 @@ public class DashboardTabFragment extends Fragment {
 
     }
 
-    protected void initRecycleView() {
+    protected void configureRecycleView() {
         boolean isTablet = getResources().getBoolean(R.bool.isTablet);
         int colsCount = (isTablet) ? getResources().getInteger(R.integer.colsCount) : 1;
-        itemsListView.setLayoutManager(new GridLayoutManager(getContext(), colsCount));
+
+        gridLayoutManager = new GridLayoutManager(getContext(), colsCount);
+        itemsListView.setLayoutManager(gridLayoutManager);
+    }
+
+    protected void updateSpanCount() {
+        boolean isTablet = getResources().getBoolean(R.bool.isTablet);
+        int colsCount = (isTablet) ? getResources().getInteger(R.integer.colsCount) : 1;
+        gridLayoutManager.setSpanCount(colsCount);
+    }
+
+    protected void initRecycleView() {
+        configureRecycleView();
 
         // Register RecyclerView event listener
         itemsListView.addOnItemTouchListener(
@@ -114,5 +131,9 @@ public class DashboardTabFragment extends Fragment {
     public static DashboardTabFragment getInstance(MoviesRepository m, int iviewId) {
         return (new DashboardTabFragment())
                     .setMoviesRepository(m);
+    }
+
+    public void updateLayout() {
+        onLayoutUpdate();
     }
 }

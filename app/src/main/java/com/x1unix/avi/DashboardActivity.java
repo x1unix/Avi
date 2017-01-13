@@ -2,6 +2,7 @@ package com.x1unix.avi;
 
 import android.app.SearchManager;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
@@ -27,6 +28,7 @@ public class DashboardActivity extends AppCompatActivity {
     // Menu items
     private MenuItem menuItemSettings;
     private MenuItem menuItemHelp;
+    private DashboardFragmentPagerAdapter pageAdapter;
     private MoviesRepository moviesRepository;
 
     @Override
@@ -43,12 +45,19 @@ public class DashboardActivity extends AppCompatActivity {
         // Get the ViewPager and set it's PagerAdapter so that it can display items
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
 
-        viewPager.setAdapter(new DashboardFragmentPagerAdapter(getSupportFragmentManager(),
-                DashboardActivity.this, moviesRepository));
+        pageAdapter = new DashboardFragmentPagerAdapter(getSupportFragmentManager(),
+                DashboardActivity.this, moviesRepository);
+        viewPager.setAdapter(pageAdapter);
 
         // Give the TabLayout the ViewPager
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        pageAdapter.triggerUpdate();
     }
 
     @Override

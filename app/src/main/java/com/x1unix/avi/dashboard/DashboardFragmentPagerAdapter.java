@@ -14,7 +14,7 @@ import java.util.List;
 
 public class DashboardFragmentPagerAdapter extends FragmentPagerAdapter {
     private final int tabTitles[] = new int[] { R.string.favorites, R.string.viewed};
-    private final List<Fragment> fragments = new ArrayList<>();
+    private final List<DashboardTabFragment> fragments = new ArrayList<>();
     private Context context;
     private Resources res;
 
@@ -42,5 +42,11 @@ public class DashboardFragmentPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         // Generate title based on item position
         return res.getString(tabTitles[position]);
+    }
+
+    public void triggerUpdate() {
+        for (DashboardTabFragment tab: fragments) {
+            tab.updateLayout();
+        }
     }
 }
