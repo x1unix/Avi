@@ -33,12 +33,7 @@ public class HistoryTabFragment extends DashboardTabFragment {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
-    public HistoryTabFragment setMoviesRepository(MoviesRepository m) {
-        moviesRepository = m;
-        return this;
-    }
-
-    public static HistoryTabFragment getInstance(MoviesRepository m) {
+    public static DashboardTabFragment getInstance(MoviesRepository m) {
         return (new HistoryTabFragment()).setMoviesRepository(m);
     }
 }

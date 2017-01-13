@@ -32,12 +32,7 @@ public class FavoritesTabFragment extends DashboardTabFragment {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
-    public FavoritesTabFragment setMoviesRepository(MoviesRepository m) {
-        moviesRepository = m;
-        return this;
-    }
-
-    public static FavoritesTabFragment getInstance(MoviesRepository m) {
+    public static DashboardTabFragment getInstance(MoviesRepository m) {
         return (new FavoritesTabFragment()).setMoviesRepository(m);
     }
 }

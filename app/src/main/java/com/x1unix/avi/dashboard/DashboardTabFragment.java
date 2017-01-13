@@ -106,7 +106,7 @@ public class DashboardTabFragment extends Fragment {
         startActivity(mIntent);
     }
 
-    public DashboardTabFragment setMoviesRepository(MoviesRepository m) {
+    protected DashboardTabFragment setMoviesRepository(MoviesRepository m) {
         moviesRepository = m;
         return this;
     }
