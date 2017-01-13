@@ -72,7 +72,9 @@
                 android:resource="@xml/search_widget_provider" />
         </receiver>
 
-        <activity android:name=".NewDashboardActivity" android:theme="@style/AppTheme.Dashboard" />
+        <activity android:name=".NewDashboardActivity"
+            android:configChanges="orientation|screenSize"
+            android:theme="@style/AppTheme.Dashboard" />
     </application>
 
 </manifest>
