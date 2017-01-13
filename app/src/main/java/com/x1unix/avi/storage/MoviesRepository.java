@@ -155,10 +155,12 @@ public class MoviesRepository {
 
         if (extraQuery == null) extraQuery = "";
 
-        Cursor c = db.rawQuery("select m.*\n" +
+        String q =  "select m.*\n" +
                 "    from movies m\n" +
-                "    left join " + playlistName + " f\n" +
-                "    on m.filmID = f.filmID " + extraQuery + ";", null);
+                "    join " + playlistName + " f\n" +
+                "    on m.filmID = f.filmID " + extraQuery + ";";
+
+        Cursor c = db.rawQuery(q, null);
 
         if (c.moveToFirst()) {
             do {
