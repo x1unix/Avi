@@ -36,6 +36,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     private String propAllowUnstable;
     private SharedPreferences preferences;
 
+    private final String APP_URL = "http://x1unix.com";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +85,15 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                             Toast.LENGTH_SHORT).show();
                 }
 
+                return false;
+            }
+        });
+
+        ((Preference) findPreference("avi_author")).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(APP_URL));
+                startActivity(browserIntent);
                 return false;
             }
         });

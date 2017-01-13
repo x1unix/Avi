@@ -6,9 +6,7 @@
     <string name="avi_oops">Не вдалося виконати пошук</string>
     <string name="avi_internet_required">Необхідне підключення до Інтернету</string>
     <string name="avi_search_hint">Пошук фільмів та серіалів</string>
-    <string name="avi_start_hint">Для початку роботи, виберіть пошук та уведіть їм\'я бажаного фільму</string>
     <string name="avi_no_items_msg">За цим запитом нічого не знайдено.</string>
-    <string name="avi_wellcome">Ласкаво просимо до Avi!</string>
     <string name="avi_settings">Налаштування</string>
     <string name="avi_help">Допомога</string>
     <string name="avi_refresh">Оновити</string>
@@ -38,7 +36,6 @@
     <string name="pref_updates_autocheck_desc">Дозволити додатку автоматично перевіряти оновлення.</string>
 
     <!--App Info-->
-    <string name="avi_app_author">Денис (x1unix) Седченко, 2016.</string>
     <string name="action_settings">Налаштування</string>
 
     <!-- Movie details activity -->
