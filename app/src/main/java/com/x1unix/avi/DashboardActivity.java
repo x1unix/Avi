@@ -1,135 +1,55 @@
 package com.x1unix.avi;
 
 import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.PorterDuff.Mode;
-import android.net.ConnectivityManager;
+import android.os.Build;
 import android.os.Handler;
-import android.preference.PreferenceManager;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import com.x1unix.avi.BuildConfig;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.os.Bundle;
-import android.view.Menu;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
-import android.util.Log;
-import android.net.NetworkInfo;
-import com.x1unix.avi.model.*;
 
-import com.x1unix.avi.updateManager.OTAStateListener;
-import com.x1unix.avi.updateManager.OTAUpdateChecker;
+import com.x1unix.avi.dashboard.*;
+import com.x1unix.avi.storage.MoviesRepository;
 
 public class DashboardActivity extends AppCompatActivity {
+
+    private Toolbar toolbar;
 
     private MenuItem searchItem;
 
     // Menu items
     private MenuItem menuItemSettings;
     private MenuItem menuItemHelp;
-    private Button connectionRefreshBtn;
+    private MoviesRepository moviesRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_dashboard);
 
-        initBackgroundUpdate();
+        moviesRepository = MoviesRepository.getInstance(this);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+
+        // Get the ViewPager and set it's PagerAdapter so that it can display items
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+
+        viewPager.setAdapter(new DashboardFragmentPagerAdapter(getSupportFragmentManager(),
+                DashboardActivity.this, moviesRepository));
+
+        // Give the TabLayout the ViewPager
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        tabLayout.setupWithViewPager(viewPager);
     }
-
-    
-
-    private void initBackgroundUpdate() {
-        // Set timer to try to check updates
-        if (!BuildConfig.DEBUG) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    String keyPropAutoUpdate = getResources()
-                            .getString(R.string.avi_prop_autocheck_updates);
-
-                    String keyAllowUnstable = getResources()
-                            .getString(R.string.avi_prop_allow_unstable);
-
-                    SharedPreferences preferences = PreferenceManager
-                            .getDefaultSharedPreferences(getBaseContext());
-                    boolean allowAutoUpdateCheck = preferences.getBoolean(keyPropAutoUpdate, true);
-                    boolean allowUnstable = preferences.getBoolean(keyAllowUnstable, false);
-
-                    if (allowAutoUpdateCheck) {
-                        tryFindUpdates(allowUnstable);
-                    }
-                }
-            }, 1000);
-        }
-    }
-    private void setNoInternetVisibility(boolean ifVisible) {
-        ((LinearLayout) findViewById(R.id.no_internet_screen))
-                .setVisibility(ifVisible ? View.VISIBLE : View.GONE);
-    }
-
-    private void setSearchVisibility(boolean ifVisible) {
-        searchItem.setVisible(ifVisible);
-    }
-
-    private void setWellcomeVisibility(boolean ifVisible) {
-        ((LinearLayout) findViewById(R.id.wellcome_screen))
-                .setVisibility(ifVisible ? View.VISIBLE : View.GONE);
-    }
-
-    private void prepareView() {
-        boolean hasInet = isNetworkAvailable();
-
-        // For test purposes
-        if (BuildConfig.DEBUG) {
-            Log.i("APP", "Debug mode ENABLED");
-            ((ImageView) findViewById(R.id.testBtn)).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent wmIntent = new Intent(getApplicationContext(), MovieDetailsActivity.class);
-
-                    // Put id and title
-                    wmIntent.putExtra("movieId", "770");
-                    wmIntent.putExtra("movieTitle", "Ocean's Eleven");
-                    wmIntent.putExtra("movieGenre", "Test");
-                    wmIntent.putExtra("movieDescription", "Test");
-                    wmIntent.putExtra("movieRating", "5.0");
-
-                    // Kickstart player
-                    startActivity(wmIntent);
-                }
-            });
-        }
-
-
-        if (isNetworkAvailable()) {
-            setWellcomeVisibility(true);
-            setNoInternetVisibility(false);
-            setSearchVisibility(true);
-
-        } else {
-            setWellcomeVisibility(false);
-            setSearchVisibility(false);
-            setNoInternetVisibility(true);
-
-            if (connectionRefreshBtn == null) {
-                connectionRefreshBtn = (Button) findViewById(R.id.connection_refresh_button);
-                connectionRefreshBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        prepareView();
-                    }
-                });
-            }
-        }
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -164,13 +84,14 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
-        prepareView();
-
         return true;
     }
 
     private void performSearch(String query) {
-        searchItem.collapseActionView();
+
+        if (Build.VERSION.SDK_INT > 14) {
+            searchItem.collapseActionView();
+        }
         startActivity(
                 (new Intent(this, SearchActivity.class)).putExtra("query", query)
         );
@@ -203,36 +124,4 @@ public class DashboardActivity extends AppCompatActivity {
             }
         }, 100);
     }
-
-
-    /**
-     * Is network available
-     *
-     * @return {boolean} Result
-     */
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }
-
-
-    private void tryFindUpdates(boolean allowUnstable) {
-        if (isNetworkAvailable()) {
-            OTAUpdateChecker.checkForUpdates(new OTAStateListener() {
-                @Override
-                protected void onUpdateAvailable(AviSemVersion availableVersion, AviSemVersion currentVersion) {
-                    showUpdateDialog(availableVersion);
-                }
-            }, allowUnstable);
-        }
-    }
-
-
-    private void showUpdateDialog(final AviSemVersion newVer) {
-        OTAUpdateChecker.makeDialog(this, newVer).show();
-    }
-
-
 }

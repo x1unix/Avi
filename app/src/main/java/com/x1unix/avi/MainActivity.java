@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.rollbar.android.Rollbar;
-import com.yandex.metrica.YandexMetrica;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {
-                Intent mainIntent = new Intent(MainActivity.this, NewDashboardActivity.class);
+                Intent mainIntent = new Intent(MainActivity.this, DashboardActivity.class);
                 MainActivity.this.startActivity(mainIntent);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 MainActivity.this.finish();
