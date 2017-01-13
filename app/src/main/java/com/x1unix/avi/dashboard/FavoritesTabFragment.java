@@ -27,7 +27,7 @@ import okhttp3.Cache;
 
 public class FavoritesTabFragment extends Fragment {
     private MoviesRepository moviesRepository;
-    private ArrayList<KPMovie> favorites;
+    private ArrayList<KPMovie> items;
     private View noItemsView;
     private RecyclerView itemsListView;
     private String currentLang = "ru";
@@ -37,7 +37,7 @@ public class FavoritesTabFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (moviesRepository != null) {
-            favorites = moviesRepository.getFavoritesMovies();
+            items = moviesRepository.getFavoritesMovies();
         }
 
         currentLang = getResources().getConfiguration().locale.getLanguage();
@@ -58,12 +58,12 @@ public class FavoritesTabFragment extends Fragment {
     }
 
     private void renderMovies() {
-        boolean hasFavorites = (favorites.size() > 0);
+        boolean hasFavorites = (items.size() > 0);
 
         noItemsView.setVisibility(hasFavorites ? View.GONE : View.VISIBLE);
         itemsListView.setVisibility(hasFavorites ? View.VISIBLE : View.GONE);
 
-        itemsListView.setAdapter(new CachedMoviesListAdapter(favorites,
+        itemsListView.setAdapter(new CachedMoviesListAdapter(items,
                 R.layout.list_item_movie,
                 getContext(),
                 getResources().getConfiguration().locale));
@@ -80,7 +80,7 @@ public class FavoritesTabFragment extends Fragment {
                 new RecyclerTouchListener(getContext(), itemsListView, new ClickListener() {
                     @Override
                     public void onClick(View view, int position) {
-                        openMovie(favorites.get(position));
+                        openMovie(items.get(position));
                     }
 
                     @Override
