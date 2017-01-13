@@ -47,6 +47,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private RecyclerView searchResultsView;
     private KPApiInterface searchService = null;
     private ActionBar actionBar;
+    private GridLayoutManager gridLayoutManager;
 
     private String query = "";
 
@@ -70,8 +71,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        initMoviesList();
-        drawResults();
+        updateSpanCount();
     }
 
     @Override
@@ -136,7 +136,14 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private void initMoviesList() {
         boolean isTablet = getResources().getBoolean(R.bool.isTablet);
         int colsCount = (isTablet) ? getResources().getInteger(R.integer.colsCount) : 1;
-        searchResultsView.setLayoutManager((isTablet) ? new GridLayoutManager(this, colsCount) : new LinearLayoutManager(this));
+        gridLayoutManager = new GridLayoutManager(this, colsCount);
+        searchResultsView.setLayoutManager(gridLayoutManager);
+    }
+
+    private void updateSpanCount() {
+        boolean isTablet = getResources().getBoolean(R.bool.isTablet);
+        int colsCount = (isTablet) ? getResources().getInteger(R.integer.colsCount) : 1;
+        gridLayoutManager.setSpanCount(colsCount);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
