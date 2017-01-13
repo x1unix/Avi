@@ -36,7 +36,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     private String propAllowUnstable;
     private SharedPreferences preferences;
 
-    private final String APP_URL = "http://x1unix.com";
+    private final String APP_URL = "http://avi-app.x1unix.com";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
