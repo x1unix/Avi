@@ -10,7 +10,7 @@ To watch movies, I use [moonwalk.co](http://moonwalk.co/the_api) service that ho
 Received Kinopoisk ID from movie used to get player's URL for the movie from Moonwalk.
 
 ## Requirements
-* Android 4.2+
+* Android 4.0+
 * Network connection
 
 ## Disclaimer

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.x1unix.avi.BuildConfig;
 
 import java.net.CookieManager;
 import java.net.CookiePolicy;
@@ -27,11 +28,14 @@ public class NetworkApiFactory {
 
         builder.addInterceptor(new KinopoiskRequestInterceptor());
 
-        //logging interceptor should be last interceptor in chain
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        // Log http requests on debug
+        if (BuildConfig.DEBUG) {
+            //logging interceptor should be last interceptor in chain
+            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-        builder.addInterceptor(loggingInterceptor);
+            builder.addInterceptor(loggingInterceptor);
+        }
 
         CookieManager cookieManager = new CookieManager();
         cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="avi_wellcome">Добро пожаловать в Avi!</string>
     <string name="avi_search_hint">Поиск фильмов и сериалов</string>
-    <string name="avi_start_hint">Для начала работы, выберите поиск и введите имя желаемого фильма</string>
     <string name="avi_no_internet">Требуется подключение к Интернету.</string>
     <string name="avi_connect_please">Для поиска и просмотра фильмов, необходимо стабильное подключение к сети.</string>
     <string name="avi_oops">Не удалось выполнить поиск</string>
@@ -39,7 +37,6 @@
 
     <!--App Info-->
     <string name="action_settings">Настройки</string>
-    <string name="avi_app_author">Денис (x1unix) Седченко, 2016.</string>
 
     <!-- Movie details activity -->
     <string name="action_watch">Смотреть</string>
@@ -61,4 +58,12 @@
     <string name="no_results">Ничего не найдено</string>
     <string name="allow_unstable_versions">Предлагать нестабильные версии</string>
     <string name="unstable_versions_desc">Нестабильные сборки приложения включают в себя самые новые функции и возможности, но могут содержать ошибки.</string>
+
+    <string name="added_to_favs">Элемент добавлен в избранное</string>
+    <string name="removed_from_favs">Элемент удален из избранного</string>
+
+    <string name="favorites">Избранное</string>
+    <string name="viewed">Недавние</string>
+    <string name="tab_favs_no_items">Здесь появятся фильмы и сериалы, как только вы добавите их в Избранное</string>
+    <string name="tab_history_no_items">Здесь появятся просмотренные вами фильмы и сериалы</string>
 </resources>

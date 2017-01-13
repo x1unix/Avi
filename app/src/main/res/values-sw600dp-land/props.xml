@@ -1,4 +1,4 @@
 <resources>
     <bool name="isTablet">true</bool>
-    <integer name="colsCount">4</integer>
+    <integer name="colsCount">5</integer>
 </resources>

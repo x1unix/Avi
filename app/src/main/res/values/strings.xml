@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name" translatable="false">Avi</string>
-    <string name="avi_wellcome">Wellcome to Avi!</string>
-    <string name="avi_start_hint">To begin, press search button and enter movie name</string>
     <string name="avi_search_hint">Search movies and TV-shows</string>
     <string name="avi_oops">Failed to get search results</string>
     <string name="avi_internet_required">Internet connection required to do this</string>
@@ -49,7 +47,6 @@
     <string name="prop_btn_update_now" translatable="false">prop_btn_update_now</string>
 
     <!--App Info-->
-    <string name="avi_app_author">Denis (x1unix) Sedchenko, 2016.</string>
     <string name="avi_app_mail" translatable="false">avi-app@x1unix.com</string>
     <string name="action_settings">Settings</string>
 
@@ -73,5 +70,14 @@
     <string name="no_results">Nothing found</string>
     <string name="allow_unstable_versions">Allow unstable versions</string>
     <string name="unstable_versions_desc">Unstable versions includes the latest features, but may have issues and errors.</string>
+
+    <string name="added_to_favs">Element added to favorites</string>
+    <string name="removed_from_favs">Element removed from favorites</string>
+    <string name="favorites">Favorites</string>
+    <string name="viewed">Recently viewed</string>
+    <string name="tab_favs_no_items">There will be movies and TV shows as soon as you add them to Favorites</string>
+    <string name="tab_history_no_items">There will be movies and series you watched</string>
+
+    <string name="avi_app_author" translatable="false">\@x1unix, 2017</string>
 
 </resources>

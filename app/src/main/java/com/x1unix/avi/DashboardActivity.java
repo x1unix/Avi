@@ -1,147 +1,64 @@
 package com.x1unix.avi;
 
-import android.app.AlertDialog;
 import android.app.SearchManager;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.PorterDuff.Mode;
-import android.net.ConnectivityManager;
-import android.net.Uri;
+import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Handler;
-import android.preference.PreferenceManager;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.appcompat.*;
-import android.support.v7.appcompat.BuildConfig;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 import android.os.Bundle;
-import android.view.Menu;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
-import android.util.Log;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import android.net.NetworkInfo;
-
-import com.x1unix.avi.rest.*;
-import com.x1unix.avi.model.*;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-import com.x1unix.avi.adapter.MoviesAdapter;
-import com.x1unix.avi.updateManager.OTAStateListener;
-import com.x1unix.avi.updateManager.OTAUpdateChecker;
+import com.x1unix.avi.dashboard.*;
+import com.x1unix.avi.storage.MoviesRepository;
 
 public class DashboardActivity extends AppCompatActivity {
+
+    private Toolbar toolbar;
 
     private MenuItem searchItem;
 
     // Menu items
     private MenuItem menuItemSettings;
     private MenuItem menuItemHelp;
-    private Button connectionRefreshBtn;
+    private DashboardFragmentPagerAdapter pageAdapter;
+    private MoviesRepository moviesRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_dashboard);
 
-        // Set timer to try to check updates
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                String keyPropAutoUpdate = getResources()
-                        .getString(R.string.avi_prop_autocheck_updates);
+        moviesRepository = MoviesRepository.getInstance(this);
 
-                String keyAllowUnstable = getResources()
-                        .getString(R.string.avi_prop_allow_unstable);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
 
-                SharedPreferences preferences = PreferenceManager
-                        .getDefaultSharedPreferences(getBaseContext());
-                boolean allowAutoUpdateCheck = preferences.getBoolean(keyPropAutoUpdate, true);
-                boolean allowUnstable = preferences.getBoolean(keyAllowUnstable, false);
+        // Get the ViewPager and set it's PagerAdapter so that it can display items
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
 
-                if (allowAutoUpdateCheck) {
-                    tryFindUpdates(allowUnstable);
-                }
-            }
-        }, 1000);
+        pageAdapter = new DashboardFragmentPagerAdapter(getSupportFragmentManager(),
+                DashboardActivity.this, moviesRepository);
+        viewPager.setAdapter(pageAdapter);
+
+        // Give the TabLayout the ViewPager
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
-    private void setNoInternetVisibility(boolean ifVisible) {
-        ((LinearLayout) findViewById(R.id.no_internet_screen))
-                .setVisibility(ifVisible ? View.VISIBLE : View.GONE);
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        pageAdapter.triggerUpdate();
     }
-
-    private void setSearchVisibility(boolean ifVisible) {
-        searchItem.setVisible(ifVisible);
-    }
-
-    private void setWellcomeVisibility(boolean ifVisible) {
-        ((LinearLayout) findViewById(R.id.wellcome_screen))
-                .setVisibility(ifVisible ? View.VISIBLE : View.GONE);
-    }
-
-    private void prepareView() {
-        boolean hasInet = isNetworkAvailable();
-
-        // For test purposes
-        if (BuildConfig.DEBUG) {
-            ((ImageView) findViewById(R.id.testBtn)).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent wmIntent = new Intent(getApplicationContext(), MoviePlayerActivity.class);
-
-                    // Put id and title
-                    wmIntent.putExtra("movieId", "770");
-                    wmIntent.putExtra("movieTitle", "Ocean's Eleven");
-
-                    // Kickstart player
-                    startActivity(wmIntent);
-                }
-            });
-        }
-
-
-        if (isNetworkAvailable()) {
-            setWellcomeVisibility(true);
-            setNoInternetVisibility(false);
-            setSearchVisibility(true);
-
-        } else {
-            setWellcomeVisibility(false);
-            setSearchVisibility(false);
-            setNoInternetVisibility(true);
-
-            if (connectionRefreshBtn == null) {
-                connectionRefreshBtn = (Button) findViewById(R.id.connection_refresh_button);
-                connectionRefreshBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        prepareView();
-                    }
-                });
-            }
-        }
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -176,13 +93,14 @@ public class DashboardActivity extends AppCompatActivity {
             }
         });
 
-        prepareView();
-
         return true;
     }
 
     private void performSearch(String query) {
-        searchItem.collapseActionView();
+
+        if (Build.VERSION.SDK_INT > 14) {
+            searchItem.collapseActionView();
+        }
         startActivity(
                 (new Intent(this, SearchActivity.class)).putExtra("query", query)
         );
@@ -215,36 +133,4 @@ public class DashboardActivity extends AppCompatActivity {
             }
         }, 100);
     }
-
-
-    /**
-     * Is network available
-     *
-     * @return {boolean} Result
-     */
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }
-
-
-    private void tryFindUpdates(boolean allowUnstable) {
-        if (isNetworkAvailable()) {
-            OTAUpdateChecker.checkForUpdates(new OTAStateListener() {
-                @Override
-                protected void onUpdateAvailable(AviSemVersion availableVersion, AviSemVersion currentVersion) {
-                    showUpdateDialog(availableVersion);
-                }
-            }, allowUnstable);
-        }
-    }
-
-
-    private void showUpdateDialog(final AviSemVersion newVer) {
-        OTAUpdateChecker.makeDialog(this, newVer).show();
-    }
-
-
 }

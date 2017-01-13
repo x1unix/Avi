@@ -2,6 +2,7 @@ package com.x1unix.avi;
 
 import android.app.SearchManager;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.PorterDuff;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
@@ -46,6 +47,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     private RecyclerView searchResultsView;
     private KPApiInterface searchService = null;
     private ActionBar actionBar;
+    private GridLayoutManager gridLayoutManager;
 
     private String query = "";
 
@@ -64,6 +66,12 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         if (query != null) {
             performSearch(query);
         }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        updateSpanCount();
     }
 
     @Override
@@ -102,9 +110,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
         searchResultsView = (RecyclerView) findViewById(R.id.movies_recycler_view);
 
-        boolean isTablet = getResources().getBoolean(R.bool.isTablet);
-        int colsCount = (isTablet) ? getResources().getInteger(R.integer.colsCount) : 1;
-        searchResultsView.setLayoutManager((isTablet) ? new GridLayoutManager(this, colsCount) : new LinearLayoutManager(this));
+        initMoviesList();
 
         // Register RecyclerView event listener
         searchResultsView.addOnItemTouchListener(
@@ -125,6 +131,19 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+    }
+
+    private void initMoviesList() {
+        boolean isTablet = getResources().getBoolean(R.bool.isTablet);
+        int colsCount = (isTablet) ? getResources().getInteger(R.integer.colsCount) : 1;
+        gridLayoutManager = new GridLayoutManager(this, colsCount);
+        searchResultsView.setLayoutManager(gridLayoutManager);
+    }
+
+    private void updateSpanCount() {
+        boolean isTablet = getResources().getBoolean(R.bool.isTablet);
+        int colsCount = (isTablet) ? getResources().getInteger(R.integer.colsCount) : 1;
+        gridLayoutManager.setSpanCount(colsCount);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -188,6 +207,20 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                 .setVisibility(ifVisible ? View.VISIBLE : View.GONE);
     }
 
+    private void drawResults() {
+        MoviesAdapter adapter = new MoviesAdapter(movies,
+                R.layout.list_item_movie,
+                getApplicationContext(),
+                getResources().getConfiguration().locale);
+
+        if (adapter.getItemCount() > 0) {
+            setResultsVisibility(true);
+            searchResultsView.setAdapter(adapter);
+        } else {
+            setNoItemsVisibility(true);
+        }
+    }
+
     /**
      * Search results response handler
      */
@@ -207,18 +240,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
                 if (result != null) {
                     movies = result.getResults();
-
-                    MoviesAdapter adapter = new MoviesAdapter(movies,
-                            R.layout.list_item_movie,
-                            getApplicationContext(),
-                            getResources().getConfiguration().locale);
-
-                    if (adapter.getItemCount() > 0) {
-                        setResultsVisibility(true);
-                        searchResultsView.setAdapter(adapter);
-                    } else {
-                        setNoItemsVisibility(true);
-                    }
+                    drawResults();
                 } else {
                     setNoItemsVisibility(true);
                 }

@@ -2,8 +2,10 @@ package com.x1unix.avi;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +23,7 @@ import com.x1unix.avi.model.KPMovieDetailViewResponse;
 import com.x1unix.avi.model.KPPeople;
 import com.x1unix.avi.rest.KPApiInterface;
 import com.x1unix.avi.rest.KPRestClient;
+import com.x1unix.avi.storage.MoviesRepository;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,8 +42,13 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
     private String currentLocale;
 
     private ImageButton btnAddToBookmarks;
+    private ImageButton btnRmFromBookmarks;
+
     private Button btnWatchMovie;
     private Button btnRetry;
+    private MoviesRepository moviesRepository;
+    private String LOG_TAG = "MovieDetailsActivity";
+    private boolean isCached = false;
 
 
 
@@ -55,6 +63,8 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
+        moviesRepository = MoviesRepository.getInstance(this);
+
         extractIntentData();
         setBasicMovieInfo();
 
@@ -64,7 +74,17 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
         (new Thread(new Runnable() {
             @Override
             public void run() {
-                getFullMovieInfo();
+                if (moviesRepository.movieExists(movieId)) {
+                    Log.d(LOG_TAG, "#" + movieId + " Cached!");
+
+                    // Import data from cache
+                    KPMovie movie = moviesRepository.getMovieById(movieId);
+                    applyMovieData(movie, false);
+                    isCached = true;
+                } else {
+                    Log.d(LOG_TAG, "#" + movieId +" No data in cache");
+                    getFullMovieInfo();
+                }
             }
         })).start();
 
@@ -85,12 +105,27 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
 
     private void initUIElements() {
         btnAddToBookmarks = (ImageButton) findViewById(R.id.amd_bookmark_add);
+        btnRmFromBookmarks = (ImageButton) findViewById(R.id.amd_bookmark_remove);
         btnWatchMovie = (Button) findViewById(R.id.amd_btn_watch);
         btnRetry = (Button) findViewById(R.id.amd_retry);
 
         btnWatchMovie.setOnClickListener(this);
         btnAddToBookmarks.setOnClickListener(this);
+        btnRmFromBookmarks.setOnClickListener(this);
         btnRetry.setOnClickListener(this);
+    }
+
+    @Override
+    public void onStop() {
+        moviesRepository.close();
+        moviesRepository = null;
+        super.onStop();
+    }
+
+    @Override
+    public void onRestart() {
+        moviesRepository = MoviesRepository.getInstance(this);
+        super.onRestart();
     }
 
     public void onClick(View v) {
@@ -100,6 +135,18 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
                 break;
             case R.id.amd_retry:
                 retry();
+                break;
+            case R.id.amd_bookmark_add:
+                btnAddToBookmarks.setVisibility(View.GONE);
+                moviesRepository.addToFavorites(movieId);
+                setBookmarkedVisibility(true);
+                showSnackMessage(R.string.added_to_favs);
+                break;
+            case R.id.amd_bookmark_remove:
+                btnRmFromBookmarks.setVisibility(View.GONE);
+                moviesRepository.removeFromFavorites(movieId);
+                setBookmarkedVisibility(false);
+                showSnackMessage(R.string.removed_from_favs);
                 break;
             default:
                 Toast.makeText(getApplicationContext(),
@@ -158,6 +205,11 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
         ((LinearLayout) findViewById(R.id.amd_msg_fail)).setVisibility(visible);
     }
 
+    private void setBookmarkedVisibility(boolean ifShow) {
+        btnRmFromBookmarks.setVisibility((ifShow) ? View.VISIBLE : View.GONE);
+        btnAddToBookmarks.setVisibility((!ifShow) ? View.VISIBLE : View.GONE);
+    }
+
 
 
     private void getFullMovieInfo() {
@@ -168,8 +220,6 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
         call.enqueue(new Callback<KPMovieDetailViewResponse>() {
             @Override
             public void onResponse(Call<KPMovieDetailViewResponse>call, Response<KPMovieDetailViewResponse> response) {
-                setProgressVisibility(false);
-
                 int statusCode = response.code();
                 KPMovieDetailViewResponse result = response.body();
 
@@ -206,7 +256,9 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
                 Toast.LENGTH_LONG).show();
     }
 
-    private void applyMovieData(final KPMovie movie) {
+    private void applyMovieData(final KPMovie movie, boolean cacheItem) {
+        setProgressVisibility(false);
+
         // Main Info
         ((TextView) findViewById(R.id.amd_description)).setText(movie.getDescription());
         ((TextView) findViewById(R.id.amd_genre)).setText(movie.getGenre());
@@ -220,8 +272,19 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
         setAuthorInfo(movie.getProducers(), R.id.amd_producers);
 
 
+        // Save movie to the cache
+        if (cacheItem) {
+            moviesRepository.addMovie(
+                    movie.setShortDescription(movieDescription).setStars(movieRating)
+            );
+        }
 
+        setBookmarkedVisibility(moviesRepository.isInFavorites(movieId));
         setInfoVisibility(true);
+    }
+
+    private void applyMovieData(final KPMovie movie) {
+        applyMovieData(movie, true);
     }
 
     private void setAuthorInfo(KPPeople[] src, int targetId) {
@@ -239,5 +302,11 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
             }
         }
         ((TextView) findViewById(targetId)).setText(val);
+    }
+
+    private void showSnackMessage(int stringId) {
+        Snackbar.make(findViewById(android.R.id.content),
+                    getResources().getString(stringId),
+                    Snackbar.LENGTH_LONG).show();
     }
 }

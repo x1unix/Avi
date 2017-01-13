@@ -42,9 +42,15 @@ public class KPMovie {
     @SerializedName("creators")
     private List<KPPeople[]> creators;
 
+    // Values stored in db
+    private String shortDescription = "";
+
+    private String stars = "5.0";
+
     public KPMovie(String ifilmID, String inameRU, String inameEN, String iyear, String ifilmLength,
                    String icountry, String igenre, String idescription, String iratingMPAA,
-                   String iratingAgeLimits, String itype, List<KPPeople[]> icreators) {
+                   String iratingAgeLimits, String itype, List<KPPeople[]> icreators,
+                   String ishortDescription, String istars) {
         filmID = ifilmID;
         nameRU = inameRU;
         nameEN = inameEN;
@@ -57,6 +63,8 @@ public class KPMovie {
         ratingAgeLimits = iratingAgeLimits;
         type = itype;
         creators = icreators;
+        shortDescription = ishortDescription;
+        stars = istars;
     }
 
     public String getId() {
@@ -93,6 +101,10 @@ public class KPMovie {
             value = "-";
         }
         return value;
+    }
+
+    public String getTrueRatingMPAA() {
+        return ratingMPAA;
     }
 
     public String getRatingAgeLimits() {
@@ -133,6 +145,60 @@ public class KPMovie {
             result = creators.get(2);
         }
         return result;
+    }
+
+    public String getNameRU() {
+        return this.nameRU;
+    }
+
+    public String getNameEN() {
+        return this.nameEN;
+    }
+
+    public List<KPPeople[]> getCreators() {
+        return creators;
+    }
+
+    public KPMovie setStars(String istars) {
+        stars = istars;
+        return this;
+    }
+
+    public KPMovie setShortDescription(String idescription) {
+        shortDescription = idescription;
+        return this;
+    }
+
+    public String getLocalizedTitle(String currentLocale) {
+        Boolean isSlavic = ( currentLocale.equals("ru") || currentLocale.equals("uk") );
+        Boolean isSlavicAvailable = (nameRU != null) && (nameRU.length() > 0);
+        Boolean isLatinAvailable = (nameEN != null) && (nameEN.length() > 0);
+
+        String title = nameRU;
+
+        if (isSlavic) {
+            if (isSlavicAvailable) {
+                title = nameRU;
+            } else {
+                title = nameEN;
+            }
+        } else {
+            if (isLatinAvailable) {
+                title = nameEN;
+            } else {
+                title = nameRU;
+            }
+        }
+
+        return title;
+    }
+
+    public String getStars() {
+        return (stars == null) ? "5.0" : stars;
+    }
+
+    public String getShortDescription() {
+        return shortDescription;
     }
 
 }

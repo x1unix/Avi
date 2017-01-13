@@ -54,6 +54,7 @@
                     android:layout_height="wrap_content"
                     android:maxLines="3"
                     android:paddingEnd="16dp"
+                    android:paddingRight="16dp"
                     android:textColor="@color/colorGreyLight"
                     android:textSize="14dp"
                     android:layout_below="@+id/amd_movie_title" />
@@ -71,6 +72,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="3dp"
+                        android:layout_marginRight="3dp"
                         android:textSize="14dp" />
 
                     <ImageView
@@ -90,6 +92,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/amd_btn_watch"
                     android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
                     android:layout_alignParentBottom="true" />
 
                 <ImageButton
@@ -99,8 +102,11 @@
                     android:background="@null"
                     android:id="@+id/amd_bookmark_add"
                     android:layout_alignParentStart="false"
+                    android:layout_alignParentLeft="false"
                     android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
+                    android:visibility="gone"
                     android:contentDescription="@string/action_add_to_bookmarks"/>
 
                 <ImageButton
@@ -111,7 +117,9 @@
                     android:id="@+id/amd_bookmark_remove"
                     android:visibility="gone"
                     android:layout_alignParentStart="false"
+                    android:layout_alignParentLeft="false"
                     android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
                     android:contentDescription="@string/action_remove_from_bookmarks" />
             </RelativeLayout>

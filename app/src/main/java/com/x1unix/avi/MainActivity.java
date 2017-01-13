@@ -7,15 +7,13 @@ import android.os.Bundle;
 
 import com.rollbar.android.Rollbar;
 
-import android.support.v7.appcompat.BuildConfig;
-
 public class MainActivity extends AppCompatActivity {
 
-    protected int SPLASH_DISPLAY_LENGTH = 500;
+    protected int SPLASH_DISPLAY_LENGTH = 300;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.splash);
+        setContentView(R.layout.activity_main);
 
         if (!BuildConfig.DEBUG) {
             // Init Rollbar monitor on release
@@ -30,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {
-                Intent mainIntent = new Intent(MainActivity.this,DashboardActivity.class);
+                Intent mainIntent = new Intent(MainActivity.this, DashboardActivity.class);
                 MainActivity.this.startActivity(mainIntent);
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 MainActivity.this.finish();
