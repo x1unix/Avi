@@ -24,6 +24,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15sp"
             android:gravity="center"
+            android:layout_gravity="center"
+            android:textAlignment="center"
             android:paddingLeft="40sp"
             android:paddingRight="40sp"
             android:text="@string/tab_history_no_items"
