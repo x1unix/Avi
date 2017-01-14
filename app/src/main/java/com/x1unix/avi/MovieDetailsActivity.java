@@ -70,23 +70,18 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
 
         currentLocale = getResources().getConfiguration().locale.getLanguage();
 
-        // Get movie info in background
-        (new Thread(new Runnable() {
-            @Override
-            public void run() {
-                if (moviesRepository.movieExists(movieId)) {
-                    Log.d(LOG_TAG, "#" + movieId + " Cached!");
+        // Get movie info
+        if (moviesRepository.movieExists(movieId)) {
+            Log.d(LOG_TAG, "#" + movieId + " Cached!");
 
-                    // Import data from cache
-                    KPMovie movie = moviesRepository.getMovieById(movieId);
-                    applyMovieData(movie, false);
-                    isCached = true;
-                } else {
-                    Log.d(LOG_TAG, "#" + movieId +" No data in cache");
-                    getFullMovieInfo();
-                }
-            }
-        })).start();
+            // Import data from cache
+            KPMovie movie = moviesRepository.getMovieById(movieId);
+            applyMovieData(movie, false);
+            isCached = true;
+        } else {
+            Log.d(LOG_TAG, "#" + movieId +" No data in cache");
+            getFullMovieInfo();
+        }
 
         // Init UI elements
         initUIElements();
