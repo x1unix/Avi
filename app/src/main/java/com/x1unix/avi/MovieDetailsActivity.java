@@ -63,6 +63,9 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
+        // Init UI elements
+        initUIElements();
+
         moviesRepository = MoviesRepository.getInstance(this);
 
         extractIntentData();
@@ -83,8 +86,6 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
             getFullMovieInfo();
         }
 
-        // Init UI elements
-        initUIElements();
     }
 
     @Override
