@@ -3,6 +3,7 @@ package com.x1unix.avi.dashboard;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -26,6 +27,7 @@ public class DashboardTabFragment extends Fragment {
     protected String currentLang = "ru";
     protected GridLayoutManager gridLayoutManager;
     protected CachedMoviesListAdapter moviesListAdapter;
+    private SwipeRefreshLayout swipeContainer;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,21 @@ public class DashboardTabFragment extends Fragment {
 
         noItemsView = view.findViewById(R.id.no_items_block);
         itemsListView = (RecyclerView) view.findViewById(R.id.items_recycler_view);
+        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.movies_swipe_container);
+
+        swipeContainer.setColorSchemeResources(R.color.colorAccentDark,
+                android.R.color.holo_green_dark,
+                android.R.color.holo_orange_dark,
+                android.R.color.holo_red_light);
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                rescanElements();
+                swipeContainer.setRefreshing(false);
+            }
+        });
+
 
         initRecycleView();
         renderMovies();
