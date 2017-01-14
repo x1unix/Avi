@@ -7,4 +7,22 @@
     <dimen name="text_margin">16dp</dimen>
     <dimen name="avi_logo_text_margin_bottom">100dp</dimen>
     <dimen name="list_item_width">180sp</dimen>
+    <dimen name="movie_description_font_size">16sp</dimen>
+    <dimen name="movie_description_line_height">5sp</dimen>
+    <dimen name="movie_info_heading_font_size">14sp</dimen>
+    <dimen name="movie_info_heading_padding">20dp</dimen>
+    <dimen name="section_font_size">14sp</dimen>
+    <dimen name="section_padding">4sp</dimen>
+    <dimen name="movie_description_padding_x">20dp</dimen>
+    <dimen name="movie_description_padding_y">12dp</dimen>
+    <dimen name="movie_info_title_font_size">25sp</dimen>
+    <dimen name="movie_info_summary_font_size">16sp</dimen>
+    <dimen name="movie_info_rating_font_size">14sp</dimen>
+    <dimen name="movie_info_sidebar_width">210sp</dimen>
+    <dimen name="movie_info_container_padding">40sp</dimen>
+    <dimen name="movie_info_container_padding_top">32sp</dimen>
+
+    <!-- common -->
+    <dimen name="button_font_size">14sp</dimen>
+    <dimen name="button_padding">10sp</dimen>
 </resources>
