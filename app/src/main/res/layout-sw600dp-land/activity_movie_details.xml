@@ -1,0 +1,133 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:paddingTop="32sp"
+    android:paddingLeft="40sp"
+    android:paddingRight="40sp"
+    tools:context="com.x1unix.avi.MovieDetailsActivity">
+
+    <!-- Right Side -->
+    <RelativeLayout
+        android:layout_width="210sp"
+        android:layout_height="match_parent"
+        android:paddingRight="20dp"
+        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/amd_movie_poster"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/movie_poster"
+            app:srcCompat="@drawable/no_poster"
+            android:adjustViewBounds="true"
+            android:cropToPadding="false" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="В Избранное"
+            android:id="@+id/amd_bookmark_add"
+            android:layout_above="@+id/amd_btn_watch"
+            android:contentDescription="@string/action_add_to_bookmarks"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_bookmark_full"
+            android:background="@null"
+            android:id="@+id/amd_bookmark_remove"
+            android:visibility="gone"
+            android:layout_alignParentStart="false"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:contentDescription="@string/action_remove_from_bookmarks" />
+        <Button
+            android:text="@string/action_watch"
+            android:paddingLeft="18dp"
+            android:paddingRight="18dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/amd_btn_watch"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+    <!-- Left Side -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="30sp"
+        android:paddingRight="30sp"
+        android:background="#fff">
+
+        <!-- BEGIN [HEADER] -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="100sp"
+            android:paddingLeft="18dp"
+            android:id="@+id/amd_header"
+            android:background="@drawable/border_bottom"
+            android:paddingTop="5dp">
+
+
+            <TextView
+                android:id="@+id/amd_movie_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:textColor="#000"
+                android:textSize="20dp"
+                android:text="Мистер Пиклз (сериал)"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/amd_short_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="3"
+                android:paddingEnd="16dp"
+                android:paddingRight="16dp"
+                android:textColor="@color/colorGreyLight"
+                android:textSize="14dp"
+                android:text="США, Уилл Карсола (мультфильм)"
+                android:layout_below="@+id/amd_movie_title" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal"
+                android:id="@+id/amd_genre_handler"
+                android:layout_below="@+id/amd_short_desc">
+
+                <TextView
+                    android:id="@+id/amd_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="3dp"
+                    android:layout_marginRight="3dp"
+                    android:text="7.7"
+                    android:textSize="14dp" />
+
+                <ImageView
+                    android:id="@+id/rating_image"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="centerCrop"
+                    android:tint="@color/colorAccent"
+                    app:srcCompat="@drawable/star" />
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
+        <!-- END [HEADER] -->
+    </LinearLayout>
+</LinearLayout>

@@ -41,8 +41,8 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
     private KPApiInterface client;
     private String currentLocale;
 
-    private ImageButton btnAddToBookmarks;
-    private ImageButton btnRmFromBookmarks;
+    private View btnAddToBookmarks;
+    private View btnRmFromBookmarks;
 
     private Button btnWatchMovie;
     private Button btnRetry;
