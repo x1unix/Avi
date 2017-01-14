@@ -55,6 +55,15 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onRestart() {
+        if (pageAdapter != null) {
+            pageAdapter.triggerRescan();
+        }
+
+        super.onRestart();
+    }
+
+    @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         pageAdapter.triggerUpdate();
