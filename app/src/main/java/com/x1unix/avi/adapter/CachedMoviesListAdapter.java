@@ -28,6 +28,7 @@ public class CachedMoviesListAdapter extends RecyclerView.Adapter<CachedMoviesLi
     private int rowLayout;
     private Context context;
     private String currentLang = "ru";
+    private MovieViewHolder movieViewHolder;
 
 
     public static class MovieViewHolder extends RecyclerView.ViewHolder {

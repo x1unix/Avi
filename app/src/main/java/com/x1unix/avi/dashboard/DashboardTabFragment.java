@@ -25,6 +25,7 @@ public class DashboardTabFragment extends Fragment {
     protected RecyclerView itemsListView;
     protected String currentLang = "ru";
     protected GridLayoutManager gridLayoutManager;
+    protected CachedMoviesListAdapter moviesListAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,11 +71,12 @@ public class DashboardTabFragment extends Fragment {
 
         noItemsView.setVisibility(hasItems ? View.GONE : View.VISIBLE);
         itemsListView.setVisibility(hasItems ? View.VISIBLE : View.GONE);
-
-        itemsListView.setAdapter(new CachedMoviesListAdapter(items,
+        moviesListAdapter = new CachedMoviesListAdapter(items,
                 R.layout.list_item_movie,
                 getContext(),
-                getResources().getConfiguration().locale));
+                getResources().getConfiguration().locale);
+
+        itemsListView.setAdapter(moviesListAdapter);
 
     }
 
@@ -131,6 +133,18 @@ public class DashboardTabFragment extends Fragment {
     public static DashboardTabFragment getInstance(MoviesRepository m, int iviewId) {
         return (new DashboardTabFragment())
                     .setMoviesRepository(m);
+    }
+
+    public void rescanElements() {
+        if (moviesRepository != null) {
+            items = getContentItems();
+        }
+
+        if (moviesListAdapter != null) {
+            moviesListAdapter.notifyDataSetChanged();
+        }
+
+        renderMovies();
     }
 
     public void updateLayout() {

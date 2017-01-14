@@ -49,4 +49,10 @@ public class DashboardFragmentPagerAdapter extends FragmentPagerAdapter {
             tab.updateLayout();
         }
     }
+
+    public void triggerRescan() {
+        for (DashboardTabFragment tab: fragments) {
+            tab.rescanElements();
+        }
+    }
 }
