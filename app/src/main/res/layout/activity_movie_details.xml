@@ -46,6 +46,7 @@
                     android:layout_marginBottom="5dp"
                     android:textColor="#000"
                     android:textSize="20dp"
+                    android:layout_marginRight="30sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -99,6 +100,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:srcCompat="@drawable/ic_bookmark"
+                    android:visibility="gone"
                     android:background="@null"
                     android:id="@+id/amd_bookmark_add"
                     android:layout_alignParentStart="false"
@@ -106,7 +108,6 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
-                    android:visibility="gone"
                     android:contentDescription="@string/action_add_to_bookmarks"/>
 
                 <ImageButton
