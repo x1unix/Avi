@@ -38,7 +38,7 @@
             android:text="@string/to_favorites"
             android:textSize="@dimen/button_font_size"
             android:visibility="gone"
-            tools:drawableLeft="@drawable/ic_bookmark_wrapped" />
+            android:drawableLeft="@drawable/ic_bookmark_wrapped" />
 
         <Button
             android:id="@+id/amd_bookmark_remove"
@@ -52,7 +52,7 @@
             android:text="@string/in_favorites"
             android:textSize="@dimen/button_font_size"
             android:visibility="gone"
-            tools:drawableLeft="@drawable/ic_bookmark_full_wrapped" />
+            android:drawableLeft="@drawable/ic_bookmark_full_wrapped" />
 
         <Button
             android:id="@+id/amd_btn_watch"
