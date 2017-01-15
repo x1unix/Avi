@@ -1,8 +1,10 @@
 package com.x1unix.avi;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -25,6 +27,8 @@ import com.x1unix.avi.storage.MoviesRepository;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import android.databinding.*;
 
 public class MovieDetailsActivity extends AppCompatActivity implements View.OnClickListener {
 

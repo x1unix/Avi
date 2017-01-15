@@ -53,8 +53,6 @@
     </style>
 
     <style name="AppTheme.Button.Favorites" parent="Widget.AppCompat.Button.Borderless">
-        <item name="android:drawableStart">@drawable/ic_bookmark</item>
-        <item name="android:drawableLeft">@drawable/ic_bookmark</item>
         <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:layout_centerInParent">true</item>
         <item name="android:drawablePadding">5sp</item>
