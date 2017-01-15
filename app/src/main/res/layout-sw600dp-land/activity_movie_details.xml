@@ -75,12 +75,13 @@
     <!-- Left Side -->
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#fff">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#fff"
         android:orientation="vertical"
+        android:background="#fff"
         android:paddingLeft="25sp"
         android:paddingRight="25sp"
         android:paddingTop="18sp">
@@ -141,12 +142,11 @@
         <!-- END [HEADER] -->
         <ProgressBar
             android:id="@+id/amd_preloader"
-            style="?android:attr/progressBarStyle"
+            style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
             android:layout_height="80sp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="64sp"
-            android:visibility="gone" />
+            android:layout_marginTop="64sp" />
 
         <!-- Error -->
         <LinearLayout
