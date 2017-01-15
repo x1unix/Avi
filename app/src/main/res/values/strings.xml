@@ -77,6 +77,8 @@
     <string name="viewed">Recently viewed</string>
     <string name="tab_favs_no_items">There will be movies and TV shows as soon as you add them to Favorites</string>
     <string name="tab_history_no_items">There will be movies and series you watched</string>
+    <string name="in_favorites">In Favorites</string>
+    <string name="to_favorites">Add to Favorites</string>
 
     <string name="avi_app_author" translatable="false">\@x1unix, 2017</string>
 

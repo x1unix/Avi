@@ -44,4 +44,18 @@
         <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
     </style>
 
+    <style name="AppTheme.Button" parent="Widget.AppCompat.Button.Colored">
+    </style>
+
+    <style name="AppTheme.Button.Black" parent="Base.Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/colorBlack</item>
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    <style name="AppTheme.Button.Favorites" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:drawablePadding">5sp</item>
+    </style>
+
 </resources>

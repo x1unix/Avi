@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="movie_description_font_size">20sp</dimen>
+    <dimen name="movie_description_line_height">8sp</dimen>
+    <dimen name="movie_info_heading_font_size">19sp</dimen>
+    <dimen name="section_font_size">18sp</dimen>
+    <dimen name="movie_info_heading_padding">20dp</dimen>
+    <dimen name="section_padding">6sp</dimen>
+    <dimen name="movie_description_padding_x">25dp</dimen>
+    <dimen name="movie_description_padding_y">18dp</dimen>
+
+    <dimen name="movie_info_title_font_size">30sp</dimen>
+    <dimen name="movie_info_summary_font_size">21sp</dimen>
+    <dimen name="movie_info_rating_font_size">18sp</dimen>
+    <dimen name="movie_info_sidebar_width">250sp</dimen>
+    <dimen name="movie_info_container_padding">60sp</dimen>
+    <dimen name="movie_info_container_padding_top">52sp</dimen>
+
+    <dimen name="button_font_size">18sp</dimen>
+    <dimen name="button_padding">16sp</dimen>
+</resources>

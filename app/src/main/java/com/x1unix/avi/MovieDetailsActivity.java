@@ -1,18 +1,18 @@
 package com.x1unix.avi;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,8 +41,8 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
     private KPApiInterface client;
     private String currentLocale;
 
-    private ImageButton btnAddToBookmarks;
-    private ImageButton btnRmFromBookmarks;
+    private View btnAddToBookmarks;
+    private View btnRmFromBookmarks;
 
     private Button btnWatchMovie;
     private Button btnRetry;
@@ -100,8 +100,8 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void initUIElements() {
-        btnAddToBookmarks = (ImageButton) findViewById(R.id.amd_bookmark_add);
-        btnRmFromBookmarks = (ImageButton) findViewById(R.id.amd_bookmark_remove);
+        btnAddToBookmarks = findViewById(R.id.amd_bookmark_add);
+        btnRmFromBookmarks = findViewById(R.id.amd_bookmark_remove);
         btnWatchMovie = (Button) findViewById(R.id.amd_btn_watch);
         btnRetry = (Button) findViewById(R.id.amd_retry);
 
@@ -188,17 +188,17 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
 
     private void setProgressVisibility(boolean ifShow) {
         int visible = (ifShow) ? View.VISIBLE : View.GONE;
-        ((ProgressBar) findViewById(R.id.amd_preloader)).setVisibility(visible);
+        findViewById(R.id.amd_preloader).setVisibility(visible);
     }
 
     private void setInfoVisibility(boolean ifShow) {
         int visible = (ifShow) ? View.VISIBLE : View.GONE;
-        ((LinearLayout) findViewById(R.id.amd_movie_info)).setVisibility(visible);
+        findViewById(R.id.amd_movie_info).setVisibility(visible);
     }
 
     private void setErrVisibility(boolean ifShow) {
         int visible = (ifShow) ? View.VISIBLE : View.GONE;
-        ((LinearLayout) findViewById(R.id.amd_msg_fail)).setVisibility(visible);
+        findViewById(R.id.amd_msg_fail).setVisibility(visible);
     }
 
     private void setBookmarkedVisibility(boolean ifShow) {
@@ -270,9 +270,11 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
 
         // Save movie to the cache
         if (cacheItem) {
-            moviesRepository.addMovie(
-                    movie.setShortDescription(movieDescription).setStars(movieRating)
-            );
+            if (movie != null) {
+                moviesRepository.addMovie(
+                        movie.setShortDescription(movieDescription).setStars(movieRating)
+                );
+            }
         }
 
         setBookmarkedVisibility(moviesRepository.isInFavorites(movieId));

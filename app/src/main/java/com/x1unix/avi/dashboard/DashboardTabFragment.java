@@ -84,7 +84,8 @@ public class DashboardTabFragment extends Fragment {
 
 
     protected void renderMovies() {
-        boolean hasItems = (items.size() > 0);
+        // Fix #61 java.lang.NullPointerException
+        boolean hasItems = (items != null) && (items.size() > 0);
 
         noItemsView.setVisibility(hasItems ? View.GONE : View.VISIBLE);
         itemsListView.setVisibility(hasItems ? View.VISIBLE : View.GONE);

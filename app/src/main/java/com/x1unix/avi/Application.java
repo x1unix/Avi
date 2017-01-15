@@ -1,6 +1,7 @@
 package com.x1unix.avi;
 
 import android.os.Build;
+import android.support.v7.app.AppCompatDelegate;
 
 import com.yandex.metrica.YandexMetrica;
 public class Application extends android.app.Application {
@@ -19,5 +20,9 @@ public class Application extends android.app.Application {
                 YandexMetrica.enableActivityAutoTracking(this);
             }
         }
+    }
+
+    static {
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
     }
 }
