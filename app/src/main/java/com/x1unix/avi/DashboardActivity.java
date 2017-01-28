@@ -1,10 +1,12 @@
 package com.x1unix.avi;
 
 import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
@@ -17,7 +19,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.x1unix.avi.dashboard.*;
+import com.x1unix.avi.model.AviSemVersion;
 import com.x1unix.avi.storage.MoviesRepository;
+import com.x1unix.avi.updateManager.OTAStateListener;
+import com.x1unix.avi.updateManager.OTAUpdateChecker;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -52,6 +57,9 @@ public class DashboardActivity extends AppCompatActivity {
         // Give the TabLayout the ViewPager
         TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
+
+        // Init background updates check
+        initBackgroundUpdateCheck();
     }
 
     @Override
@@ -141,5 +149,19 @@ public class DashboardActivity extends AppCompatActivity {
                 });
             }
         }, 100);
+    }
+
+    private void initBackgroundUpdateCheck() {
+        final Context context = getApplicationContext();
+        boolean allowNightlies = PreferenceManager.
+                getDefaultSharedPreferences(context).
+                getBoolean(getResources().getString(R.string.avi_prop_allow_unstable), false);
+
+        OTAUpdateChecker.checkForUpdates(new OTAStateListener() {
+            @Override
+            protected void onUpdateAvailable(AviSemVersion availableVersion, AviSemVersion currentVersion) {
+                OTAUpdateChecker.makeDialog(context, availableVersion);
+            }
+        }, allowNightlies);
     }
 }
