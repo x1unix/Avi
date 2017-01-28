@@ -7,11 +7,12 @@
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
     android:layout_marginTop="7dp"
-    android:clickable="true"
     android:minHeight="72dp"
     android:paddingBottom="0px"
     android:paddingTop="0px"
     card_view:cardBackgroundColor="#ffffff"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
     card_view:cardCornerRadius="2dp">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
