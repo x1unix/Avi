@@ -77,10 +77,10 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
         if (moviesRepository.movieExists(movieId)) {
             Log.d(LOG_TAG, "#" + movieId + " Cached!");
 
+            isCached = true;
             // Import data from cache
             KPMovie movie = moviesRepository.getMovieById(movieId);
             applyMovieData(movie, false);
-            isCached = true;
         } else {
             Log.d(LOG_TAG, "#" + movieId +" No data in cache");
             getFullMovieInfo();
