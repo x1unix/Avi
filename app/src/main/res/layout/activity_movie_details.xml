@@ -94,6 +94,8 @@
                     android:id="@+id/amd_btn_watch"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:layout_alignParentBottom="true" />
 
                 <ImageButton
@@ -108,6 +110,8 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:contentDescription="@string/action_add_to_bookmarks"/>
 
                 <ImageButton
@@ -122,6 +126,8 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
+                    android:clickable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
                     android:contentDescription="@string/action_remove_from_bookmarks" />
             </RelativeLayout>
         </LinearLayout>

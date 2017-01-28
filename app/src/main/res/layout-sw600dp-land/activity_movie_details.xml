@@ -38,6 +38,8 @@
             android:text="@string/to_favorites"
             android:textSize="@dimen/button_font_size"
             android:visibility="gone"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
             android:drawableLeft="@drawable/ic_bookmark_wrapped" />
 
         <Button
@@ -52,6 +54,8 @@
             android:text="@string/in_favorites"
             android:textSize="@dimen/button_font_size"
             android:visibility="gone"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
             android:drawableLeft="@drawable/ic_bookmark_full_wrapped" />
 
         <Button
@@ -69,6 +73,8 @@
             android:paddingRight="18dp"
             android:paddingTop="@dimen/button_padding"
             android:text="@string/action_watch"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
             android:textSize="@dimen/button_font_size" />
     </RelativeLayout>
 
