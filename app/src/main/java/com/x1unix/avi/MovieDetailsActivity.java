@@ -271,13 +271,19 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
         // Save movie to the cache
         if (cacheItem) {
             if (movie != null) {
-                moviesRepository.addMovie(
-                        movie.setShortDescription(movieDescription).setStars(movieRating)
-                );
+                try {
+                    moviesRepository.addMovie(
+                            movie.setShortDescription(movieDescription).setStars(movieRating)
+                    );
+                    isCached = true;
+                } catch (Exception ex) {
+                    Log.e(LOG_TAG, "Failed to cache movie info (KPID: " + movieId + "):\n\n" + ex.getMessage());
+                    isCached = false;
+                }
             }
         }
 
-        setBookmarkedVisibility(moviesRepository.isInFavorites(movieId));
+        if (isCached) setBookmarkedVisibility(moviesRepository.isInFavorites(movieId));
         setInfoVisibility(true);
     }
 

@@ -2,6 +2,7 @@ package com.x1unix.avi.updateManager;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -47,7 +48,7 @@ public class OTAUpdateChecker {
         });
     }
 
-    public static AlertDialog.Builder makeDialog(final Activity owner, final AviSemVersion newVer) {
+    public static AlertDialog.Builder makeDialog(final Context owner, final AviSemVersion newVer) {
         Resources res = owner.getResources();
         AlertDialog.Builder dialInstallUpdate = new AlertDialog.Builder(owner);
         String modConfimText = res.getString(R.string.upd_confirm);
