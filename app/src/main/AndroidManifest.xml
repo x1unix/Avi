@@ -76,11 +76,6 @@
 
         <activity android:name=".UpdateDownloaderActivity"
             android:label="@string/pref_category_updates">
-            <!--For UI testing purposes only, will be removed at release-->
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
