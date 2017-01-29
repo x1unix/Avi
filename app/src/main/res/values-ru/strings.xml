@@ -68,4 +68,7 @@
     <string name="tab_history_no_items">Здесь появятся просмотренные вами фильмы и сериалы</string>
     <string name="in_favorites">В Избранном</string>
     <string name="to_favorites">В Избранное</string>
+    <string name="downloading_update">Загрузка обновления</string>
+    <string name="preparing_for_download">Подготовка к загрузке</string>
+    <string name="installing_package">Установка пакета</string>
 </resources>

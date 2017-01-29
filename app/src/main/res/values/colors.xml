@@ -18,6 +18,7 @@
 
     <color name="amd_gray">#605F61</color>
     <color name="amd_dark">#1C1C1C</color>
+    <color name="colorBackgroundDefault">#FAFAFA</color>
 
     <color name="transparent">#FF000000</color>
 </resources>
