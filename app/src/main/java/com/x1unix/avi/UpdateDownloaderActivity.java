@@ -1,13 +1,17 @@
 package com.x1unix.avi;
 
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.x1unix.avi.model.AviSemVersion;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,35 +23,40 @@ public class UpdateDownloaderActivity extends AppCompatActivity {
     private WebView webView;
 
     private TextView txUpdateProgress;
-
-    private String mock = "<h2>Changelog</h2>\n" +
-            "\n" +
-            "<ul>\n" +
-            "<li>Allow fullscreen mode for webplayer</li>\n" +
-            "<li>Fix error with start activity on some devices</li>\n" +
-            "<li>Use SVG icons for splash screen</li>\n" +
-            "<li>Update splash screen</li>\n" +
-            "<li>Prevent load Rollbar for debug mode</li>\n" +
-            "</ul>";
+    private TextView txUpdateTag;
+    private AviSemVersion updatePkg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_downloader);
-        initView();
 
-        loadUpdateInformation();
+        final Intent intent = getIntent();
+
+        if (intent != null) {
+            updatePkg = (AviSemVersion) intent.getSerializableExtra("update");
+            if (updatePkg != null) {
+                initView();
+                loadUpdateInformation();
+            }
+        }
     }
 
     private void initView() {
         txUpdateProgress = (TextView) findViewById(R.id.avi_update_progress);
+        txUpdateTag = (TextView) findViewById(R.id.avi_update_tag);
 
         initProgressBar();
         initWebView();
     }
 
     private void loadUpdateInformation() {
-        webView.loadData(getDecoratedChangelogHTML(mock), "text/html", "utf-8");
+
+        txUpdateTag.setText(updatePkg.getTag());
+
+        if (updatePkg.hasChangelog()) {
+            webView.loadData(getDecoratedChangelogHTML(updatePkg.getChangelog()), "text/html", "utf-8");
+        }
     }
 
     private String getDecoratedChangelogHTML(String changelogHTML) {

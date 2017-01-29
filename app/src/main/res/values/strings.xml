@@ -82,6 +82,7 @@
     <string name="downloading_update">Downloading update</string>
     <string name="preparing_for_download">Preparing for download</string>
     <string name="installing_package">Installing package</string>
+    <string name="done">Done</string>
 
     <string name="avi_app_author" translatable="false">\@x1unix, 2017</string>
 

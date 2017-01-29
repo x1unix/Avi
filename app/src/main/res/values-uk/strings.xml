@@ -71,4 +71,5 @@
     <string name="downloading_update">Завантаження оновлення</string>
     <string name="preparing_for_download">Підготовка до завантаження</string>
     <string name="installing_package">Установка пакета</string>
+    <string name="done">Готово</string>
 </resources>
