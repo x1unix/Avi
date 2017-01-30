@@ -17,6 +17,7 @@ import android.os.Looper;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -73,6 +74,16 @@ public class UpdateDownloaderActivity extends AppCompatActivity {
 
                 loadUpdateInformation();
             }
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(webView != null) {
+            webView.stopLoading();
+            webView.onPause(); //pauses background threads, stops playing sound
+            webView.pauseTimers(); //pauses the WebViewCore
         }
     }
 
@@ -273,6 +284,10 @@ public class UpdateDownloaderActivity extends AppCompatActivity {
 
     private void initWebView() {
         webView = (WebView) findViewById(R.id.avi_update_changelog);
+
+        // Disable hardware acceleration to prevent crashes on Android 4.1
+        webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+
         webView.setBackgroundColor(getResources().getColor(R.color.colorBackgroundDefault));
         webView.setVisibility(View.VISIBLE);
     }
