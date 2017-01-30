@@ -16,6 +16,7 @@ import com.x1unix.avi.model.AviSemVersion;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URLEncoder;
 
 public class UpdateDownloaderActivity extends AppCompatActivity {
 
@@ -55,7 +56,7 @@ public class UpdateDownloaderActivity extends AppCompatActivity {
         txUpdateTag.setText(updatePkg.getTag());
 
         if (updatePkg.hasChangelog()) {
-            webView.loadData(getDecoratedChangelogHTML(updatePkg.getChangelog()), "text/html", "utf-8");
+            webView.loadData(getDecoratedChangelogHTML(updatePkg.getChangelog()), "text/html; charset=UTF-8", null);
         }
     }
 
@@ -64,7 +65,7 @@ public class UpdateDownloaderActivity extends AppCompatActivity {
         BufferedReader reader = null;
         try {
             reader = new BufferedReader(
-                    new InputStreamReader(getAssets().open("changelog_template.html")));
+                    new InputStreamReader(getAssets().open("changelog_template.html"), "UTF-8"));
 
             // do reading, usually loop until end of file reading
             String mLine;
