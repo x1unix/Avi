@@ -83,6 +83,8 @@
     <string name="preparing_for_download">Preparing for download</string>
     <string name="installing_package">Installing package</string>
     <string name="done">Done</string>
+    <string name="error">Error</string>
+    <string name="failed_to_download_update">Failed to download update:\n</string>
 
     <string name="avi_app_author" translatable="false">\@x1unix, 2017</string>
 

@@ -14,6 +14,7 @@ import retrofit2.Response;
 
 import com.rollbar.android.Rollbar;
 import com.x1unix.avi.R;
+import com.x1unix.avi.UpdateDownloaderActivity;
 import com.x1unix.avi.model.AviSemVersion;
 
 public class OTAUpdateChecker {
@@ -57,13 +58,6 @@ public class OTAUpdateChecker {
         dialInstallUpdate.setMessage(modConfimText);
         dialInstallUpdate.setTitle(res.getString(R.string.upd_new_available))
                 .setCancelable(false)
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(newVer.getApkUrl()));
-                        owner.startActivity(browserIntent);
-                        dialog.cancel();
-                    }
-                })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();

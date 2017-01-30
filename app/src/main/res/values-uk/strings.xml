@@ -72,4 +72,6 @@
     <string name="preparing_for_download">Підготовка до завантаження</string>
     <string name="installing_package">Установка пакета</string>
     <string name="done">Готово</string>
+    <string name="error">Помилка</string>
+    <string name="failed_to_download_update">Не вдалося завантажити оновлення:\n</string>
 </resources>
