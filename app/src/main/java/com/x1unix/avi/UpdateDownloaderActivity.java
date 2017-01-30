@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.webkit.WebView;
@@ -59,7 +60,11 @@ public class UpdateDownloaderActivity extends AppCompatActivity {
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     // Re-require permissions for lollipop and more
-                    PermissionHelper.verifyStoragePermissions(this);
+                    if (!PermissionHelper.hasWritePermission(this)) {
+                        PermissionHelper.verifyStoragePermissions(this);
+                    } else {
+                        startDownload();
+                    }
                 } else {
                     startDownload();
                 }
@@ -106,10 +111,14 @@ public class UpdateDownloaderActivity extends AppCompatActivity {
         txUpdateProgress.setText(String.valueOf(progress) + "%");
     }
 
+    private String getApkPath() {
+        return Environment
+                .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" + APK_NAME;
+    }
+
     private void downloadPackage() {
         boolean deleted = true;
-        File f = new File(Environment
-                .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" + APK_NAME);
+        File f = new File(getApkPath());
         if (f.exists()) {
             deleted = f.delete();
         }
@@ -153,10 +162,28 @@ public class UpdateDownloaderActivity extends AppCompatActivity {
         txUpdateStatus.setText(res.getString(R.string.installing_package));
         Intent intent = new Intent(Intent.ACTION_VIEW);
 
-        final String apkDir = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + APK_NAME;
+        final String apkDir = getApkPath();
         intent.setDataAndType(Uri.fromFile(new File(apkDir)), "application/vnd.android.package-archive");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+
+        // Workaround for Android Nougat
+        StrictMode.VmPolicy oldVmPolicy = null;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            oldVmPolicy = StrictMode.getVmPolicy();
+
+            StrictMode.VmPolicy policy = new StrictMode.VmPolicy.Builder()
+                    .penaltyLog()
+                    .build();
+
+            StrictMode.setVmPolicy(policy);
+        }
         startActivity(intent);
+
+        if (oldVmPolicy != null) {
+            StrictMode.setVmPolicy(oldVmPolicy);
+        }
     }
 
     private void panic(String err) {
