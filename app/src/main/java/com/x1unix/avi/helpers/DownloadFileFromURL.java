@@ -36,7 +36,8 @@ public class DownloadFileFromURL extends AsyncTask<String, String, String> {
             InputStream input = new BufferedInputStream(url.openStream(), 8192);
 
             // Output stream
-            OutputStream output = new FileOutputStream(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + fileName);
+            OutputStream output = new FileOutputStream(Environment
+                    .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" + fileName);
 
             byte data[] = new byte[1024];
 

@@ -85,6 +85,7 @@
     <string name="done">Done</string>
     <string name="error">Error</string>
     <string name="failed_to_download_update">Failed to download update:\n</string>
+    <string name="no_permissions">No permissions to read/write for download directory</string>
 
     <string name="avi_app_author" translatable="false">\@x1unix, 2017</string>
 

@@ -3,11 +3,13 @@ package com.x1unix.avi;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -19,6 +21,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.x1unix.avi.helpers.DownloadFileFromURL;
+import com.x1unix.avi.helpers.PermissionHelper;
 import com.x1unix.avi.model.AviSemVersion;
 
 import java.io.BufferedReader;
@@ -53,9 +56,40 @@ public class UpdateDownloaderActivity extends AppCompatActivity {
             updatePkg = (AviSemVersion) intent.getSerializableExtra("update");
             if (updatePkg != null) {
                 initView();
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    // Re-require permissions for lollipop and more
+                    PermissionHelper.verifyStoragePermissions(this);
+                } else {
+                    startDownload();
+                }
+
                 loadUpdateInformation();
             }
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PermissionHelper.REQUEST_EXTERNAL_STORAGE: {
+                if ((grantResults.length > 0) && grantResults[0] == PackageManager.PERMISSION_DENIED) {
+                    startDownload();
+                } else {
+                    panic(res.getString(R.string.no_permissions));
+                }
+                return;
+            }
+        }
+    }
+
+    private void startDownload() {
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                downloadPackage();
+            }
+        }, 2000);
     }
 
     private void initView() {
@@ -65,13 +99,6 @@ public class UpdateDownloaderActivity extends AppCompatActivity {
 
         initProgressBar();
         initWebView();
-
-        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                downloadPackage();
-            }
-        }, 2000);
     }
 
     private void setDownloadProgress(int progress) {
@@ -81,7 +108,8 @@ public class UpdateDownloaderActivity extends AppCompatActivity {
 
     private void downloadPackage() {
         boolean deleted = true;
-        File f = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + APK_NAME);
+        File f = new File(Environment
+                .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" + APK_NAME);
         if (f.exists()) {
             deleted = f.delete();
         }

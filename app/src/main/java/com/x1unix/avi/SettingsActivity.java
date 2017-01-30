@@ -168,8 +168,22 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         }, allowUnstable);
     }
 
+    private void startUpdate(AviSemVersion newVer) {
+        startActivity(
+                new Intent(this, UpdateDownloaderActivity.class)
+                        .putExtra("update", newVer)
+        );
+    }
+
     private void showUpdateDialog(final AviSemVersion newVer) {
-        OTAUpdateChecker.makeDialog(this, newVer).show();;
+        final Context self = this;
+        OTAUpdateChecker.makeDialog(this, newVer)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        startUpdate(newVer);
+                        dialog.cancel();
+                    }
+                }).show();
     }
 
     private boolean isNetworkAvailable() {

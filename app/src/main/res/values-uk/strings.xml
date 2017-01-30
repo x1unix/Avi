@@ -74,4 +74,5 @@
     <string name="done">Готово</string>
     <string name="error">Помилка</string>
     <string name="failed_to_download_update">Не вдалося завантажити оновлення:\n</string>
+    <string name="no_permissions">Нема прав читання / запису для папки завантаження</string>
 </resources>
