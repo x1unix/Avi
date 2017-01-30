@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#EAEAEA"
     tools:context="com.x1unix.avi.UpdateDownloaderActivity">
     <RelativeLayout android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,8 +20,8 @@
         <ImageView android:layout_height="48dp"
             android:layout_width="48dp"
             android:id="@+id/avi_update_icon"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="15sp"
+            android:layout_marginEnd="15sp"
             app:srcCompat="@drawable/ic_avi"/>
         <TextView android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -86,8 +87,12 @@
         </RelativeLayout>
     </RelativeLayout>
     <WebView android:layout_width="match_parent"
-        android:background="@color/colorBackgroundDefault"
+        android:background="#EAEAEA"
         android:id="@+id/avi_update_changelog"
         android:visibility="gone"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_height="match_parent"/>
 </LinearLayout>
