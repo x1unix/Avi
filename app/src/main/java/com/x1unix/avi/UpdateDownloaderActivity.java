@@ -18,6 +18,7 @@ import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -39,6 +40,7 @@ public class UpdateDownloaderActivity extends AppCompatActivity {
     private TextView txUpdateProgress;
     private TextView txUpdateTag;
     private AviSemVersion updatePkg;
+    private Button btnInstall;
 
     private TextView txUpdateStatus;
     private Resources res;
@@ -101,6 +103,14 @@ public class UpdateDownloaderActivity extends AppCompatActivity {
         txUpdateProgress = (TextView) findViewById(R.id.avi_update_progress);
         txUpdateTag = (TextView) findViewById(R.id.avi_update_tag);
         txUpdateStatus = (TextView) findViewById(R.id.avi_update_status);
+        btnInstall = (Button) findViewById(R.id.avi_update_install);
+
+        btnInstall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initInstallPackage();
+            }
+        });
 
         initProgressBar();
         initWebView();
@@ -146,6 +156,7 @@ public class UpdateDownloaderActivity extends AppCompatActivity {
                 } else {
                     progressBar.setVisibility(View.GONE);
                     txUpdateProgress.setText("");
+                    txUpdateStatus.setText(res.getString(R.string.installing_package));
                     initInstallPackage();
                 }
             }
@@ -159,7 +170,6 @@ public class UpdateDownloaderActivity extends AppCompatActivity {
     }
 
     private void initInstallPackage() {
-        txUpdateStatus.setText(res.getString(R.string.installing_package));
         Intent intent = new Intent(Intent.ACTION_VIEW);
 
         final String apkDir = getApkPath();
@@ -180,6 +190,9 @@ public class UpdateDownloaderActivity extends AppCompatActivity {
             StrictMode.setVmPolicy(policy);
         }
         startActivity(intent);
+
+        txUpdateStatus.setVisibility(View.GONE);
+        btnInstall.setVisibility(View.VISIBLE);
 
         if (oldVmPolicy != null) {
             StrictMode.setVmPolicy(oldVmPolicy);

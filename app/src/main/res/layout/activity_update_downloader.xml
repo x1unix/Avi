@@ -65,6 +65,14 @@
                 android:textColor="@color/amd_gray"
                 android:fontFamily="sans-serif-light"
                 android:text=""/>
+            <Button android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/avi_update_install"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:visibility="gone"
+                android:text="@string/install"
+                style="@style/Base.Widget.AppCompat.Button.Small" />
             <ProgressBar
                 android:id="@+id/avi_update_bar"
                 style="?android:attr/progressBarStyleHorizontal"
@@ -82,5 +90,4 @@
         android:id="@+id/avi_update_changelog"
         android:visibility="gone"
         android:layout_height="match_parent"/>
-
 </LinearLayout>
