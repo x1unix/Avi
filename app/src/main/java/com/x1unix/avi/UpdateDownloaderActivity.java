@@ -7,9 +7,11 @@ import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.webkit.WebView;
@@ -63,7 +65,13 @@ public class UpdateDownloaderActivity extends AppCompatActivity {
 
         initProgressBar();
         initWebView();
-        downloadPackage();
+
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                downloadPackage();
+            }
+        }, 2000);
     }
 
     private void setDownloadProgress(int progress) {
@@ -81,7 +89,7 @@ public class UpdateDownloaderActivity extends AppCompatActivity {
         f = null;
 
         // Fire UP download!
-        new DownloadFileFromURL() {
+        AsyncTask<String, String, String> task = new DownloadFileFromURL() {
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
@@ -96,15 +104,21 @@ public class UpdateDownloaderActivity extends AppCompatActivity {
 
             @Override
             protected void onPostExecute(String file_url) {
-                progressBar.setVisibility(View.GONE);
-                txUpdateProgress.setText("");
-                initInstallPackage();
+                if (failed) {
+                    panic(error);
+                } else {
+                    progressBar.setVisibility(View.GONE);
+                    txUpdateProgress.setText("");
+                    initInstallPackage();
+                }
             }
+        };
 
-            protected void onError(String error) {
-                panic(error);
-            }
-        }.execute(updatePkg.getApkUrl(), APK_NAME);
+        try {
+            task.execute(updatePkg.getApkUrl(), APK_NAME);
+        } catch (Exception ex) {
+            panic(ex.getMessage());
+        }
     }
 
     private void initInstallPackage() {

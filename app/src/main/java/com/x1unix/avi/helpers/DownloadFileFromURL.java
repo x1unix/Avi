@@ -13,6 +13,8 @@ import java.net.URLConnection;
 
 public class DownloadFileFromURL extends AsyncTask<String, String, String> {
     private String LOG_TAG = "OTA_Downloader";
+    public boolean failed = false;
+    public String error = "";
 
     @Override
     protected void onPreExecute() {
@@ -59,7 +61,8 @@ public class DownloadFileFromURL extends AsyncTask<String, String, String> {
 
         } catch (Exception e) {
             Log.e(LOG_TAG, e.getMessage());
-            onError(e.getMessage());
+            failed = true;
+            error = e.getMessage();
         }
 
         return null;
