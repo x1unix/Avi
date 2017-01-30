@@ -13,6 +13,7 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingStart="@dimen/activity_horizontal_margin"
         android:id="@android:id/list"
+        android:scrollbarStyle="outsideOverlay"
         >
     </ListView>
 </RelativeLayout>
