@@ -67,6 +67,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize" />
 
         <activity android:name=".UpdateDownloaderActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/pref_category_updates">
         </activity>
 
