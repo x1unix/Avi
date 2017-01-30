@@ -176,7 +176,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     }
 
     private void showUpdateDialog(final AviSemVersion newVer) {
-        final Context self = this;
         OTAUpdateChecker.makeDialog(this, newVer)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
