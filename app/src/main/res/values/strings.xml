@@ -87,6 +87,8 @@
     <string name="failed_to_download_update">Failed to download update:\n</string>
     <string name="no_permissions">No permissions to read/write for download directory</string>
     <string name="install">Install</string>
+    <string name="preview_version">Preview version</string>
+    <string name="build_number">Build Number</string>
 
     <string name="avi_app_author" translatable="false">\@x1unix, 2017</string>
 

@@ -37,6 +37,11 @@
             android:summary="">
         </Preference>
         <Preference
+            android:key="avi_app_build"
+            android:title="@string/build_number"
+            android:summary="">
+        </Preference>
+        <Preference
             android:key="avi_author"
             android:title="@string/pref_app_author"
             android:summary="@string/avi_app_author">

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -36,11 +37,15 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     private String propAllowUnstable;
     private SharedPreferences preferences;
 
+    private Resources res;
+
     private final String APP_URL = "http://avi-app.x1unix.com";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        res = getResources();
 
         propIsAdEnabledKey = getResources().getString(R.string.avi_prop_no_ads);
         propIsAutoupdateKey = getResources().getString(R.string.avi_prop_autocheck_updates);
@@ -53,7 +58,16 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
         addPreferencesFromResource(R.xml.pref_main);
 
-        ((Preference) findPreference("avi_app_version")).setSummary(BuildConfig.VERSION_NAME);
+        boolean isPreview = res.getBoolean(R.bool.isPreviewVersion);
+        String currentVersion = BuildConfig.VERSION_NAME;
+
+        if (isPreview) {
+            currentVersion += " - " + res.getString(R.string.preview_version);
+        }
+
+        ((Preference) findPreference("avi_app_version")).setSummary(currentVersion);
+        ((Preference) findPreference("avi_app_build")).setSummary(String.valueOf(BuildConfig.VERSION_CODE));
+
         registerPropsEventHandlers();
     }
 

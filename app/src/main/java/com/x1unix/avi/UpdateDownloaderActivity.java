@@ -114,6 +114,13 @@ public class UpdateDownloaderActivity extends AppCompatActivity {
 
         initProgressBar();
         initWebView();
+
+        if (!updatePkg.isStable()) {
+            final String betaTitle = res.getString(R.string.app_name) +
+                    " (" + res.getString(R.string.preview_version) + ")";
+
+            ((TextView) findViewById(R.id.avi_update_title)).setText(betaTitle);
+        }
     }
 
     private void setDownloadProgress(int progress) {
