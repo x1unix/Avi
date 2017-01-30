@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Avi Properties Keys For Keys -->
+<resources>
+    <!--Settings keys-->
+    <string name="avi_prop_no_ads" translatable="false">prop_no_ads</string>
+    <string name="avi_prop_autocheck_updates" translatable="false">prop_autocheck_updates</string>
+    <string name="avi_prop_allow_unstable" translatable="false">prop_allow_unstable</string>
+    <string name="prop_btn_update_now" translatable="false">prop_btn_update_now</string>
+    <string name="prop_use_legacy_player" translatable="false">prop_use_legacy_player</string>
+
+</resources>

@@ -25,6 +25,7 @@
     <string name="pref_app_feedback">Contact</string>
     <string name="pref_updates_check_now">Check now</string>
     <string name="pref_updates_allow_autocheck">Check automatically</string>
+    <string name="pref_use_legacy_player">Use legacy video player</string>
 
     <!--Updates-->
     <string name="upd_searching">Searching for updates</string>
@@ -36,15 +37,7 @@
     <!--Settings Props Description-->
     <string name="pref_ads_disabled_desc">Disable pre-roll ads. Disable this is you have issue with movie player.</string>
     <string name="pref_updates_autocheck_desc">Allow to application to check for updates automatically on background</string>
-
-    <!--Settings keys-->
-    <string name="avi_prop_no_ads" translatable="false">prop_no_ads</string>
-    <string name="avi_prop_autocheck_updates" translatable="false">prop_autocheck_updates</string>
-    <string name="avi_prop_allow_unstable" translatable="false">prop_allow_unstable</string>
-
-
-    <!-- Pref buttons keys -->
-    <string name="prop_btn_update_now" translatable="false">prop_btn_update_now</string>
+    <string name="pref_use_legacy_player_desc">Use regular HTML5 video-player. Turn this on if you have some issues with playback</string>
 
     <!--App Info-->
     <string name="avi_app_mail" translatable="false">avi-app@x1unix.com</string>

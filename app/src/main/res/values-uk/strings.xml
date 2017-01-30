@@ -23,6 +23,7 @@
     <string name="pref_app_feedback">Зворотній зв\'язок</string>
     <string name="pref_updates_check_now">Перевірити зараз</string>
     <string name="pref_updates_allow_autocheck">Перевіряти автоматично</string>
+    <string name="pref_use_legacy_player">Використовувати застарілий відеоплеєр</string>
 
     <!--Updates-->
     <string name="upd_searching">Пошук оновлень</string>
@@ -34,6 +35,7 @@
     <!--Settings Props Description-->
     <string name="pref_ads_disabled_desc">Відключити рекламу перед переглядом кіно. Рекомендується міняти при виникненні проблем з програванням відео.</string>
     <string name="pref_updates_autocheck_desc">Дозволити додатку автоматично перевіряти оновлення.</string>
+    <string name="pref_use_legacy_player_desc">Використовувати звичайний HTML5 плеєр. Ввімкніть цю опцію, якщо у вас виникають проблеми з програванням відео</string>
 
     <!--App Info-->
     <string name="action_settings">Налаштування</string>
