@@ -35,6 +35,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     private String propIsAutoupdateKey;
     private String propUpdateNow;
     private String propAllowUnstable;
+    private String propUseLegacyPlayer;
     private SharedPreferences preferences;
 
     private Resources res;
@@ -47,10 +48,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
         res = getResources();
 
-        propIsAdEnabledKey = getResources().getString(R.string.avi_prop_no_ads);
-        propIsAutoupdateKey = getResources().getString(R.string.avi_prop_autocheck_updates);
-        propUpdateNow = getResources().getString(R.string.prop_btn_update_now);
-        propAllowUnstable = getResources().getString(R.string.avi_prop_allow_unstable);
+        propIsAdEnabledKey = res.getString(R.string.avi_prop_no_ads);
+        propIsAutoupdateKey = res.getString(R.string.avi_prop_autocheck_updates);
+        propUpdateNow = res.getString(R.string.prop_btn_update_now);
+        propAllowUnstable = res.getString(R.string.avi_prop_allow_unstable);
+        propUseLegacyPlayer = res.getString(R.string.prop_use_legacy_player);
 
         getPrefs();
         setContentView(R.layout.activity_settings);
@@ -65,8 +67,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             currentVersion += " - " + res.getString(R.string.preview_version);
         }
 
-        ((Preference) findPreference("avi_app_version")).setSummary(currentVersion);
-        ((Preference) findPreference("avi_app_build")).setSummary(String.valueOf(BuildConfig.VERSION_CODE));
+        findPreference("avi_app_version").setSummary(currentVersion);
+        findPreference("avi_app_build").setSummary(String.valueOf(BuildConfig.VERSION_CODE));
 
         registerPropsEventHandlers();
     }
@@ -75,20 +77,19 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
     private void registerPropsEventHandlers() {
         // Adblock prop
-        Preference customPref = (Preference) findPreference(propIsAdEnabledKey);
-        customPref.setOnPreferenceChangeListener(onTogglePreferenceListener);
+        findPreference(propIsAdEnabledKey).setOnPreferenceChangeListener(onTogglePreferenceListener);
 
         // Autoupdate prop
-        Preference autoUpdatePref = (Preference) findPreference(propIsAutoupdateKey);
-        autoUpdatePref.setOnPreferenceChangeListener(onTogglePreferenceListener);
+        findPreference(propIsAutoupdateKey).setOnPreferenceChangeListener(onTogglePreferenceListener);
 
-        // Autoupdate prop
-        Preference unstablePref = (Preference) findPreference(propAllowUnstable);
-        unstablePref.setOnPreferenceChangeListener(onTogglePreferenceListener);
+        // Allow beta versions prop
+        findPreference(propAllowUnstable).setOnPreferenceChangeListener(onTogglePreferenceListener);
+
+        // Legacy player prop
+        findPreference(propUseLegacyPlayer).setOnPreferenceChangeListener(onTogglePreferenceListener);
 
         // Update Now Button
-        Preference updateNowPrefBtn = (Preference) findPreference(propUpdateNow);
-        updateNowPrefBtn.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+        findPreference(propUpdateNow).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
                 if (isNetworkAvailable()) {
@@ -103,7 +104,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             }
         });
 
-        ((Preference) findPreference("avi_author")).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+        findPreference("avi_author").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(APP_URL));
