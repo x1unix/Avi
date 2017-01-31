@@ -55,35 +55,43 @@ public class DashboardTabFragment extends Fragment {
 
         currentLang = res.getConfiguration().locale.getLanguage();
 
+        // Define pop-up menu items
         popupMenuItems = new String[] {
                 res.getString(R.string.open_in_player),
                 res.getString(R.string.show_details),
                 res.getString(R.string.remove_from)
                         .replace("%PLAYLIST%", getPlaylistGenitivusName())
         };
-
-
-
     }
 
     protected void onLayoutUpdate() {
         updateSpanCount();
     }
 
+    /**
+     * Return resource ID of this tab view from R.layout
+     * @return id
+     */
     protected int getTabView() {
         return 0;
     }
 
+    /**
+     * Provide items for playlist tab
+     * @return movies collection
+     */
     protected ArrayList<KPMovie> getContentItems() {
         return null;
     }
 
-    /**
-     * Item remove listener
-     * @param item selected movie
-     */
-    protected void onItemRemoveRequest(KPMovie item) {
 
+    /**
+     * Event handler that makes database query and returns if movie can be removed from array
+     * @param item movie
+     * @return result
+     */
+    protected boolean onItemRemoveRequest(KPMovie item) {
+        return true;
     }
 
     /**
@@ -116,7 +124,7 @@ public class DashboardTabFragment extends Fragment {
                                 watchMovie(item);
                                 break;
                             case OPTION_REMOVE:
-                                removeItemBlock(item, v, position);
+                                removeItemBlock(item, position);
                                 break;
                             default:
                                 break;
@@ -126,8 +134,11 @@ public class DashboardTabFragment extends Fragment {
         ).show();
     }
 
-    private void removeItemBlock(KPMovie movie, View v, int index) {
-
+    private void removeItemBlock(KPMovie movie, int index) {
+        if (onItemRemoveRequest(movie)) {
+            items.remove(index);
+            rescanElements();
+        }
     }
 
     private void watchMovie(KPMovie movie) {
@@ -241,8 +252,8 @@ public class DashboardTabFragment extends Fragment {
                     .setMoviesRepository(m);
     }
 
-    public void rescanElements() {
-        if (moviesRepository != null) {
+    public void rescanElements(boolean updateStorage) {
+        if ((moviesRepository != null) && updateStorage) {
             items = getContentItems();
         }
 
@@ -251,6 +262,10 @@ public class DashboardTabFragment extends Fragment {
         }
 
         renderMovies();
+    }
+
+    public void rescanElements() {
+        rescanElements(false);
     }
 
     public void updateLayout() {
