@@ -32,6 +32,12 @@ public class FavoritesTabFragment extends DashboardTabFragment {
     }
 
     @Override
+    protected boolean onItemRemoveRequest(KPMovie item) {
+        moviesRepository.removeFromFavorites(item.getId());
+        return true;
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return super.onCreateView(inflater, container, savedInstanceState);

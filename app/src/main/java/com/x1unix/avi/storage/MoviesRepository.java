@@ -142,6 +142,10 @@ public class MoviesRepository {
         return db.delete(MoviesRepository.TABLE_FAVORITES, "filmID = " + kpId, null) > 0;
     }
 
+    public boolean removeFromHistory(String kpId) {
+        return db.delete(MoviesRepository.TABLE_VIEWED, "filmID = " + kpId, null) > 0;
+    }
+
     public void addToFavorites(String kpId) {
         ContentValues cv = new ContentValues();
         cv.put("filmID", kpId);
