@@ -137,7 +137,7 @@ public class DashboardTabFragment extends Fragment {
     private void removeItemBlock(KPMovie movie, int index) {
         if (onItemRemoveRequest(movie)) {
             items.remove(index);
-            rescanElements();
+            rescanElements(false);
         }
     }
 
@@ -265,7 +265,7 @@ public class DashboardTabFragment extends Fragment {
     }
 
     public void rescanElements() {
-        rescanElements(false);
+        rescanElements(true);
     }
 
     public void updateLayout() {
