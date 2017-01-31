@@ -7,7 +7,7 @@ android {
         applicationId "com.x1unix.avi"
         minSdkVersion 14
         targetSdkVersion 24
-        versionCode 20170101
+        versionCode 20170201
         versionName "1.7.8"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables {
