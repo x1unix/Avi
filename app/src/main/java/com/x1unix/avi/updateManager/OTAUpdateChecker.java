@@ -25,19 +25,23 @@ public class OTAUpdateChecker {
             @Override
             public void onResponse(Call<AviSemVersion>call, Response<AviSemVersion> response) {
                 int statusCode = response.code();
-                AviSemVersion receivedVersion = response.body();
-                AviSemVersion current = AviSemVersion.getApplicationVersion();
+                try {
+                    AviSemVersion receivedVersion = response.body();
+                    AviSemVersion current = AviSemVersion.getApplicationVersion();
 
-                receivedVersion.apply();
+                    receivedVersion.apply();
 
-                boolean isNew = current.isYoungerThan(receivedVersion);
-                boolean isStable = receivedVersion.isStable();
-                boolean isSuitable = (isStable || allowNightlies);
+                    boolean isNew = current.isYoungerThan(receivedVersion);
+                    boolean isStable = receivedVersion.isStable();
+                    boolean isSuitable = (isStable || allowNightlies);
 
-                if (isNew && isSuitable) {
-                    otaEventListener.onUpdateAvailable(receivedVersion, current);
-                } else {
-                    otaEventListener.onUpdateMissing(receivedVersion, current);
+                    if (isNew && isSuitable) {
+                        otaEventListener.onUpdateAvailable(receivedVersion, current);
+                    } else {
+                        otaEventListener.onUpdateMissing(receivedVersion, current);
+                    }
+                } catch (Exception ex) {
+                    otaEventListener.onError(ex);
                 }
             }
 
