@@ -1,17 +1,22 @@
 package com.x1unix.avi.dashboard;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.x1unix.avi.ClickListener;
 import com.x1unix.avi.MovieDetailsActivity;
+import com.x1unix.avi.MoviePlayerActivity;
 import com.x1unix.avi.R;
 import com.x1unix.avi.RecyclerTouchListener;
 import com.x1unix.avi.adapter.CachedMoviesListAdapter;
@@ -28,16 +33,36 @@ public class DashboardTabFragment extends Fragment {
     protected GridLayoutManager gridLayoutManager;
     protected CachedMoviesListAdapter moviesListAdapter;
     private SwipeRefreshLayout swipeContainer;
+    private AlertDialog.Builder dialog;
+
+    private String[] popupMenuItems;
+    private Resources res;
+
+    // Android recommends to avoid enums, so use regular const
+    private static final int OPTION_WATCH = 0;
+    private static final int OPTION_INFORMATION = 1;
+    private static final int OPTION_REMOVE = 2;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        res = getResources();
+
         if (moviesRepository != null) {
             items = getContentItems();
         }
 
-        currentLang = getResources().getConfiguration().locale.getLanguage();
+        currentLang = res.getConfiguration().locale.getLanguage();
+
+        popupMenuItems = new String[] {
+                res.getString(R.string.open_in_player),
+                res.getString(R.string.show_details),
+                res.getString(R.string.remove_from)
+                        .replace("%PLAYLIST%", getPlaylistGenitivusName())
+        };
+
+
 
     }
 
@@ -51,6 +76,69 @@ public class DashboardTabFragment extends Fragment {
 
     protected ArrayList<KPMovie> getContentItems() {
         return null;
+    }
+
+    /**
+     * Item remove listener
+     * @param item selected movie
+     */
+    protected void onItemRemoveRequest(KPMovie item) {
+
+    }
+
+    /**
+     * Current playlist name for pop-up dialogue
+     * @return playlist name
+     */
+    protected String getPlaylistGenitivusName() {
+        return res.getString(R.string.playlist_genitivus_default);
+    }
+
+    /**
+     * Long tap event listener
+     * @param item selected movie
+     * @param v Current view
+     * @param position store array position
+     */
+    protected void onItemLongPress(final KPMovie item, final View v, final int position) {
+        if (dialog == null) {
+            dialog = new AlertDialog.Builder(getActivity());
+        }
+
+        dialog.setTitle(item.getLocalizedTitle(currentLang))
+                .setItems(popupMenuItems, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case OPTION_INFORMATION:
+                                openMovie(item);
+                                break;
+                            case OPTION_WATCH:
+                                watchMovie(item);
+                                break;
+                            case OPTION_REMOVE:
+                                removeItemBlock(item, v, position);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+        ).show();
+    }
+
+    private void removeItemBlock(KPMovie movie, View v, int index) {
+
+    }
+
+    private void watchMovie(KPMovie movie) {
+        Intent wmIntent = new Intent(getActivity(), MoviePlayerActivity.class);
+
+        // Put id and title
+        wmIntent.putExtra("movieId", movie.getId());
+        wmIntent.putExtra("movieTitle", movie.getLocalizedTitle(currentLang));
+
+        // Fire UP player
+        startActivity(wmIntent);
     }
 
     @Override
@@ -125,7 +213,7 @@ public class DashboardTabFragment extends Fragment {
 
                     @Override
                     public void onLongClick(View view, int position) {
-
+                        onItemLongPress(items.get(position), view, position);
                     }
                 }));
     }

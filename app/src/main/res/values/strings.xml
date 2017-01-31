@@ -83,6 +83,16 @@
     <string name="preview_version">Preview version</string>
     <string name="build_number">Build Number</string>
 
+    <!-- Dashboard pop-up menu items -->
+    <string name="show_details">Show details</string>
+    <string name="remove_from">Remove from %PLAYLIST%</string>
+    <string name="open_in_player">Open in player</string>
+
+    <!-- playlist names -->
+    <string name="playlist_genitivus_favorites">favorites</string>
+    <string name="playlist_genitivus_default">list</string>
+
+
     <string name="avi_app_author" translatable="false">\@x1unix, 2017</string>
 
 </resources>

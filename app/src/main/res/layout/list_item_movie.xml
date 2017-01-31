@@ -12,6 +12,7 @@
     android:paddingTop="0px"
     card_view:cardBackgroundColor="#ffffff"
     android:clickable="true"
+    android:longClickable="true"
     android:foreground="?android:attr/selectableItemBackground"
     card_view:cardCornerRadius="2dp">
 

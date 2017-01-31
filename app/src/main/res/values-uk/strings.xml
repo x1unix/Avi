@@ -80,4 +80,14 @@
     <string name="install">Встановити</string>
     <string name="preview_version">Попередня збірка</string>
     <string name="build_number">Номер Збірки</string>
+
+
+    <!-- Dashboard pop-up menu items -->
+    <string name="show_details">Детальніше</string>
+    <string name="remove_from">Видалити з %PLAYLIST%</string>
+    <string name="open_in_player">Відтворити</string>
+
+    <!-- playlist names -->
+    <string name="playlist_genitivus_favorites">обраного</string>
+    <string name="playlist_genitivus_default">списку</string>
 </resources>
