@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -109,6 +110,9 @@ public class DashboardTabFragment extends Fragment {
      * @param position store array position
      */
     protected void onItemLongPress(final KPMovie item, final View v, final int position) {
+        // Vibrate on long tap
+        v.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
+
         if (dialog == null) {
             dialog = new AlertDialog.Builder(getActivity());
         }
