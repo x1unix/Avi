@@ -2,6 +2,7 @@ package com.x1unix.avi;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -151,6 +152,23 @@ public class DashboardActivity extends AppCompatActivity {
         }, 100);
     }
 
+    private void startUpdate(AviSemVersion newVer) {
+        startActivity(
+                new Intent(this, UpdateDownloaderActivity.class)
+                        .putExtra("update", newVer)
+        );
+    }
+
+    private void showUpdateDialog(final AviSemVersion newVer) {
+        OTAUpdateChecker.makeDialog(this, newVer)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        startUpdate(newVer);
+                        dialog.cancel();
+                    }
+                }).show();
+    }
+
     private void initBackgroundUpdateCheck() {
         final Context context = getApplicationContext();
         boolean allowNightlies = PreferenceManager.
@@ -160,7 +178,7 @@ public class DashboardActivity extends AppCompatActivity {
         OTAUpdateChecker.checkForUpdates(new OTAStateListener() {
             @Override
             protected void onUpdateAvailable(AviSemVersion availableVersion, AviSemVersion currentVersion) {
-                OTAUpdateChecker.makeDialog(context, availableVersion);
+                showUpdateDialog(availableVersion);
             }
         }, allowNightlies);
     }

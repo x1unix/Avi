@@ -23,6 +23,7 @@
     <string name="pref_app_feedback">Обратная связь</string>
     <string name="pref_updates_check_now">Проверить сейчас</string>
     <string name="pref_updates_allow_autocheck">Проверять автоматически</string>
+    <string name="pref_use_legacy_player">Использовать устаревший видеоплеер</string>
 
     <!--Updates-->
     <string name="upd_searching">Поиск обновлений</string>
@@ -34,6 +35,7 @@
     <!--Settings Props Description-->
     <string name="pref_ads_disabled_desc">Отключить рекламу перед просмотром видео. Рекомендуется менять при возникновении проблем с проигрыванием видео.</string>
     <string name="pref_updates_autocheck_desc">Разрешить приложению автоматически проверять обновления.</string>
+    <string name="pref_use_legacy_player_desc">Использовать обычный HTML5 плеер. Включите эту опцию если у вас возникают проблемы с проигрыванием видео.</string>
 
     <!--App Info-->
     <string name="action_settings">Настройки</string>
@@ -68,4 +70,23 @@
     <string name="tab_history_no_items">Здесь появятся просмотренные вами фильмы и сериалы</string>
     <string name="in_favorites">В Избранном</string>
     <string name="to_favorites">В Избранное</string>
+    <string name="downloading_update">Загрузка обновления</string>
+    <string name="preparing_for_download">Подготовка к загрузке</string>
+    <string name="installing_package">Установка пакета</string>
+    <string name="done">Готово</string>
+    <string name="error">Ошибка</string>
+    <string name="failed_to_download_update">Не удалось загрузить обновление:\n</string>
+    <string name="no_permissions">Нету прав чтения/записи для папки загрузки</string>
+    <string name="install">Установить</string>
+    <string name="preview_version">Предварительная сборка</string>
+    <string name="build_number">Номер сборки</string>
+
+    <!-- Dashboard pop-up menu items -->
+    <string name="show_details">Показать детали</string>
+    <string name="remove_from">Удалить из %PLAYLIST%</string>
+    <string name="open_in_player">Воспроизвести</string>
+
+    <!-- playlist names -->
+    <string name="playlist_genitivus_favorites">избранного</string>
+    <string name="playlist_genitivus_default">списка</string>
 </resources>

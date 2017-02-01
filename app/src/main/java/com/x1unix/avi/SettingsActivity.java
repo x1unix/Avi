@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -34,7 +35,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     private String propIsAutoupdateKey;
     private String propUpdateNow;
     private String propAllowUnstable;
+    private String propUseLegacyPlayer;
     private SharedPreferences preferences;
+
+    private Resources res;
 
     private final String APP_URL = "http://avi-app.x1unix.com";
 
@@ -42,10 +46,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        propIsAdEnabledKey = getResources().getString(R.string.avi_prop_no_ads);
-        propIsAutoupdateKey = getResources().getString(R.string.avi_prop_autocheck_updates);
-        propUpdateNow = getResources().getString(R.string.prop_btn_update_now);
-        propAllowUnstable = getResources().getString(R.string.avi_prop_allow_unstable);
+        res = getResources();
+
+        propIsAdEnabledKey = res.getString(R.string.avi_prop_no_ads);
+        propIsAutoupdateKey = res.getString(R.string.avi_prop_autocheck_updates);
+        propUpdateNow = res.getString(R.string.prop_btn_update_now);
+        propAllowUnstable = res.getString(R.string.avi_prop_allow_unstable);
+        propUseLegacyPlayer = res.getString(R.string.prop_use_legacy_player);
 
         getPrefs();
         setContentView(R.layout.activity_settings);
@@ -53,7 +60,16 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
         addPreferencesFromResource(R.xml.pref_main);
 
-        ((Preference) findPreference("avi_app_version")).setSummary(BuildConfig.VERSION_NAME);
+        boolean isPreview = res.getBoolean(R.bool.isPreviewVersion);
+        String currentVersion = BuildConfig.VERSION_NAME;
+
+        if (isPreview) {
+            currentVersion += " - " + res.getString(R.string.preview_version);
+        }
+
+        findPreference("avi_app_version").setSummary(currentVersion);
+        findPreference("avi_app_build").setSummary(String.valueOf(BuildConfig.VERSION_CODE));
+
         registerPropsEventHandlers();
     }
 
@@ -61,20 +77,19 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
     private void registerPropsEventHandlers() {
         // Adblock prop
-        Preference customPref = (Preference) findPreference(propIsAdEnabledKey);
-        customPref.setOnPreferenceChangeListener(onTogglePreferenceListener);
+        findPreference(propIsAdEnabledKey).setOnPreferenceChangeListener(onTogglePreferenceListener);
 
         // Autoupdate prop
-        Preference autoUpdatePref = (Preference) findPreference(propIsAutoupdateKey);
-        autoUpdatePref.setOnPreferenceChangeListener(onTogglePreferenceListener);
+        findPreference(propIsAutoupdateKey).setOnPreferenceChangeListener(onTogglePreferenceListener);
 
-        // Autoupdate prop
-        Preference unstablePref = (Preference) findPreference(propAllowUnstable);
-        unstablePref.setOnPreferenceChangeListener(onTogglePreferenceListener);
+        // Allow beta versions prop
+        findPreference(propAllowUnstable).setOnPreferenceChangeListener(onTogglePreferenceListener);
+
+        // Legacy player prop
+        findPreference(propUseLegacyPlayer).setOnPreferenceChangeListener(onTogglePreferenceListener);
 
         // Update Now Button
-        Preference updateNowPrefBtn = (Preference) findPreference(propUpdateNow);
-        updateNowPrefBtn.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+        findPreference(propUpdateNow).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
                 if (isNetworkAvailable()) {
@@ -89,7 +104,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             }
         });
 
-        ((Preference) findPreference("avi_author")).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+        findPreference("avi_author").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(APP_URL));
@@ -168,8 +183,21 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         }, allowUnstable);
     }
 
+    private void startUpdate(AviSemVersion newVer) {
+        startActivity(
+                new Intent(this, UpdateDownloaderActivity.class)
+                        .putExtra("update", newVer)
+        );
+    }
+
     private void showUpdateDialog(final AviSemVersion newVer) {
-        OTAUpdateChecker.makeDialog(this, newVer).show();;
+        OTAUpdateChecker.makeDialog(this, newVer)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        startUpdate(newVer);
+                        dialog.cancel();
+                    }
+                }).show();
     }
 
     private boolean isNetworkAvailable() {

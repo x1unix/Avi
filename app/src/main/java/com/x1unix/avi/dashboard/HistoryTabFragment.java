@@ -28,6 +28,12 @@ public class HistoryTabFragment extends DashboardTabFragment {
     }
 
     @Override
+    protected boolean onItemRemoveRequest(KPMovie item) {
+        moviesRepository.removeFromHistory(item.getId());
+        return true;
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return super.onCreateView(inflater, container, savedInstanceState);

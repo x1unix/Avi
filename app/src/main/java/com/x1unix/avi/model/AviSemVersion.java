@@ -5,9 +5,10 @@ import android.util.Log;
 import com.google.gson.annotations.SerializedName;
 import com.x1unix.avi.BuildConfig;
 
+import java.io.Serializable;
 import java.util.regex.Pattern;
 
-public class AviSemVersion {
+public class AviSemVersion implements Serializable{
     public int major = 0;
     public int minor = 0;
     public int patch = 0;
@@ -32,6 +33,9 @@ public class AviSemVersion {
 
     @SerializedName("homepage")
     protected String homepage;
+
+    @SerializedName("changelog")
+    protected String changelog;
 
     public AviSemVersion(String semVerString, boolean isStable, String tag, String date,
                          int downs, String apkUrl, String homepage) {
@@ -104,6 +108,17 @@ public class AviSemVersion {
         }
 
         return result;
+    }
+
+    public boolean hasChangelog() {
+        return this.changelog != null;
+    }
+    public String getChangelog() {
+        return this.changelog;
+    }
+
+    public String getTag() {
+        return this.tag;
     }
 
     public static AviSemVersion getApplicationVersion() {

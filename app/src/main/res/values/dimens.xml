@@ -25,4 +25,5 @@
     <!-- common -->
     <dimen name="button_font_size">14sp</dimen>
     <dimen name="button_padding">10sp</dimen>
+
 </resources>

@@ -2,5 +2,6 @@
 <resources>
     <bool name="isTablet">false</bool>
     <integer name="colsCount">1</integer>
+    <bool name="isPreviewVersion">false</bool>
 
 </resources>

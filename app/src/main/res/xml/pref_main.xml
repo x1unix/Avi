@@ -9,6 +9,14 @@
             android:summary="@string/pref_ads_disabled_desc">
 
         </CheckBoxPreference>
+        <CheckBoxPreference
+            android:key="@string/prop_use_legacy_player"
+            android:defaultValue="false"
+            android:title="@string/pref_use_legacy_player"
+            android:visibility="gone"
+            android:summary="@string/pref_use_legacy_player_desc">
+
+        </CheckBoxPreference>
     </PreferenceCategory>
     <PreferenceCategory
         android:title="@string/pref_category_updates">
@@ -34,6 +42,11 @@
         <Preference
             android:key="avi_app_version"
             android:title="@string/pref_app_version"
+            android:summary="">
+        </Preference>
+        <Preference
+            android:key="avi_app_build"
+            android:title="@string/build_number"
             android:summary="">
         </Preference>
         <Preference

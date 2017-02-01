@@ -14,6 +14,7 @@ import retrofit2.Response;
 
 import com.rollbar.android.Rollbar;
 import com.x1unix.avi.R;
+import com.x1unix.avi.UpdateDownloaderActivity;
 import com.x1unix.avi.model.AviSemVersion;
 
 public class OTAUpdateChecker {
@@ -24,19 +25,23 @@ public class OTAUpdateChecker {
             @Override
             public void onResponse(Call<AviSemVersion>call, Response<AviSemVersion> response) {
                 int statusCode = response.code();
-                AviSemVersion receivedVersion = response.body();
-                AviSemVersion current = AviSemVersion.getApplicationVersion();
+                try {
+                    AviSemVersion receivedVersion = response.body();
+                    AviSemVersion current = AviSemVersion.getApplicationVersion();
 
-                receivedVersion.apply();
+                    receivedVersion.apply();
 
-                boolean isNew = current.isYoungerThan(receivedVersion);
-                boolean isStable = receivedVersion.isStable();
-                boolean isSuitable = (isStable || allowNightlies);
+                    boolean isNew = current.isYoungerThan(receivedVersion);
+                    boolean isStable = receivedVersion.isStable();
+                    boolean isSuitable = (isStable || allowNightlies);
 
-                if (isNew && isSuitable) {
-                    otaEventListener.onUpdateAvailable(receivedVersion, current);
-                } else {
-                    otaEventListener.onUpdateMissing(receivedVersion, current);
+                    if (isNew && isSuitable) {
+                        otaEventListener.onUpdateAvailable(receivedVersion, current);
+                    } else {
+                        otaEventListener.onUpdateMissing(receivedVersion, current);
+                    }
+                } catch (Exception ex) {
+                    otaEventListener.onError(ex);
                 }
             }
 
@@ -57,13 +62,6 @@ public class OTAUpdateChecker {
         dialInstallUpdate.setMessage(modConfimText);
         dialInstallUpdate.setTitle(res.getString(R.string.upd_new_available))
                 .setCancelable(false)
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(newVer.getApkUrl()));
-                        owner.startActivity(browserIntent);
-                        dialog.cancel();
-                    }
-                })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();

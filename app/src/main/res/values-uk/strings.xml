@@ -23,6 +23,7 @@
     <string name="pref_app_feedback">Зворотній зв\'язок</string>
     <string name="pref_updates_check_now">Перевірити зараз</string>
     <string name="pref_updates_allow_autocheck">Перевіряти автоматично</string>
+    <string name="pref_use_legacy_player">Використовувати застарілий відеоплеєр</string>
 
     <!--Updates-->
     <string name="upd_searching">Пошук оновлень</string>
@@ -34,6 +35,7 @@
     <!--Settings Props Description-->
     <string name="pref_ads_disabled_desc">Відключити рекламу перед переглядом кіно. Рекомендується міняти при виникненні проблем з програванням відео.</string>
     <string name="pref_updates_autocheck_desc">Дозволити додатку автоматично перевіряти оновлення.</string>
+    <string name="pref_use_legacy_player_desc">Використовувати звичайний HTML5 плеєр. Ввімкніть цю опцію, якщо у вас виникають проблеми з програванням відео</string>
 
     <!--App Info-->
     <string name="action_settings">Налаштування</string>
@@ -68,4 +70,24 @@
     <string name="tab_history_no_items">Тут з\'являться переглянуті вами фільми й серіали</string>
     <string name="in_favorites">В Обране</string>
     <string name="to_favorites">В Обраному</string>
+    <string name="downloading_update">Завантаження оновлення</string>
+    <string name="preparing_for_download">Підготовка до завантаження</string>
+    <string name="installing_package">Установка пакета</string>
+    <string name="done">Готово</string>
+    <string name="error">Помилка</string>
+    <string name="failed_to_download_update">Не вдалося завантажити оновлення:\n</string>
+    <string name="no_permissions">Нема прав читання / запису для папки завантаження</string>
+    <string name="install">Встановити</string>
+    <string name="preview_version">Попередня збірка</string>
+    <string name="build_number">Номер Збірки</string>
+
+
+    <!-- Dashboard pop-up menu items -->
+    <string name="show_details">Детальніше</string>
+    <string name="remove_from">Видалити з %PLAYLIST%</string>
+    <string name="open_in_player">Відтворити</string>
+
+    <!-- playlist names -->
+    <string name="playlist_genitivus_favorites">обраного</string>
+    <string name="playlist_genitivus_default">списку</string>
 </resources>
