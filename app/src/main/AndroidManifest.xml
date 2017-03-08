@@ -18,6 +18,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".TestChamberActivity"
+            android:label="@string/testchamber"
+            android:theme="@style/AppTheme"
+            android:icon="@drawable/ic_test">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".MoviePlayerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:hardwareAccelerated="true"
@@ -66,11 +77,10 @@
         <activity
             android:name=".SearchActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
-
-        <activity android:name=".UpdateDownloaderActivity"
+        <activity
+            android:name=".UpdateDownloaderActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/pref_category_updates">
-        </activity>
+            android:label="@string/pref_category_updates"></activity>
 
         <receiver android:name=".SearchWidgetProvider">
             <intent-filter>

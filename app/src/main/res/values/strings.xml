@@ -94,5 +94,6 @@
 
 
     <string name="avi_app_author" translatable="false">\@x1unix, 2017</string>
+    <string name="testchamber" translatable="false">Test Mode</string>
 
 </resources>
