@@ -28,11 +28,17 @@ public class Moonwalker {
             public void onResponse(Call call, Response response) throws IOException {
                 int code = response.code();
 
-                if (Grabber.isSuccessful(response)) {
-                    String txt = response.body().string();
-                    listener.onSuccess(txt, response);
-                } else {
-                    listener.onError(new MoonException("Failed to get script, HTTP error " + code), call);
+                try {
+                    if (Grabber.isSuccessful(response)) {
+                        String txt = response.body().string();
+                        String frameUrl = Parser.getFrameUrlFromScript(txt);
+
+                        listener.onSuccess(frameUrl, response);
+                    } else {
+                        listener.onError(new MoonException("Failed to get script, HTTP error " + code), call);
+                    }
+                } catch (Exception ex) {
+                    listener.onError(ex, null);
                 }
             }
         });
