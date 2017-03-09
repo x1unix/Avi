@@ -27,7 +27,6 @@ public class Moonwalker {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 int code = response.code();
-
                 try {
                     if (Grabber.isSuccessful(response)) {
                         String txt = response.body().string();
