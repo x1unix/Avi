@@ -8,6 +8,9 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
+/**
+ * Fascade Moonwalker
+ */
 public class Moonwalker {
     private Grabber grabber;
     public static String TAG = "MoonWalker";
@@ -21,10 +24,22 @@ public class Moonwalker {
             @Override
             public void run() {
                 try {
+                    // Get embedded script content
                     String script = grabber.getPlayerScriptByKinopoiskId(kinopoiskId);
+
+                    // Get iframe url
                     String frameUrl = Parser.getFrameUrlFromScript(script);
 
-                    listener.onSuccess(frameUrl);
+                    // Get iframe source
+                    String iframeHtml = grabber.getResource(frameUrl);
+
+                    // Get player's frame source
+                    String playerFrameSrc = Parser.getPlayerFrameUrlFromHtml(iframeHtml);
+
+
+                    listener.onSuccess(playerFrameSrc);
+
+                    grabber.resetState();
                 } catch (Exception ex) {
                     listener.onError(ex);
                 }

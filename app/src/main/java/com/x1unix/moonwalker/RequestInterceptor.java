@@ -9,15 +9,25 @@ import okhttp3.Response;
 
 public class RequestInterceptor implements Interceptor {
     private String refererUrl;
+    private String originalReferer;
 
     public RequestInterceptor(String referer) {
         refererUrl = referer;
+        originalReferer = referer;
     }
 
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request interceptedRequest = chain.request();
         return chain.proceed(decorateRequest(interceptedRequest));
+    }
+
+    public void setRefererUrl(String newUrl) {
+        refererUrl = newUrl;
+    }
+
+    public void resetRefererUrl() {
+        this.refererUrl = originalReferer;
     }
 
     private Request decorateRequest(Request request) {
@@ -30,7 +40,6 @@ public class RequestInterceptor implements Interceptor {
                 .addHeader("Accept-Language", "ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4,uk;q=0.2,be;q=0.2,de;q=0.2,pt;q=0.2")
                 .addHeader("Cache-Control", "no-cache")
                 .addHeader("Connection", "keep-alive")
-                .addHeader("Host", "moonwalk.co")
                 .addHeader("Referer", refererUrl)
                 .addHeader("Pragma", "no-cache")
                 .addHeader("User-Agent",

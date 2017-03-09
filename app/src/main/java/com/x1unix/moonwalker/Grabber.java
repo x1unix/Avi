@@ -15,6 +15,7 @@ import okhttp3.Response;
 public class Grabber {
     private String referrer;
     private OkHttpClient client;
+    private RequestInterceptor interceptor;
 
     public Grabber(String referrer) {
         this.referrer = referrer;
@@ -23,6 +24,10 @@ public class Grabber {
 
     public String getPlayerScriptByKinopoiskId(String kpId) throws IOException, MoonException {
         String url = "http://moonwalk.co/player_api?kp_id=" + kpId;
+        return this.getResource(url);
+    }
+
+    public String getResource(String url)  throws IOException, MoonException {
         Request request = new Request.Builder()
                 .url(url)
                 .build();
@@ -33,10 +38,20 @@ public class Grabber {
             throw new MoonException("Failed to get script, HTTP error " + resp.code());
         }
 
+        updateReferer(url);
+
         return resp.body().string();
     }
 
-    public static boolean isSuccessful(Response response) {
+    private void updateReferer(String referer) {
+        interceptor.setRefererUrl(referer);
+    }
+
+    public void resetState() {
+        interceptor.resetRefererUrl();
+    }
+
+    private static boolean isSuccessful(Response response) {
         int code = response.code();
         return (code >= 200) && (code < 400);
     }
@@ -44,9 +59,10 @@ public class Grabber {
     private OkHttpClient getClient() {
         CookieManager cookieManager = new CookieManager();
         cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
+        interceptor = new RequestInterceptor(referrer);
 
         return new OkHttpClient().newBuilder()
-                .addInterceptor(new RequestInterceptor(referrer))
+                .addInterceptor(interceptor)
                 .cookieJar(new JavaNetCookieJar(cookieManager))
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .build();

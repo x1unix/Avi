@@ -54,7 +54,7 @@ public class TestChamberActivity extends AppCompatActivity {
             public void run() {
                 AlertDialog.Builder builder = new AlertDialog.Builder(TestChamberActivity.this);
                 builder
-                        .setTitle("Test Callback")
+                        .setTitle("Result:")
                         .setMessage(message)
                         .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
