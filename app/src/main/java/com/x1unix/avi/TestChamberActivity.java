@@ -36,12 +36,12 @@ public class TestChamberActivity extends AppCompatActivity {
         moonwalker.getMovieByKinopoiskId(kpIdTextBox.getText().toString(),
             new Listener() {
                 @Override
-                public void onSuccess(String result, Response response) {
+                public void onSuccess(String result) {
                     pop(result);
                 }
 
                 @Override
-                public void onError(Exception ex, Call call) {
+                public void onError(Exception ex) {
                     pop(ex.getMessage());
                 }
             }

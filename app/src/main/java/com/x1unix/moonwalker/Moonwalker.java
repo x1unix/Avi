@@ -16,30 +16,19 @@ public class Moonwalker {
         grabber = new Grabber(referrer);
     }
 
-    public void getMovieByKinopoiskId(String kinopoiskId, final Listener listener) {
-        grabber.getPlayerScriptByKinopoiskId(kinopoiskId, new Callback() {
+    public void getMovieByKinopoiskId(final String kinopoiskId, final Listener listener) {
+        new Thread(new Runnable() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                Log.e(Moonwalker.TAG, e.getMessage());
-                listener.onError(e, call);
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                int code = response.code();
+            public void run() {
                 try {
-                    if (Grabber.isSuccessful(response)) {
-                        String txt = response.body().string();
-                        String frameUrl = Parser.getFrameUrlFromScript(txt);
+                    String script = grabber.getPlayerScriptByKinopoiskId(kinopoiskId);
+                    String frameUrl = Parser.getFrameUrlFromScript(script);
 
-                        listener.onSuccess(frameUrl, response);
-                    } else {
-                        listener.onError(new MoonException("Failed to get script, HTTP error " + code), call);
-                    }
+                    listener.onSuccess(frameUrl);
                 } catch (Exception ex) {
-                    listener.onError(ex, null);
+                    listener.onError(ex);
                 }
             }
-        });
+        }).start();
     }
 }

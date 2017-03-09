@@ -21,13 +21,19 @@ public class Grabber {
         this.client = this.getClient();
     }
 
-    public void getPlayerScriptByKinopoiskId(String kpId, final Callback callback) {
+    public String getPlayerScriptByKinopoiskId(String kpId) throws IOException, MoonException {
         String url = "http://moonwalk.co/player_api?kp_id=" + kpId;
         Request request = new Request.Builder()
                 .url(url)
                 .build();
 
-        client.newCall(request).enqueue(callback);
+        Response resp = client.newCall(request).execute();
+
+        if (!Grabber.isSuccessful(resp)) {
+            throw new MoonException("Failed to get script, HTTP error " + resp.code());
+        }
+
+        return resp.body().string();
     }
 
     public static boolean isSuccessful(Response response) {
