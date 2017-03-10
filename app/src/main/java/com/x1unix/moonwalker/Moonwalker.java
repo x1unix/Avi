@@ -36,6 +36,7 @@ public class Moonwalker {
                     // Get player's frame source
                     String playerFrameSrc = Parser.getPlayerFrameUrlFromHtml(iframeHtml);
 
+                    String playerFrameHtml = grabber.getResource(playerFrameSrc);
 
                     listener.onSuccess(playerFrameSrc);
 
