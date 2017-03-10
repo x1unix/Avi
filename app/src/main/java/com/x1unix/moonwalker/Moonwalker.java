@@ -36,7 +36,8 @@ public class Moonwalker {
                     // Get player's frame source
                     String playerFrameSrc = Parser.getPlayerFrameUrlFromHtml(iframeHtml);
 
-                    String playerFrameHtml = grabber.getResource(playerFrameSrc);
+                    // Create moon session
+                    MoonSession session = MoonSession.fromPlayerUrl(playerFrameSrc, grabber);
 
                     listener.onSuccess(playerFrameSrc);
 
