@@ -4,8 +4,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 class Parser {
-    private static String EXP_IFRAME_URL = "(http:\\/\\/moonwalk.co\\/api\\/iframe\\/?[A-Za-z0-9=&_\\-\\?\\s\\.]+)";
-    private static String EXP_PLAYER_FRAME_SERIAL = "(http:\\/\\/moonwalk.cc\\/serial\\/[A-Za-z0-9=&_\\-\\?\\s\\.]+\\/iframe)";
+    private static final String EXP_IFRAME_URL = "(http:\\/\\/moonwalk.co\\/api\\/iframe\\/?[A-Za-z0-9=&_\\-\\?\\s\\.]+)";
+    private static final String EXP_PLAYER_FRAME_SERIAL = "(http:\\/\\/moonwalk.cc\\/serial\\/[A-Za-z0-9=&_\\-\\?\\s\\.]+\\/iframe)";
+    private static final String EXP_PLAYER_CSRF_TOKEN = "<meta name=\"csrf-token\" content=\"([\\S]+)\"";
 
 
     public static String getFrameUrlFromScript(String scriptHtml) throws MoonException {
