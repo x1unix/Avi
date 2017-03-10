@@ -17,6 +17,10 @@ public class Grabber {
     private OkHttpClient client;
     private RequestInterceptor interceptor;
 
+    private static final String HEAD_CSRF_TOKEN = "X-CSRF-Token";
+    private static final String HEAD_RAY = "X-Bool-Ray";
+    private static final String HEAD_RAY_VALUE = "XRAY";
+
     public Grabber(String referrer) {
         this.referrer = referrer;
         this.client = this.getClient();
