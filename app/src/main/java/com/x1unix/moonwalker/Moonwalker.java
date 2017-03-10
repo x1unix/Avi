@@ -39,6 +39,8 @@ public class Moonwalker {
                     // Create moon session
                     MoonSession session = MoonSession.fromPlayerUrl(playerFrameSrc, grabber);
 
+                    String playlist = grabber.getPlaylist(session);
+
                     listener.onSuccess(playerFrameSrc);
 
                     grabber.resetState();
