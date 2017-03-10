@@ -1,6 +1,9 @@
 package com.x1unix.moonwalker;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.Request;
