@@ -21,6 +21,8 @@ public class Grabber {
     private static final String HEAD_RAY = "X-Bool-Ray";
     private static final String HEAD_RAY_VALUE = "XRAY";
 
+    private static final String SESSION_URL = "/sessions/new_session";
+
     public Grabber(String referrer) {
         this.referrer = referrer;
         this.client = this.getClient();
