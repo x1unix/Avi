@@ -29,7 +29,7 @@ class Parser {
         return result;
     }
 
-    public static String getPlayerFrameUrlFromHtml(String frameHtml) throws MoonException {
+    public static String getPlayerUrlFromHtml(String frameHtml) throws MoonException {
         String result = match(Parser.EXP_PLAYER_FRAME_SERIAL, frameHtml);
 
         if (isNull(result)) {

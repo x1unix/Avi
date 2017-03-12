@@ -1,13 +1,5 @@
 package com.x1unix.moonwalker;
 
-import android.util.Log;
-
-import java.io.IOException;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
-
 /**
  * Facade for Moonwalker API
  */
@@ -35,12 +27,12 @@ public class Moonwalker {
                     String iframeHtml = grabber.getResource(frameUrl);
 
                     // Get player's frame source
-                    String playerFrameSrc = Parser.getPlayerFrameUrlFromHtml(iframeHtml);
+                    String playerUrl = Parser.getPlayerUrlFromHtml(iframeHtml);
 
                     // Create moon session
-                    MoonSession session = MoonSession.fromPlayerUrl(playerFrameSrc, grabber);
+                    MoonVideo video = new MoonVideo(playerUrl, grabber);
 
-                    ManifestCollection manifests = session.getPlaylist();
+                    ManifestCollection manifests = video.getPlaylist();
 
                     listener.onSuccess(manifests.getM3u8Manifest());
 
