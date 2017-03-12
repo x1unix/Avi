@@ -22,7 +22,8 @@ public class RequestInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request interceptedRequest = chain.request();
-        return chain.proceed(decorateRequest(interceptedRequest));
+        Request decoratedRequest = decorateRequest(interceptedRequest);
+        return chain.proceed(decoratedRequest);
     }
 
     public void setRefererUrl(String newUrl) {

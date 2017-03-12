@@ -41,7 +41,7 @@ public class Moonwalker {
 
                     String playlist = grabber.getPlaylist(session);
 
-                    listener.onSuccess(playerFrameSrc);
+                    listener.onSuccess(playlist);
 
                     grabber.resetState();
                 } catch (Exception ex) {
