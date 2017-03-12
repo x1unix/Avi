@@ -61,6 +61,7 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-databind:2.7.3'
     compile 'com.github.bumptech.glide:glide:3.5.2'
     compile 'com.yandex.android:mobmetricalib:2.62'
+    compile 'org.jsoup:jsoup:1.10.2'
     compile 'com.jakewharton:butterknife:8.5.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 
