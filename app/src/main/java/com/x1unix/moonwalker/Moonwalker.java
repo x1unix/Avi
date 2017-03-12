@@ -9,11 +9,12 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 /**
- * Fascade Moonwalker
+ * Facade for Moonwalker API
  */
 public class Moonwalker {
     private Grabber grabber;
     public static String TAG = "MoonWalker";
+    public static String version = "0.1.0";
 
     public Moonwalker(String referrer) {
         grabber = new Grabber(referrer);
@@ -39,9 +40,9 @@ public class Moonwalker {
                     // Create moon session
                     MoonSession session = MoonSession.fromPlayerUrl(playerFrameSrc, grabber);
 
-                    String playlist = grabber.getPlaylist(session);
+                    ManifestCollection manifests = session.getPlaylist();
 
-                    listener.onSuccess(playlist);
+                    listener.onSuccess(manifests.getM3u8Manifest());
 
                     grabber.resetState();
                 } catch (Exception ex) {
@@ -49,5 +50,9 @@ public class Moonwalker {
                 }
             }
         }).start();
+    }
+
+    public static String getVersion() {
+        return Moonwalker.version;
     }
 }
