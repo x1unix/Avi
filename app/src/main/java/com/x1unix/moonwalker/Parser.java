@@ -1,5 +1,9 @@
 package com.x1unix.moonwalker;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -10,8 +14,10 @@ class Parser {
     // Session
     private static final String EXP_PLAYER_CSRF_TOKEN = "<meta name=\"csrf-token\" content=\"([\\S]+)\"";
     private static final String EXP_VERSION_CONTROL = "version_control = '([\\S]+)';";
+    private static final String EXP_DETECT_TRUE = "detect_true = '([\\S]+)';";
     private static final String EXP_JSON_STRING_TEMPLATE = "@PROP: '([\\S]+)'";
     private static final String EXP_JSON_INT_TEMPLATE = "@PROP: ([0-9]+)";
+    private static final String EXP_MEGA_VERSION = "'X-Mega-Version': '([\\S]+)'";
 
     public static String getFrameUrlFromScript(String scriptHtml) throws MoonException {
         String result = match(Parser.EXP_IFRAME_URL, scriptHtml);
@@ -33,6 +39,12 @@ class Parser {
         return result;
     }
 
+    /**
+     * Get version_control property from player (DEPRECATED)
+     * @param playerHtml HTML source of player
+     * @return result
+     * @throws MoonException
+     */
     public static String getPlayerVersionControl(String playerHtml) throws MoonException {
         String result = match(Parser.EXP_VERSION_CONTROL, playerHtml);
 
@@ -43,11 +55,31 @@ class Parser {
         return result;
     }
 
+    public static String getDetectTrueValue(String playerHtml) throws MoonException {
+        String result = match(Parser.EXP_DETECT_TRUE, playerHtml);
+
+        if (isNull(result)) {
+            throw new MoonException("Failed to extract detect_true value");
+        }
+
+        return result;
+    }
+
     public static String getCSRFToken(String playerHtml) throws MoonException {
         String result = match(Parser.EXP_PLAYER_CSRF_TOKEN, playerHtml);
 
         if (isNull(result)) {
             throw new MoonException("Failed to extract CSRF security token");
+        }
+
+        return result;
+    }
+
+    public static String getMegaVersion(String playerHtml) throws MoonException {
+        String result = match(Parser.EXP_MEGA_VERSION, playerHtml);
+
+        if (isNull(result)) {
+            throw new MoonException("Failed to extract X-Mega-Version header value");
         }
 
         return result;
@@ -96,6 +128,23 @@ class Parser {
 
         p = null;
         m = null;
+
+        return result;
+    }
+
+    public static ManifestCollection getManifestFromJson(String manifestJson) {
+        JsonParser parser = new JsonParser();
+        Gson gson = new Gson();
+        JsonObject obj = parser.parse(manifestJson).getAsJsonObject();
+        JsonObject mans = obj.get("mans").getAsJsonObject();
+
+        ManifestCollection result = gson.fromJson(mans, ManifestCollection.class);
+
+        // Clean links to simplify life for GC
+        mans = null;
+        obj = null;
+        gson = null;
+        parser = null;
 
         return result;
     }

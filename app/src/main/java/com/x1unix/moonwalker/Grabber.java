@@ -22,6 +22,8 @@ public class Grabber {
 
     private static final String HEAD_CSRF_TOKEN = "X-CSRF-Token";
     private static final String HEAD_RAY = "X-Bool-Ray";
+    private static final String HEAD_MEGA = "X-Mega-Version";
+
     private static final String HEAD_REQUESTED_WITH = "X-Requested-With";
 
     private static final String HEAD_RAY_VALUE = "XRAY";
@@ -50,16 +52,19 @@ public class Grabber {
                 .add(MoonSession.JSON_PROP_P_DOMAIN_ID, session.getDomainId())
                 .add(MoonSession.JSON_PROP_AD_ATTR, session.getAdAttr())
                 .add(MoonSession.JSON_PROP_DEBUG, session.isDebug())
-                .add(MoonSession.JSON_PROP_VERSION_CONTROL, session.getVersionControl())
+                .add(MoonSession.JSON_PROP_DETECT_TRUE, session.getDetectTrue())
                 .build();
+//                .add(MoonSession.JSON_PROP_VERSION_CONTROL, session.getVersionControl()) - (DEPRECATED ?)
 
         Request request = new Request.Builder()
                 .url(session.getHost() + SESSION_URL)
                 .addHeader(HEAD_REQUESTED_WITH, REQUESTED_AS_XHR)
                 .addHeader(HEAD_CSRF_TOKEN, session.getCSRFToken())
-                .addHeader(HEAD_RAY, HEAD_RAY_VALUE)
+                .addHeader(HEAD_MEGA, session.getMegaVersion())
                 .post(formBody)
                 .build();
+
+//                .addHeader(HEAD_RAY, HEAD_RAY_VALUE) (? DEPRECATED)
 
         Response response = client.newCall(request).execute();
 

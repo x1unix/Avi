@@ -9,6 +9,9 @@ public class MoonSession {
     private String playerHtml;
     private String playerUrl;
 
+    private Grabber grabber;
+    private ManifestCollection playlist;
+
     // banners_script_clickunder
     private String videoToken;      // video_token
     private String contentType;     // content_type
@@ -16,6 +19,8 @@ public class MoonSession {
     private String pid;             // mw_pid
     private String domainId;        // p_domain_id
     private String versionControl;  // version_control;
+    private String megaVersion;     // New header
+    private String detectTrue;      // detect_true
     private String adAttr = "0";    // ad_attr (true if AdBlock detected)
     private String debug = "false"; // debug
 
@@ -28,9 +33,11 @@ public class MoonSession {
     public static final String JSON_PROP_VERSION_CONTROL = "version_control";
     public static final String JSON_PROP_AD_ATTR = "ad_attr";
     public static final String JSON_PROP_DEBUG = "debug";
+    public static final String JSON_PROP_DETECT_TRUE = "detect_true";
 
     public MoonSession(String playerHtmlSource, String playerUri) throws MoonException {
         try {
+
             URI uri = new URI(playerUri);
             host = uri.getScheme() + "://" + uri.getHost();
             uri = null;
@@ -38,15 +45,17 @@ public class MoonSession {
             playerHtml = playerHtmlSource;
             playerUrl = playerUri;
 
-            versionControl = Parser.getPlayerVersionControl(playerHtml);
+            // versionControl = Parser.getPlayerVersionControl(playerHtml);  - (DEPRECATED ?)
             CSRFToken = Parser.getCSRFToken(playerHtml);
+            megaVersion = Parser.getMegaVersion(playerHtml);
+            detectTrue = Parser.getDetectTrueValue(playerHtml);
 
             // Assign props from JS
             contentType = getJsonProp(JSON_PROP_CONTENT_TYPE, true);
             videoToken = getJsonProp(JSON_PROP_VIDEO_TOKEN, true);
             domainId = getJsonProp(JSON_PROP_P_DOMAIN_ID, false);
             pid = getJsonProp(JSON_PROP_PID, false);
-            key = getJsonProp(JSON_PROP_KEY, true);
+            key = getJsonProp(JSON_PROP_KEY, true);;
 
         } catch (Exception ex) {
             throw new MoonException("Failed to build Moonwalk session: " + ex.getMessage());
@@ -55,6 +64,14 @@ public class MoonSession {
 
     private String getJsonProp(String key, boolean isString) throws MoonException {
         return Parser.getJsonPropertyFromHtml(playerHtml, key, isString);
+    }
+
+    public String getDetectTrue() {
+        return detectTrue;
+    }
+
+    public String getMegaVersion() {
+        return megaVersion;
     }
 
     public String getHost() {
@@ -105,9 +122,26 @@ public class MoonSession {
         return debug;
     }
 
+    public MoonSession setGrabber(Grabber grabber) {
+        this.grabber = grabber;
+
+        return this;
+    }
+
+    public ManifestCollection getPlaylist() throws IOException, MoonException {
+        if (playlist == null) {
+            String playlistJson = grabber.getPlaylist(this);
+            playlist = Parser.getManifestFromJson(playlistJson);
+
+            playlistJson = null;
+        }
+
+        return playlist;
+    }
+
     public static MoonSession fromPlayerUrl(String playerUrl, Grabber grabber) throws IOException, MoonException {
         String playerHtml = grabber.getResource(playerUrl);
-        return new MoonSession(playerHtml, playerUrl);
+        return new MoonSession(playerHtml, playerUrl).setGrabber(grabber);
     }
 
 }
