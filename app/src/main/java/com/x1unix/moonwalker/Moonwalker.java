@@ -30,7 +30,9 @@ public class Moonwalker {
                     String playerUrl = Parser.getPlayerUrlFromHtml(iframeHtml);
 
                     // Create moon session
-                    MoonVideo video = new MoonVideo(playerUrl, grabber);
+                    MoonVideo video = MoonVideo
+                            .from(playerUrl, grabber)
+                            .fetch();
 
                     ManifestCollection manifests = video.getPlaylist();
 

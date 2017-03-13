@@ -23,14 +23,25 @@ public class MoonVideo {
     public static final int QUALITY_720P = 1280;
     public static final int QUALITY_1080P = 1920;
 
-    public MoonVideo(String playerUrl, Grabber localGrabber) throws IOException, MoonException {
+    public MoonVideo(String playerUrl, Grabber localGrabber) {
         url = playerUrl;
         grabber = localGrabber;
-        playerHtml = grabber.getResource(playerUrl);
-        session = new MoonSession(playerHtml, playerUrl)
-                        .setGrabber(grabber);
-        
+    }
+
+    public MoonVideo fetch() throws IOException, MoonException{
+        playerHtml = grabber.getResource(url);
+        session = new MoonSession(playerHtml, url)
+                .setGrabber(grabber);
+
+        extractConfiguration();
+
         manifest = session.getPlaylist();
+
+        return this;
+    }
+
+    private void extractConfiguration() {
+
     }
 
     public String getPlayerHtml() {
@@ -65,8 +76,18 @@ public class MoonVideo {
         return season;
     }
 
+    public MoonVideo setSeason(int newSeason) {
+        season = newSeason;
+        return this;
+    }
+
     public int getEpisode() {
         return episode;
+    }
+
+    public MoonVideo setEpisode(int newEpisode) {
+        episode = newEpisode;
+        return this;
     }
 
     public int[] getEpisodes() {
@@ -87,5 +108,9 @@ public class MoonVideo {
 
     public String getVideoUrl(int season) {
         return getVideoUrl(season, 1);
+    }
+
+    public static MoonVideo from(String playerUrl, Grabber localGrabber) {
+        return new MoonVideo(playerUrl, localGrabber);
     }
 }
