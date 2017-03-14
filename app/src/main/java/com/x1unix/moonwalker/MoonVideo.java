@@ -1,6 +1,13 @@
 package com.x1unix.moonwalker;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MoonVideo {
     private String url;
@@ -12,11 +19,13 @@ public class MoonVideo {
     private boolean isSerial;
     private int quality = MoonVideo.QUALITY_480P;
 
-    private int season;
-    private int episode;
+    private String selectedSeason;
+    private String selectedEpisode;
+    private int selectedSeasonIndex;
+    private int selectedEpisodeIndex;
 
-    private int[] episodes;
-    private int[] seasons;
+    private ArrayList<String> episodes = new ArrayList<String>();
+    private ArrayList<String> seasons = new ArrayList<String>();
 
     public static final int QUALITY_360P = 640;
     public static final int QUALITY_480P = 854;
@@ -41,6 +50,15 @@ public class MoonVideo {
     }
 
     private void extractConfiguration() {
+        Document doc = Jsoup.parse(session.getPlayerHtml(), session.getPlayerUrl());
+        Elements seasons = doc.select("select[name=season]#season > option");
+        Elements episodes = doc.select("select[name=episode]#episode > option");
+
+        selectedSeasonIndex = Parser.extractOptionsFromSelectorNode(seasons, this.seasons);
+        selectedEpisodeIndex = Parser.extractOptionsFromSelectorNode(episodes, this.episodes);
+
+        this.selectedSeason = this.seasons.get(selectedSeasonIndex);
+        this.selectedEpisode = this.episodes.get(selectedEpisodeIndex);
 
     }
 
@@ -72,29 +90,29 @@ public class MoonVideo {
         quality = newQuality;
     }
 
-    public int getSeason() {
-        return season;
+    public String getSeason() {
+        return selectedSeason;
     }
 
-    public MoonVideo setSeason(int newSeason) {
-        season = newSeason;
+    public MoonVideo setSeason(String newSeason) {
+        selectedSeason = newSeason;
         return this;
     }
 
-    public int getEpisode() {
-        return episode;
+    public String getEpisode() {
+        return selectedEpisode;
     }
 
-    public MoonVideo setEpisode(int newEpisode) {
-        episode = newEpisode;
+    public MoonVideo setEpisode(String newEpisode) {
+        selectedEpisode = newEpisode;
         return this;
     }
 
-    public int[] getEpisodes() {
+    public List<String> getEpisodes() {
         return episodes;
     }
 
-    public int[] getSeasons() {
+    public List<String> getSeasons() {
         return seasons;
     }
 

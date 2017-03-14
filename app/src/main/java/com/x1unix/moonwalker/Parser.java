@@ -4,6 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -73,6 +77,21 @@ class Parser {
         }
 
         return result;
+    }
+
+    public static int extractOptionsFromSelectorNode(Elements nodes, ArrayList<String> targetCollection) {
+        int selectedKey = 0;
+
+        for (Element node: nodes) {
+            String nodeValue = node.attr("value");
+            targetCollection.add(node.attr("value"));
+
+            if (node.hasAttr("selected")) {
+                selectedKey = targetCollection.size() - 1;
+            }
+        }
+
+        return selectedKey;
     }
 
     public static String getMegaVersion(String playerHtml) throws MoonException {
