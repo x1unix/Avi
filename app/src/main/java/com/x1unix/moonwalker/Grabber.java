@@ -116,4 +116,8 @@ public class Grabber {
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .build();
     }
+
+    public OkHttpClient getHttpClient() {
+        return this.client;
+    }
 }

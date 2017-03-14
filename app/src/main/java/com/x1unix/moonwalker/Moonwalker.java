@@ -6,7 +6,7 @@ package com.x1unix.moonwalker;
 public class Moonwalker {
     private Grabber grabber;
     public static String TAG = "MoonWalker";
-    public static String version = "0.1.0";
+    public static String version = "0.3.0";
 
     public Moonwalker(String referrer) {
         grabber = new Grabber(referrer);
@@ -34,9 +34,7 @@ public class Moonwalker {
                             .from(playerUrl, grabber)
                             .fetch();
 
-                    ManifestCollection manifests = video.getPlaylist();
-
-                    listener.onSuccess(manifests.getM3u8Manifest());
+                    listener.onSuccess(video, grabber.getHttpClient());
 
                     grabber.resetState();
                 } catch (Exception ex) {
