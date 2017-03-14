@@ -31,6 +31,7 @@ public class MoonVideo {
     public static final int QUALITY_480P = 854;
     public static final int QUALITY_720P = 1280;
     public static final int QUALITY_1080P = 1920;
+    public static String IS_SERIAL = "serial";
 
     public MoonVideo(String playerUrl, Grabber localGrabber) {
         url = playerUrl;
@@ -41,6 +42,8 @@ public class MoonVideo {
         playerHtml = grabber.getResource(url);
         session = new MoonSession(playerHtml, url)
                 .setGrabber(grabber);
+
+        isSerial = (session.getContentType().equals(IS_SERIAL));
 
         extractConfiguration();
 
