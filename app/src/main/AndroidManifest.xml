@@ -19,9 +19,9 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".TestChamberActivity"
+            android:icon="@drawable/ic_test"
             android:label="@string/testchamber"
-            android:theme="@style/AppTheme"
-            android:icon="@drawable/ic_test">
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -80,7 +80,7 @@
         <activity
             android:name=".UpdateDownloaderActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/pref_category_updates"></activity>
+            android:label="@string/pref_category_updates" />
 
         <receiver android:name=".SearchWidgetProvider">
             <intent-filter>
@@ -91,6 +91,14 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/search_widget_provider" />
         </receiver>
+
+        <activity
+            android:name=".PlayerActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:hardwareAccelerated="true"
+            android:label="@string/title_activity_movie_player"
+            android:screenOrientation="landscape"
+            android:theme="@style/MediaPlayer" />
     </application>
 
 </manifest>

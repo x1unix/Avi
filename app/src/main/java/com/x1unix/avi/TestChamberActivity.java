@@ -2,18 +2,21 @@ package com.x1unix.avi;
 
 import android.content.DialogInterface;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.x1unix.moonwalker.Listener;
+import com.x1unix.moonwalker.MoonVideo;
 import com.x1unix.moonwalker.Moonwalker;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
+import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
 public class TestChamberActivity extends AppCompatActivity {
@@ -36,8 +39,8 @@ public class TestChamberActivity extends AppCompatActivity {
         moonwalker.getMovieByKinopoiskId(kpIdTextBox.getText().toString(),
             new Listener() {
                 @Override
-                public void onSuccess(String result) {
-                    pop(result);
+                public void onSuccess(MoonVideo video, OkHttpClient client) {
+                    pop(video.getPlaylist().getM3u8Manifest());
                 }
 
                 @Override
@@ -46,6 +49,11 @@ public class TestChamberActivity extends AppCompatActivity {
                 }
             }
         );
+    }
+
+    @OnClick(R.id.testModernPlayerBtn)
+    public void openModernPlayer() {
+        startActivity(new Intent(this, PlayerActivity.class));
     }
 
     private void pop(final String message) {

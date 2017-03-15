@@ -44,6 +44,26 @@
         <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
     </style>
 
+    <style name="FullscreenTheme.NoActionBar" parent="FullscreenTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:textColor">#ffffffff</item>
+    </style>
+
+    <style name="MediaPlayer" parent="FullscreenTheme.NoActionBar">
+        <item name="android:textColor">#ffffffff</item>
+    </style>
+
+    <style name="MediaPlayer.Action">
+        <item name="android:layout_width">28sp</item>
+        <item name="android:layout_height">38sp</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_marginTop">0sp</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:layout_marginLeft">25sp</item>
+    </style>
+
     <style name="AppTheme.Button" parent="Widget.AppCompat.Button.Colored">
     </style>
 
