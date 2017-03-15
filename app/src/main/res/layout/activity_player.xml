@@ -7,7 +7,7 @@
     tools:context="com.x1unix.avi.PlayerActivity">
 
     <com.google.android.exoplayer2.ui.SimpleExoPlayerView
-        android:id="@+id/playerView"
+        android:id="@+id/player"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusable="true"
@@ -93,6 +93,22 @@
 
 
         </RelativeLayout>
+        <ImageView
+            android:id="@+id/player_play"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_play_arrow"
+            android:layout_centerInParent="true"
+            android:layout_height="64sp"
+            android:layout_width="64sp">
+        </ImageView>
+
+        <ImageView
+            android:id="@+id/player_pause"
+            app:srcCompat="@drawable/ic_pause"
+            android:layout_centerInParent="true"
+            android:layout_height="64sp"
+            android:layout_width="64sp">
+        </ImageView>
         <LinearLayout
             style="@style/MediaPlayer.Control"
             android:orientation="horizontal"
