@@ -64,6 +64,17 @@
         <item name="android:layout_marginLeft">25sp</item>
     </style>
 
+    <style name="MediaPlayer.Control">
+        <item name="android:paddingTop">10sp</item>
+        <item name="android:paddingBottom">10sp</item>
+        <item name="android:layout_alignParentBottom">true</item>
+    </style>
+
+    <style name="MediaPlayer.Control.Timer" parent="android:Widget.TextView">
+        <item name="android:paddingLeft">10sp</item>
+        <item name="android:paddingRight">10sp</item>
+    </style>
+
     <style name="AppTheme.Button" parent="Widget.AppCompat.Button.Colored">
     </style>
 
