@@ -26,14 +26,26 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
+        <ImageView
+            android:id="@+id/btn_back"
+            style="@style/MediaPlayer.Action"
+            android:layout_width="25sp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="0sp"
+            android:layout_marginStart="0sp"
+            app:srcCompat="@drawable/ic_arrow_back_white" />
+
         <TextView
             android:id="@+id/player_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
+            android:layout_toRightOf="@id/btn_back"
+            android:layout_toEndOf="@id/btn_back"
             android:layout_alignParentTop="true"
             android:layout_marginBottom="2sp"
+            android:layout_marginLeft="20sp"
+            android:layout_marginStart="20sp"
             android:text="Шерлок"
             android:textSize="18sp" />
         <TextView
@@ -41,6 +53,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/player_title"
+            android:layout_alignLeft="@id/player_title"
+            android:layout_alignStart="@id/player_title"
             android:text="3 Сезон, 4 серия"/>
 
         <ImageView
