@@ -27,6 +27,7 @@
 
     <RelativeLayout
         android:id="@+id/player_ui"
+        android:visibility="gone"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
