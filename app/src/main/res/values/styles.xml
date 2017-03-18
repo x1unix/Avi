@@ -36,7 +36,7 @@
         <item name="android:background">@color/black_overlay</item>
     </style>
 
-    <style name="FullscreenTheme" parent="AppTheme">
+    <style name="FullscreenTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowBackground">@color/colorBlack</item>
@@ -52,6 +52,7 @@
 
     <style name="MediaPlayer" parent="FullscreenTheme.NoActionBar">
         <item name="android:textColor">#ffffffff</item>
+        <item name="alertDialogTheme">@style/MediaPlayer.Modal</item>
     </style>
 
     <style name="MediaPlayer.Action">
@@ -73,6 +74,9 @@
     <style name="MediaPlayer.Control.Timer" parent="android:Widget.TextView">
         <item name="android:paddingLeft">10sp</item>
         <item name="android:paddingRight">10sp</item>
+    </style>
+
+    <style name="MediaPlayer.Modal" parent="Theme.AppCompat.Dialog.Alert">
     </style>
 
     <style name="AppTheme.Button" parent="Widget.AppCompat.Button.Colored">

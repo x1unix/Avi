@@ -4,9 +4,11 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -45,6 +47,7 @@ import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+import com.x1unix.avi.video.SelectVideoDialog;
 import com.x1unix.moonwalker.Listener;
 import com.x1unix.moonwalker.ManifestCollection;
 import com.x1unix.moonwalker.MoonSession;
@@ -129,13 +132,20 @@ public class PlayerActivity extends AppCompatActivity {
         toFullscreen();
         seekBar.setOnSeekBarChangeListener(onDragListener);
 
-        try {
-            initializeActivity(i);
-        } catch (Exception ex) {
-            Toast.makeText(this, "Failed to start player, please try again later", Toast.LENGTH_LONG)
-                    .show();
-        }
+//        try {
+//            initializeActivity(i);
+//        } catch (Exception ex) {
+//            Toast.makeText(this, "Failed to start player, please try again later", Toast.LENGTH_LONG)
+//                    .show();
+//        }
 
+    }
+
+    @OnClick(R.id.btn_select)
+    public void showVideoSelect() {
+        FragmentManager fm = getSupportFragmentManager();
+        SelectVideoDialog editNameDialogFragment = SelectVideoDialog.newInstance();
+        editNameDialogFragment.show(fm, "dialog_select_video");
     }
 
     private void toFullscreen() {
