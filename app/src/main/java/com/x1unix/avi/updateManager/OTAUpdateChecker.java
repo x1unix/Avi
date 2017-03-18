@@ -31,7 +31,14 @@ public class OTAUpdateChecker {
 
                     receivedVersion.apply();
 
-                    boolean isNew = current.isYoungerThan(receivedVersion);
+                    boolean isNew = false;
+
+                    try {
+                        isNew = BuildParser.compareBuild(receivedVersion.getReleaseDate());
+                    } catch(Exception ex) {
+                        isNew = true;
+                    }
+
                     boolean isStable = receivedVersion.isStable();
                     boolean isSuitable = (isStable || allowNightlies);
 
