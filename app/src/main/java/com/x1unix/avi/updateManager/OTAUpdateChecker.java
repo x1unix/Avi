@@ -29,8 +29,6 @@ public class OTAUpdateChecker {
                     AviSemVersion receivedVersion = response.body();
                     AviSemVersion current = AviSemVersion.getApplicationVersion();
 
-                    receivedVersion.apply();
-
                     boolean isNew = false;
 
                     try {
@@ -64,7 +62,7 @@ public class OTAUpdateChecker {
         Resources res = owner.getResources();
         AlertDialog.Builder dialInstallUpdate = new AlertDialog.Builder(owner);
         String modConfimText = res.getString(R.string.upd_confirm);
-        modConfimText = modConfimText.replace("@version", (newVer.isStable()) ? newVer.toString() : newVer.toString() + " Beta");
+        modConfimText = modConfimText.replace("@version", newVer.toString());
 
         dialInstallUpdate.setMessage(modConfimText);
         dialInstallUpdate.setTitle(res.getString(R.string.upd_new_available))
