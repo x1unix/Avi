@@ -24,6 +24,7 @@ import com.x1unix.avi.model.KPPeople;
 import com.x1unix.avi.rest.KPApiInterface;
 import com.x1unix.avi.rest.KPRestClient;
 import com.x1unix.avi.storage.MoviesRepository;
+import com.x1unix.avi.video.PlayVideoIntentFactory;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -49,7 +50,6 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
     private MoviesRepository moviesRepository;
     private String LOG_TAG = "MovieDetailsActivity";
     private boolean isCached = false;
-
 
 
     @Override
@@ -82,7 +82,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
             KPMovie movie = moviesRepository.getMovieById(movieId);
             applyMovieData(movie, false);
         } else {
-            Log.d(LOG_TAG, "#" + movieId +" No data in cache");
+            Log.d(LOG_TAG, "#" + movieId + " No data in cache");
             getFullMovieInfo();
         }
 
@@ -153,14 +153,14 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void watchMovie() {
-        Intent wmIntent = new Intent(this, MoviePlayerActivity.class);
+        Intent i = PlayVideoIntentFactory.getVideoPlayIntent(
+                MovieDetailsActivity.this,
+                movieId,
+                movieTitle,
+                movieDescription
+            );
 
-        // Put id and title
-        wmIntent.putExtra("movieId", movieId);
-        wmIntent.putExtra("movieTitle", movieTitle);
-
-        // Kickstart player
-        startActivity(wmIntent);
+        startActivity(i);
     }
 
     private void extractIntentData() {
@@ -207,7 +207,6 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
     }
 
 
-
     private void getFullMovieInfo() {
         if (client == null) {
             client = KPRestClient.getClient().create(KPApiInterface.class);
@@ -215,7 +214,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
         Call<KPMovieDetailViewResponse> call = client.getMovieById(movieId);
         call.enqueue(new Callback<KPMovieDetailViewResponse>() {
             @Override
-            public void onResponse(Call<KPMovieDetailViewResponse>call, Response<KPMovieDetailViewResponse> response) {
+            public void onResponse(Call<KPMovieDetailViewResponse> call, Response<KPMovieDetailViewResponse> response) {
                 int statusCode = response.code();
                 KPMovieDetailViewResponse result = response.body();
 
@@ -230,7 +229,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
             }
 
             @Override
-            public void onFailure(Call<KPMovieDetailViewResponse>call, Throwable t) {
+            public void onFailure(Call<KPMovieDetailViewResponse> call, Throwable t) {
                 showNoMovieDataMsg(t.toString());
             }
         });
@@ -293,9 +292,9 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
 
     private void setAuthorInfo(KPPeople[] src, int targetId) {
         String val = "-";
-        if(src.length > 0) {
+        if (src.length > 0) {
             val = "";
-            for(int c = 0; c < src.length; c++) {
+            for (int c = 0; c < src.length; c++) {
                 String name = src[c].getName(currentLocale);
                 if (name != null) {
                     val += src[c].getName(currentLocale);
@@ -310,7 +309,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements View.OnCl
 
     private void showSnackMessage(int stringId) {
         Snackbar.make(findViewById(android.R.id.content),
-                    getResources().getString(stringId),
-                    Snackbar.LENGTH_LONG).show();
+                getResources().getString(stringId),
+                Snackbar.LENGTH_LONG).show();
     }
 }
