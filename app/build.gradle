@@ -64,7 +64,7 @@ dependencies {
     compile 'com.yandex.android:mobmetricalib:2.62'
     compile 'org.jsoup:jsoup:1.10.2'
     compile 'com.jakewharton:butterknife:8.5.1'
-    compile 'com.google.android.exoplayer:exoplayer:r2.0.0'
+    compile 'com.google.android.exoplayer:exoplayer:r2.0.4'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'

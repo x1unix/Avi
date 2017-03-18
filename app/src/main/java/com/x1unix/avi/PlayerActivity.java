@@ -1,11 +1,15 @@
 package com.x1unix.avi;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -49,11 +53,13 @@ import java.util.concurrent.TimeUnit;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTouch;
 import okhttp3.OkHttpClient;
 
 public class PlayerActivity extends AppCompatActivity {
 
     // Root view components
+    @BindView(R.id.player_layout_root) RelativeLayout rootLayout;
     @BindView(R.id.player) SimpleExoPlayerView playerView;
     @BindView(R.id.player_loading) ProgressBar preloader;
     @BindView(R.id.player_ui) RelativeLayout ui;
@@ -93,11 +99,14 @@ public class PlayerActivity extends AppCompatActivity {
     private boolean isPlayingNow = false;
     private boolean isDragging = false;
     private Handler updateHandler = new Handler();
+    private Handler touchHandler = new Handler();
 
-    private int resumeWindow;
-    private long resumePosition;
+    private boolean isPaused = true;
 
     private static final String TIMER_START = "00:00";
+    private static final int UI_HIDE_TIMEOUT = 3000;
+    private static final int UI_FADE_IN_ANIM_LENGTH = 300;
+    private static final int UI_FADE_OUT_ANIM_LENGTH = 500;
 
     private Moonwalker moonwalker = new Moonwalker("http://avi.x1unix.com/");
 
@@ -109,9 +118,11 @@ public class PlayerActivity extends AppCompatActivity {
 
         Intent i = getIntent();
         playerView.setUseController(false);
-        setUIVisibility(true);
+
         timeCurrentLabel.setText(TIMER_START);
         timeTotalLabel.setText(TIMER_START);
+        setUIVisibility(true);
+
 
         try {
             initializeActivity(i);
@@ -120,6 +131,31 @@ public class PlayerActivity extends AppCompatActivity {
                     .show();
         }
 
+    }
+
+    private void pauseVideo() {
+        isPaused = true;
+        btnPlay.setVisibility(View.VISIBLE);
+        btnPause.setVisibility(View.GONE);
+        if (player != null) player.setPlayWhenReady(false);
+    }
+
+    private void playVideo() {
+        isPaused = false;
+        btnPlay.setVisibility(View.GONE);
+        btnPause.setVisibility(View.VISIBLE);
+        if (player != null) player.setPlayWhenReady(true);
+    }
+
+    @OnTouch(R.id.player)
+    public boolean onPlayerTouch() {
+        setUIVisibility(true);
+        return false;
+    }
+
+    @OnClick(R.id.player_ui)
+    public void onUiTouch() {
+        setUIVisibility(false);
     }
 
     private void initializeActivity(Intent i) {
@@ -210,8 +246,8 @@ public class PlayerActivity extends AppCompatActivity {
 
         player.addListener(videoEventListener);
 
-        player.setPlayWhenReady(true);
-        timeCurrentLabel.setText("00:00");
+        playVideo();
+        timeCurrentLabel.setText(TIMER_START);
 
         setUIVisibility(true);
 
@@ -220,16 +256,12 @@ public class PlayerActivity extends AppCompatActivity {
     private ExoPlayer.EventListener videoEventListener = new ExoPlayer.EventListener() {
         @Override
         public void onLoadingChanged(boolean isLoading) {
-            int visibility = (isLoading) ? View.VISIBLE : View.GONE;
-            preloader.setVisibility(visibility);
-            Log.v(TAG,"Listener-onLoadingChanged...");
-
+            // int visibility = (isLoading) ? View.VISIBLE : View.GONE;
+            // preloader.setVisibility(visibility);
         }
 
         @Override
         public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
-            Log.v(TAG,"Listener-onPlayerStateChanged...");
-
             checkProgressUpdate();
 
             switch (playbackState) {
@@ -249,22 +281,18 @@ public class PlayerActivity extends AppCompatActivity {
 
         @Override
         public void onTimelineChanged(Timeline timeline, Object manifest) {
-            Log.v(TAG,"Listener-onTimelineChanged...");
-
         }
 
         @Override
         public void onPlayerError(ExoPlaybackException error) {
-            Log.v(TAG,"Listener-onPlayerError...");
             player.stop();
             player.prepare(loopingSource);
             player.setPlayWhenReady(true);
+            btnPause.setVisibility(View.VISIBLE);
         }
 
         @Override
         public void onPositionDiscontinuity() {
-            Log.v(TAG,"Listener-onPositionDiscontinuity...");
-
         }
     };
 
@@ -304,9 +332,6 @@ public class PlayerActivity extends AppCompatActivity {
         final int currentSec = getPlayedSeconds(current);
         final int bufferedSec = getPlayedSeconds(buffered);
 
-
-        Log.d(TAG, "========= TOTAL:" + totalTime + "; CURRENT: " + currentTime +" =========");
-
         //if (!isDragging) {
         seekBar.setProgress(currentSec);
         //}
@@ -316,6 +341,37 @@ public class PlayerActivity extends AppCompatActivity {
         timeTotalLabel.setText(totalTime);
         timeCurrentLabel.setText(currentTime);
     }
+
+    private void setUIVisibility(final boolean visible) {
+        if (visible) {
+            ui.setAlpha(0);
+            ui.setVisibility(View.VISIBLE);
+        }
+
+        float to = visible ? 1 : 0;
+        int animationLength = visible ? UI_FADE_IN_ANIM_LENGTH : UI_FADE_OUT_ANIM_LENGTH;
+
+        ui.animate().setDuration(animationLength).alpha(to)
+            .setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    ui.setVisibility(visible ? View.VISIBLE : View.GONE);
+                }
+            });
+
+        touchHandler.removeCallbacks(touchTimeoutCallBack);
+
+        if (visible) {
+            touchHandler.postDelayed(touchTimeoutCallBack, UI_HIDE_TIMEOUT);
+        }
+    }
+
+    private final Runnable touchTimeoutCallBack = new Runnable() {
+        @Override
+        public void run() {
+            if (!isPaused) setUIVisibility(false);
+        }
+    };
 
     private void checkProgressUpdate() {
         long duration = player == null ? 0 : player.getDuration();
@@ -349,20 +405,14 @@ public class PlayerActivity extends AppCompatActivity {
         }
     };
 
-    public void setUIVisibility(boolean isVisible) {
-        ui.setVisibility(isVisible ? View.VISIBLE : View.GONE);
-    }
-
     @OnClick(R.id.player_play)
     public void onPlayBtnClick() {
-        btnPlay.setVisibility(View.GONE);
-        btnPause.setVisibility(View.VISIBLE);
+        playVideo();
     }
 
     @OnClick(R.id.player_pause)
     public void onPauseBtnClick() {
-        btnPlay.setVisibility(View.VISIBLE);
-        btnPause.setVisibility(View.GONE);
+        pauseVideo();
     }
 
     private void panic(String err) {
