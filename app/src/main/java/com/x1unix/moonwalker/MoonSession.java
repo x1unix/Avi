@@ -66,6 +66,10 @@ public class MoonSession {
         return Parser.getJsonPropertyFromHtml(playerHtml, key, isString);
     }
 
+    public String getUserAgent() {
+        return grabber.getUserAgent();
+    }
+
     public String getDetectTrue() {
         return detectTrue;
     }

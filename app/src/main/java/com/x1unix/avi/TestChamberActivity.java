@@ -53,7 +53,12 @@ public class TestChamberActivity extends AppCompatActivity {
 
     @OnClick(R.id.testModernPlayerBtn)
     public void openModernPlayer() {
-        startActivity(new Intent(this, PlayerActivity.class));
+        Intent i = new Intent(this, PlayerActivity.class);
+        String kpid = kpIdTextBox.getText().toString();
+        i.putExtra(PlayerActivity.ARG_KPID, kpid);
+        i.putExtra(PlayerActivity.ARG_TITLE, "Шерлок");
+        i.putExtra(PlayerActivity.ARG_DESCRIPTION, "Великобритания, Пол МакГилан(триллер)");
+        startActivity(i);
     }
 
     private void pop(final String message) {

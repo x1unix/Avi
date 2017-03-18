@@ -34,6 +34,12 @@ public class RequestInterceptor implements Interceptor {
         this.refererUrl = originalReferer;
     }
 
+    public String getUserAgent() {
+        return "Mozilla/5.0 (Linux; Android 4.4.2; Nexus 4 Build/KOT49H) " +
+                "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.114 " +
+                "Mobile Safari/537.36";
+    }
+
     private Request decorateRequest(Request request) {
         Request.Builder decoratedRequest = request.newBuilder();
 
@@ -46,10 +52,7 @@ public class RequestInterceptor implements Interceptor {
                 .addHeader("Connection", "keep-alive")
                 .addHeader("Referer", refererUrl)
                 .addHeader("Pragma", "no-cache")
-                .addHeader("User-Agent",
-                        "Mozilla/5.0 (Linux; Android 4.4.2; Nexus 4 Build/KOT49H) " +
-                        "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1847.114 " +
-                        "Mobile Safari/537.36");
+                .addHeader("User-Agent", getUserAgent());
 
         return decoratedRequest.build();
     }

@@ -117,6 +117,10 @@ public class Grabber {
                 .build();
     }
 
+    public String getUserAgent() {
+        return interceptor.getUserAgent();
+    }
+
     public OkHttpClient getHttpClient() {
         return this.client;
     }

@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusable="true"
-        app:surface_type="texture_view"
         app:use_controller="false"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -129,7 +128,7 @@
             <TextView
                 style="@style/MediaPlayer.Control.Timer"
                 android:id="@+id/time_current"
-                android:text="59:59"
+                android:text="--:--"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -145,7 +144,7 @@
             <TextView
                 style="@style/MediaPlayer.Control.Timer"
                 android:id="@+id/time_total"
-                android:text="59:59"
+                android:text="--:--"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
