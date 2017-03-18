@@ -148,7 +148,12 @@ public class PlayerActivity extends AppCompatActivity {
     @OnClick(R.id.btn_select)
     public void showVideoSelect() {
         FragmentManager fm = getSupportFragmentManager();
-        SelectVideoDialog editNameDialogFragment = SelectVideoDialog.newInstance(null, null, 0, 0);
+        SelectVideoDialog editNameDialogFragment = SelectVideoDialog.newInstance(
+                currentVideo.getSeasons(),
+                currentVideo.getEpisodes(),
+                currentVideo.getSelectedSeasonIndex(),
+                currentVideo.getSelectedEpisodeIndex());
+
         editNameDialogFragment.show(fm, "dialog_select_video");
     }
 
@@ -300,7 +305,10 @@ public class PlayerActivity extends AppCompatActivity {
 
     private void onDataReady(MoonVideo video, OkHttpClient client) {
 
+        currentVideo = video;
+
         if (video.isSerial()) {
+            btnSelect.setVisibility(View.VISIBLE);
             String seasonLabel = resources.getString(R.string.season);
             String episodeLabel = resources.getString(R.string.episode);
             subtitle.setText(
@@ -311,6 +319,8 @@ public class PlayerActivity extends AppCompatActivity {
                             video.getEpisode(),
                             episodeLabel)
             );
+        } else {
+            btnSelect.setVisibility(View.GONE);
         }
 
         currentVideo = video;

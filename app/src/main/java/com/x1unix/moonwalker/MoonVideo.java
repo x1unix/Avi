@@ -65,6 +65,14 @@ public class MoonVideo {
 
     }
 
+    public int getSelectedSeasonIndex() {
+        return selectedSeasonIndex;
+    }
+
+    public int getSelectedEpisodeIndex() {
+        return selectedEpisodeIndex;
+    }
+
     public String getPlayerHtml() {
         return playerHtml;
     }
@@ -111,11 +119,11 @@ public class MoonVideo {
         return this;
     }
 
-    public List<String> getEpisodes() {
+    public ArrayList<String> getEpisodes() {
         return episodes;
     }
 
-    public List<String> getSeasons() {
+    public ArrayList<String> getSeasons() {
         return seasons;
     }
 

@@ -93,6 +93,7 @@
 
             <ImageView
                 android:id="@+id/btn_select"
+                android:visibility="gone"
                 style="@style/MediaPlayer.Action"
                 android:layout_width="30sp"
                 android:layout_toLeftOf="@id/btn_share"

@@ -8,11 +8,13 @@
     <Spinner
         android:id="@+id/seasons_spinner"
         android:layout_width="fill_parent"
+        android:prompt="@string/season"
         android:layout_height="wrap_content" />
 
     <Spinner
         android:id="@+id/episodes_spinner"
         android:layout_width="fill_parent"
+        android:prompt="@string/episode"
         android:layout_height="wrap_content" />
 
 </LinearLayout>
