@@ -63,6 +63,10 @@ public class MoonVideo {
         this.selectedSeason = this.seasons.get(selectedSeasonIndex);
         this.selectedEpisode = this.episodes.get(selectedEpisodeIndex);
 
+        seasons = null;
+        episodes = null;
+        doc = null;
+
     }
 
     public int getSelectedSeasonIndex() {
