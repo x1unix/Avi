@@ -505,6 +505,7 @@ public class PlayerActivity extends AppCompatActivity {
         long position = player == null ? 0 : player.getCurrentPosition();
         long bufferedPosition = player == null ? 0 : player.getBufferedPosition();
 
+        if (duration <= 0) duration = 0;
         updateProgress(duration, position, bufferedPosition);
 
         // Remove scheduled updates.
@@ -512,15 +513,15 @@ public class PlayerActivity extends AppCompatActivity {
         // Schedule an update if necessary.
         int playbackState = player == null ? ExoPlayer.STATE_IDLE : player.getPlaybackState();
         if (playbackState != ExoPlayer.STATE_IDLE && playbackState != ExoPlayer.STATE_ENDED) {
-            long delayMs;
-            if (player.getPlayWhenReady() && playbackState == ExoPlayer.STATE_READY) {
-                delayMs = 1000 - (position % 1000);
-                if (delayMs < 200) {
-                    delayMs += 1000;
-                }
-            } else {
-                delayMs = 1000;
-            }
+            long delayMs = 1000;
+//            if (player.getPlayWhenReady() && playbackState == ExoPlayer.STATE_READY) {
+//                delayMs = 1000 - (position % 1000);
+//                if (delayMs < 200) {
+//                    delayMs += 1000;
+//                }
+//            } else {
+//                delayMs = 1000;
+//            }
             updateHandler.postDelayed(updateProgressAction, delayMs);
         }
     }
