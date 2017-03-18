@@ -153,6 +153,7 @@ public class PlayerActivity extends AppCompatActivity {
         }
     }
 
+    @TargetApi(19)
     private void toImmersiveView() {
         View mDecorView = getWindow().getDecorView();
 
@@ -163,7 +164,7 @@ public class PlayerActivity extends AppCompatActivity {
                             | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                             | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
                             | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
-                            | View.SYSTEM_UI_FLAG_IMMERSIVE);
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         }
     }
 
@@ -197,6 +198,7 @@ public class PlayerActivity extends AppCompatActivity {
         getWindow().setAttributes(attrs);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
     }
+
 
     private void pauseVideo() {
         isPaused = true;
