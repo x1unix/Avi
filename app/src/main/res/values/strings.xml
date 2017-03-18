@@ -84,7 +84,9 @@
     <string name="build_number">Build Number</string>
 
     <!-- modern player -->
-    <string name="serial_info_template">$S season, $E episode.</string>
+    <string name="serial_info_template" translatable="false">%1$s %2$s, %3$s %4$s.</string>
+    <string name="season">season</string>
+    <string name="episode">episode</string>
 
     <!-- Dashboard pop-up menu items -->
     <string name="show_details">Show details</string>

@@ -82,7 +82,8 @@
     <string name="build_number">Номер сборки</string>
 
     <!-- modern player -->
-    <string name="serial_info_template">$S сезон, $E серия.</string>
+    <string name="season">сезон</string>
+    <string name="episode">серия</string>
 
     <!-- Dashboard pop-up menu items -->
     <string name="show_details">Показать детали</string>

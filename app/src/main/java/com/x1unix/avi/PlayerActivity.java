@@ -7,8 +7,10 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Build;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -106,6 +108,7 @@ public class PlayerActivity extends AppCompatActivity {
     private boolean isDragging = false;
     private Handler updateHandler = new Handler();
     private Handler touchHandler = new Handler();
+    private Resources resources;
 
     private boolean isPaused = true;
 
@@ -122,6 +125,7 @@ public class PlayerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_player);
         ButterKnife.bind(this);
 
+        resources = getResources();
         Intent i = getIntent();
         playerView.setUseController(false);
 
@@ -132,19 +136,19 @@ public class PlayerActivity extends AppCompatActivity {
         toFullscreen();
         seekBar.setOnSeekBarChangeListener(onDragListener);
 
-//        try {
-//            initializeActivity(i);
-//        } catch (Exception ex) {
-//            Toast.makeText(this, "Failed to start player, please try again later", Toast.LENGTH_LONG)
-//                    .show();
-//        }
+        try {
+            initializeActivity(i);
+        } catch (Exception ex) {
+            Toast.makeText(this, "Failed to start player, please try again later", Toast.LENGTH_LONG)
+                    .show();
+        }
 
     }
 
     @OnClick(R.id.btn_select)
     public void showVideoSelect() {
         FragmentManager fm = getSupportFragmentManager();
-        SelectVideoDialog editNameDialogFragment = SelectVideoDialog.newInstance();
+        SelectVideoDialog editNameDialogFragment = SelectVideoDialog.newInstance(null, null, 0, 0);
         editNameDialogFragment.show(fm, "dialog_select_video");
     }
 
@@ -297,9 +301,15 @@ public class PlayerActivity extends AppCompatActivity {
     private void onDataReady(MoonVideo video, OkHttpClient client) {
 
         if (video.isSerial()) {
-            String template = getResources().getString(R.string.serial_info_template);
+            String seasonLabel = resources.getString(R.string.season);
+            String episodeLabel = resources.getString(R.string.episode);
             subtitle.setText(
-                    template.replace("$S", video.getSeason()).replace("$E", video.getEpisode())
+                    resources.getString(
+                            R.string.serial_info_template,
+                            video.getSeason(),
+                            seasonLabel,
+                            video.getEpisode(),
+                            episodeLabel)
             );
         }
 

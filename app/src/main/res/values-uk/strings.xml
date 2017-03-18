@@ -82,7 +82,8 @@
     <string name="build_number">Номер Збірки</string>
 
     <!-- modern player -->
-    <string name="serial_info_template">$S сезон, $E серія.</string>
+    <string name="season">сезон</string>
+    <string name="episode">серія</string>
 
 
     <!-- Dashboard pop-up menu items -->
