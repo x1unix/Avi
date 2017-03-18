@@ -83,6 +83,9 @@
     <string name="preview_version">Preview version</string>
     <string name="build_number">Build Number</string>
 
+    <!-- modern player -->
+    <string name="serial_info_template">$S season, $E episode.</string>
+
     <!-- Dashboard pop-up menu items -->
     <string name="show_details">Show details</string>
     <string name="remove_from">Remove from %PLAYLIST%</string>

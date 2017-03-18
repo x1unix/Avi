@@ -81,6 +81,9 @@
     <string name="preview_version">Попередня збірка</string>
     <string name="build_number">Номер Збірки</string>
 
+    <!-- modern player -->
+    <string name="serial_info_template">$S сезон, $E серія.</string>
+
 
     <!-- Dashboard pop-up menu items -->
     <string name="show_details">Детальніше</string>

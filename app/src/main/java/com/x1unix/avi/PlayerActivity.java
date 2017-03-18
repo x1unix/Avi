@@ -248,6 +248,7 @@ public class PlayerActivity extends AppCompatActivity {
 
     private void initializeActivity(Intent i) {
         title.setText(i.getStringExtra(ARG_TITLE));
+        subtitle.setText(i.getStringExtra(ARG_DESCRIPTION));
         this.kpId = i.getStringExtra(ARG_KPID);
 
         moonwalker.getMovieByKinopoiskId(this.kpId,
@@ -284,6 +285,14 @@ public class PlayerActivity extends AppCompatActivity {
     }
 
     private void onDataReady(MoonVideo video, OkHttpClient client) {
+
+        if (video.isSerial()) {
+            String template = getResources().getString(R.string.serial_info_template);
+            subtitle.setText(
+                    template.replace("$S", video.getSeason()).replace("$E", video.getEpisode())
+            );
+        }
+
         currentVideo = video;
         currentSession = video.getSession();
         ManifestCollection playlist = video.getPlaylist();

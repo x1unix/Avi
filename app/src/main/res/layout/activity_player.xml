@@ -65,7 +65,6 @@
                 android:layout_marginBottom="2sp"
                 android:layout_marginLeft="20sp"
                 android:layout_marginStart="20sp"
-                android:text="Шерлок"
                 android:textSize="18sp" />
             <TextView
                 android:id="@+id/player_subtitle"
@@ -74,7 +73,7 @@
                 android:layout_below="@id/player_title"
                 android:layout_alignLeft="@id/player_title"
                 android:layout_alignStart="@id/player_title"
-                android:text="3 Сезон, 4 серия"/>
+                android:text="@string/loading"/>
 
             <ImageView
                 android:id="@+id/btn_quality"
