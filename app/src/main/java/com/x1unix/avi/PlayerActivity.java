@@ -2,12 +2,15 @@ package com.x1unix.avi;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageView;
@@ -121,8 +124,9 @@ public class PlayerActivity extends AppCompatActivity {
 
         timeCurrentLabel.setText(TIMER_START);
         timeTotalLabel.setText(TIMER_START);
-        setUIVisibility(true);
 
+        setUIVisibility(true);
+        toFullscreen();
 
         try {
             initializeActivity(i);
@@ -131,6 +135,67 @@ public class PlayerActivity extends AppCompatActivity {
                     .show();
         }
 
+    }
+
+    private void toFullscreen() {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            toImmersiveView();
+        } else {
+            toDimmedMode();
+        }
+    }
+
+    private void fromFullscreen() {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            fromImmersiveView();
+        } else {
+            fromDimmedMode();
+        }
+    }
+
+    private void toImmersiveView() {
+        View mDecorView = getWindow().getDecorView();
+
+        if (mDecorView != null) {
+            mDecorView.setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE);
+        }
+    }
+
+    private void fromImmersiveView() {
+        View mDecorView = getWindow().getDecorView();
+
+        if (mDecorView != null) {
+            mDecorView.setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        }
+    }
+
+    // Go to fullscreen (legacy)
+    private void toDimmedMode() {
+        WindowManager.LayoutParams attrs = getWindow().getAttributes();
+        attrs.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        attrs.flags |= WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
+
+        getWindow().setAttributes(attrs);
+
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
+    }
+
+    // from fullscreen (legacy)
+    private void fromDimmedMode() {
+        WindowManager.LayoutParams attrs = getWindow().getAttributes();
+        attrs.flags &= ~WindowManager.LayoutParams.FLAG_FULLSCREEN;
+        attrs.flags &= ~WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
+        getWindow().setAttributes(attrs);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
     }
 
     private void pauseVideo() {
@@ -448,12 +513,14 @@ public class PlayerActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        toFullscreen();
         if (player != null) player.setPlayWhenReady(true);
         super.onResume();
     }
 
     @Override
     protected void onPause() {
+        fromFullscreen();
         if (player != null) player.setPlayWhenReady(false);
         super.onPause();
     }
