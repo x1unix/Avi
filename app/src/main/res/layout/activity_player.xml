@@ -127,13 +127,12 @@
             android:layout_height="wrap_content">
             <TextView
                 style="@style/MediaPlayer.Control.Timer"
-                android:id="@+id/time_current"
-                android:text="--:--"
+                android:id="@+id/timer_current"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <SeekBar
-                android:id="@+id/player_seekbar"
+                android:id="@+id/player_slider"
                 style="@style/Widget.AppCompat.SeekBar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -143,8 +142,7 @@
 
             <TextView
                 style="@style/MediaPlayer.Control.Timer"
-                android:id="@+id/time_total"
-                android:text="--:--"
+                android:id="@+id/timer_total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>

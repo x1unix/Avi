@@ -73,9 +73,9 @@ public class PlayerActivity extends AppCompatActivity {
     @BindView(R.id.player_pause) ImageView btnPause;
 
     // Bottom controls
-    @BindView(R.id.time_current) TextView timeCurrentLabel;
-    @BindView(R.id.time_total) TextView timeTotalLabel;
-    @BindView(R.id.player_seekbar) SeekBar seekBar;
+    @BindView(R.id.timer_current) TextView timeCurrentLabel;
+    @BindView(R.id.timer_total) TextView timeTotalLabel;
+    @BindView(R.id.player_slider) SeekBar seekBar;
 
     private String kpId;
     private MoonVideo currentVideo;
@@ -97,6 +97,8 @@ public class PlayerActivity extends AppCompatActivity {
     private int resumeWindow;
     private long resumePosition;
 
+    private static final String TIMER_START = "00:00";
+
     private Moonwalker moonwalker = new Moonwalker("http://avi.x1unix.com/");
 
     @Override
@@ -104,8 +106,12 @@ public class PlayerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
         ButterKnife.bind(this);
+
         Intent i = getIntent();
         playerView.setUseController(false);
+        setUIVisibility(true);
+        timeCurrentLabel.setText(TIMER_START);
+        timeTotalLabel.setText(TIMER_START);
 
         try {
             initializeActivity(i);
@@ -205,6 +211,7 @@ public class PlayerActivity extends AppCompatActivity {
         player.addListener(videoEventListener);
 
         player.setPlayWhenReady(true);
+        timeCurrentLabel.setText("00:00");
 
         setUIVisibility(true);
 
@@ -308,10 +315,6 @@ public class PlayerActivity extends AppCompatActivity {
         seekBar.setSecondaryProgress(bufferedSec);
         timeTotalLabel.setText(totalTime);
         timeCurrentLabel.setText(currentTime);
-
-        timeTotalLabel.invalidate();
-        timeCurrentLabel.invalidate();
-        seekBar.invalidate();
     }
 
     private void checkProgressUpdate() {
@@ -384,7 +387,7 @@ public class PlayerActivity extends AppCompatActivity {
 
     @Override
     protected void onStop() {
-        if (player != null) player.setPlayWhenReady(false);
+        if (player != null) player.release();
         super.onStop();
     }
 
