@@ -127,6 +127,7 @@ public class PlayerActivity extends AppCompatActivity {
 
         setUIVisibility(true);
         toFullscreen();
+        seekBar.setOnSeekBarChangeListener(onDragListener);
 
         try {
             initializeActivity(i);
@@ -224,6 +225,26 @@ public class PlayerActivity extends AppCompatActivity {
     public void onUiTouch() {
         setUIVisibility(false);
     }
+
+    private SeekBar.OnSeekBarChangeListener onDragListener = new SeekBar.OnSeekBarChangeListener() {
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+            if (fromUser && !isDragging) {
+                Log.d(TAG, "Start dragging");
+                player.seekTo(progress);
+            }
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+            isDragging = true;
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+            isDragging = false;
+        }
+    };
 
     private void initializeActivity(Intent i) {
         title.setText(i.getStringExtra(ARG_TITLE));
@@ -399,9 +420,9 @@ public class PlayerActivity extends AppCompatActivity {
         final int currentSec = getPlayedSeconds(current);
         final int bufferedSec = getPlayedSeconds(buffered);
 
-        //if (!isDragging) {
-        seekBar.setProgress(currentSec);
-        //}
+        if (!isDragging) {
+            seekBar.setProgress(currentSec);
+        }
 
         seekBar.setMax(totalSec);
         seekBar.setSecondaryProgress(bufferedSec);
