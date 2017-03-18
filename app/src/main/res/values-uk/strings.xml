@@ -84,6 +84,8 @@
     <!-- modern player -->
     <string name="season">сезон</string>
     <string name="episode">серія</string>
+    <string name="season_cap">Сезон</string>
+    <string name="episode_cap">Серія</string>
 
 
     <!-- Dashboard pop-up menu items -->

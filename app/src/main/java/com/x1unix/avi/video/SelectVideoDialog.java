@@ -5,19 +5,14 @@ import android.support.v7.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
-import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
-import android.widget.TextView;
+
 
 import com.x1unix.avi.R;
 
@@ -28,14 +23,16 @@ import java.util.ArrayList;
 public class SelectVideoDialog extends DialogFragment {
     private String[] seasons;
     private String[] episodes;
-    private String selectedEpisode;
-    private String selectedSeason;
-    private int selectedEpisodeKey;
-    private int selectedSeasonKey;
+    private int episodeKey;
+    private int seasonKey;
+
+    private int newEpisodeKey;
+    private int newSeasonKey;
 
     private Spinner seasonsSpinner;
     private Spinner episodesSpinner;
     private Bundle bundle;
+    private boolean seasonChanged = false;
 
 
     public SelectVideoDialog() {}
@@ -103,15 +100,21 @@ public class SelectVideoDialog extends DialogFragment {
             try {
                 ArrayList<String> eps = bundle.getStringArrayList(ARG_EPISODES);
                 ArrayList<String> seas = bundle.getStringArrayList(ARG_SEASONS);
-                int curEp = bundle.getInt(ARG_KEY_EPISODE, 0);
-                int curSea = bundle.getInt(ARG_KEY_SEASON, 0);
+                newEpisodeKey = bundle.getInt(ARG_KEY_EPISODE, 0);
+                newSeasonKey = bundle.getInt(ARG_KEY_SEASON, 0);
+
+                episodeKey = bundle.getInt(ARG_KEY_EPISODE, 0);
+                seasonKey = bundle.getInt(ARG_KEY_SEASON, 0);
+
 
                 Activity a = getActivity();
-                String epLabel = getResources().getString(R.string.episode);
-                String seaLabel = getResources().getString(R.string.season);
+                String epLabel = getResources().getString(R.string.episode_cap);
+                String seaLabel = getResources().getString(R.string.season_cap);
 
-                setupSpinner(a, seasonsSpinner, seas, curSea, seaLabel);
-                setupSpinner(a, episodesSpinner, eps, curEp, epLabel);
+                setupSpinner(a, seasonsSpinner, seas, newSeasonKey, seaLabel);
+                setupSpinner(a, episodesSpinner, eps, newEpisodeKey, epLabel);
+
+                addSpinnerListeners();
             } catch (Exception ex) {
                 Log.e(TAG, ex.getMessage());
             }
@@ -131,6 +134,35 @@ public class SelectVideoDialog extends DialogFragment {
                 });
         // Create the AlertDialog object and return it
         return builder.create();
+    }
+
+    private void addSpinnerListeners() {
+        seasonsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                seasonChanged = (position != seasonKey);
+                episodesSpinner.setVisibility(seasonChanged ? View.GONE : View.VISIBLE);
+
+                newSeasonKey = position;
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }
+        });
+
+
+        episodesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                newEpisodeKey = position;
+                newSeasonKey = seasonKey;
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }
+        });
     }
 
 }

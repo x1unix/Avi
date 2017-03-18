@@ -3,18 +3,27 @@
     android:layout_width="255dp"
     android:layout_height="match_parent"
     android:layout_gravity="top|center"
+    android:paddingRight="20sp"
+    android:paddingLeft="20sp"
     android:orientation="vertical">
 
     <Spinner
         android:id="@+id/seasons_spinner"
         android:layout_width="fill_parent"
         android:prompt="@string/season"
+        android:hint="@string/season_cap"
+        android:paddingTop="15sp"
+        android:paddingBottom="15sp"
         android:layout_height="wrap_content" />
 
     <Spinner
         android:id="@+id/episodes_spinner"
         android:layout_width="fill_parent"
         android:prompt="@string/episode"
+        android:hint="@string/episode_cap"
+        android:paddingTop="15sp"
+        android:paddingBottom="15sp"
+        android:layout_marginTop="5sp"
         android:layout_height="wrap_content" />
 
 </LinearLayout>
