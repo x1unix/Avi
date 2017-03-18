@@ -104,6 +104,20 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             }
         });
 
+        boolean isPreview = res.getBoolean(R.bool.isPreviewVersion);
+
+        if (isPreview) {
+            findPreference("avi_app_build").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    Intent i = new Intent(SettingsActivity.this, TestChamberActivity.class);
+                    startActivity(i);
+                    return false;
+                }
+            });
+        }
+
+
         findPreference("avi_author").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {

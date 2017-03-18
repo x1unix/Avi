@@ -18,17 +18,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".TestChamberActivity"
-            android:icon="@drawable/ic_test"
-            android:label="@string/testchamber"
-            android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".MoviePlayerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:hardwareAccelerated="true"
@@ -45,6 +34,12 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".TestChamberActivity"
+            android:icon="@drawable/ic_test"
+            android:label="@string/testchamber"
+            android:theme="@style/AppTheme">
         </activity>
         <activity
             android:name=".SettingsActivity"
