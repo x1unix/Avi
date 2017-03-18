@@ -4,8 +4,11 @@ import android.util.Log;
 
 import com.google.gson.annotations.SerializedName;
 import com.x1unix.avi.BuildConfig;
+import com.x1unix.avi.updateManager.ISO8601;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.util.Calendar;
 import java.util.regex.Pattern;
 
 public class AviSemVersion implements Serializable{
@@ -84,30 +87,8 @@ public class AviSemVersion implements Serializable{
         return this.patch;
     }
 
-    public boolean isYoungerThan(AviSemVersion compared) {
-
-        boolean result = false;
-        if (this.major <= compared.major) {
-            if (this.major < compared.major) {
-                result = true;
-            } else {
-                if (this.minor <= compared.minor) {
-                    if (this.minor < compared.minor) {
-                        result = true;
-                    } else {
-                        if (this.patch < compared.patch) {
-                            result = true;
-                        }
-                    }
-                } else {
-                    result = false;
-                }
-            }
-        } else {
-            result = false;
-        }
-
-        return result;
+    public Calendar getReleaseDate() throws ParseException {
+        return ISO8601.toCalendar(this.date);
     }
 
     public boolean hasChangelog() {
