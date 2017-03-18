@@ -56,6 +56,7 @@ import com.x1unix.moonwalker.MoonSession;
 import com.x1unix.moonwalker.MoonVideo;
 import com.x1unix.moonwalker.Moonwalker;
 
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -143,6 +144,21 @@ public class PlayerActivity extends AppCompatActivity {
                     .show();
         }
 
+    }
+
+    @OnClick(R.id.btn_share)
+    public void shareVideo() {
+        String uri = currentVideo.getPlaylist().getM3u8Manifest();
+        pauseVideo();
+
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW)
+                    .setDataAndType(Uri.parse(uri), "audio/x-mpegurl");
+            intent.putExtra(Intent.EXTRA_TITLE, title.getText());
+            PlayerActivity.this.startActivity(intent);
+        } catch (Exception ex) {
+            panic("Операция не удалась: \n" + ex.getMessage(), false);
+        }
     }
 
     @OnClick(R.id.btn_select)
@@ -281,7 +297,7 @@ public class PlayerActivity extends AppCompatActivity {
                                     onDataReady(video, client);
                                 } catch (Exception ex) {
                                     Log.e(TAG, "[" + ex.getClass() +"]: " + ex.getMessage());
-                                    panic("Не удалось извлечь данные для вопроизведения");
+                                    panic("Не удалось извлечь данные для вопроизведения", true);
                                 }
                             }
                         });
@@ -294,7 +310,7 @@ public class PlayerActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 Log.e(TAG, "[" + ex.getClass() +"]: " + ex.getMessage());
-                                panic("Запрошеное видео не найдено или заблокировано в вашем регионе.");
+                                panic("Запрошеное видео не найдено или заблокировано в вашем регионе.", true);
                             }
                         });
                     }
@@ -306,6 +322,8 @@ public class PlayerActivity extends AppCompatActivity {
     private void onDataReady(MoonVideo video, OkHttpClient client) {
 
         currentVideo = video;
+
+        btnShare.setVisibility(View.VISIBLE);
 
         if (video.isSerial()) {
             btnSelect.setVisibility(View.VISIBLE);
@@ -543,7 +561,7 @@ public class PlayerActivity extends AppCompatActivity {
         pauseVideo();
     }
 
-    private void panic(String err) {
+    private void panic(String err, final boolean exitOn) {
         AlertDialog.Builder builder = new AlertDialog.Builder(PlayerActivity.this);
         builder
                 .setTitle("Ошибка")
@@ -551,7 +569,9 @@ public class PlayerActivity extends AppCompatActivity {
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
-                        finish();
+                        if (exitOn) {
+                            finish();
+                        }
                     }
                 })
                 .create()
